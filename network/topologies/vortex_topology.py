@@ -9,6 +9,8 @@ Creates an enterprise 4-switch mesh topology with 4 hosts connected to Ryu Remot
     h2 (10.0.0.2) --- [s3] ====== [s4] --- h4 (10.0.0.4)
 """
 
+import sys
+import signal
 import importlib
 
 try:
@@ -107,14 +109,35 @@ def run_network():
         autoStaticArp=True
     )
 
-    info("*** Starting Network ***\n")
-    net.start()
-    info("*** Testing Network Connectivity ***\n")
-    net.pingAll()
-    info("*** Running Mininet CLI ***\n")
-    CLI(net)
-    info("*** Stopping Network ***\n")
-    net.stop()
+    stopped = [False]
+    def _stop_network():
+        if not stopped[0]:
+            stopped[0] = True
+            try:
+                info("*** Stopping Network ***\n")
+                net.stop()
+            except Exception:
+                pass
+
+    def _sig_term_handler(signum, frame):
+        _stop_network()
+        sys.exit(0)
+
+    try:
+        signal.signal(signal.SIGTERM, _sig_term_handler)
+        signal.signal(signal.SIGINT, _sig_term_handler)
+    except (ValueError, AttributeError):
+        pass
+
+    try:
+        info("*** Starting Network ***\n")
+        net.start()
+        info("*** Testing Network Connectivity ***\n")
+        net.pingAll()
+        info("*** Running Mininet CLI ***\n")
+        CLI(net)
+    finally:
+        _stop_network()
 
 if __name__ == "__main__":
     run_network()

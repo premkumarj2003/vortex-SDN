@@ -4,7 +4,10 @@
  */
 
 const API = {
-  baseUrl:"https://terms-clothes-herb-trustees.trycloudflare.com",
+  baseUrl:(window.location.hostname === "localhost" ||
+          window.location.hostname === "127.0.0.1")
+    ? window.location.origin
+    : "https://terms-clothes-herb-trustees.trycloudflare.com",
   timeoutMs: 12000,
 
   getToken() {
