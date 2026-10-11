@@ -17,3 +17,7 @@ VORTEX-SDN/.venv-ryu/
 
 # Nested Ryu virtual environment
 VORTEX-SDN/.venv-ryu/
+
+# Local debugging artifacts
+scratch/
+scratch_find.txt
