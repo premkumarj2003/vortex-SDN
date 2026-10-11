@@ -1,0 +1,100 @@
+{
+  "model_name": "VORTEX Security Threat Classifier",
+  "model_type": "Random Forest + Isolation Forest Ensemble",
+  "version": "2.0.0",
+  "status": "HEALTHY",
+  "dataset_source": "CICIDS2017",
+  "total_samples": 91025,
+  "train_samples": 72820,
+  "test_samples": 18205,
+  "accuracy": 0.9813,
+  "precision": 0.9907,
+  "recall": 0.9813,
+  "f1_score": 0.9847,
+  "malicious_recall": 0.9987,
+  "malicious_precision": 0.9927,
+  "false_positive_rate": 0.015,
+  "classes": [
+    "ANOMALY",
+    "BENIGN",
+    "BRUTE_FORCE",
+    "DDOS",
+    "FLOOD",
+    "PORT_SCAN"
+  ],
+  "confusion_matrix": [
+    [
+      129,
+      1,
+      6,
+      0,
+      1,
+      0
+    ],
+    [
+      44,
+      5910,
+      10,
+      0,
+      36,
+      0
+    ],
+    [
+      211,
+      8,
+      2849,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      2995,
+      5,
+      0
+    ],
+    [
+      9,
+      7,
+      0,
+      2,
+      2982,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      3000
+    ]
+  ],
+  "class_distribution": {
+    "BENIGN": 30000,
+    "BRUTE_FORCE": 15341,
+    "PORT_SCAN": 15000,
+    "DDOS": 15000,
+    "FLOOD": 15000,
+    "ANOMALY": 684
+  },
+  "feature_importance": {
+    "destination_port": 0.2145,
+    "bytes": 0.1796,
+    "unique_destinations": 0.0978,
+    "connection_frequency": 0.07,
+    "flow_duration": 0.0678,
+    "packet_size": 0.0645,
+    "byte_rate": 0.0592,
+    "packet_rate": 0.0582,
+    "destination_frequency": 0.0561,
+    "packets": 0.0531,
+    "source_frequency": 0.0527,
+    "protocol_num": 0.0214,
+    "source_port": 0.0051
+  },
+  "last_trained": "2026-10-06T14:52:17.604414+00:00",
+  "inference_count": 0
+}

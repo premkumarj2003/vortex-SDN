@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VORTEX-SDN | SDN Operations Center Gateway</title>
+  
+  <!-- Modern Typography Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- CSS Design System -->
+  <link rel="stylesheet" href="/css/variables.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/login.css">
+</head>
+<body class="vortex-login-body">
+
+  <!-- Interactive Animated SDN Network Canvas -->
+  <canvas id="sdn-canvas"></canvas>
+  <div class="vortex-grid-overlay"></div>
+
+  <main class="login-experience-wrapper">
+    
+    <!-- ====================================================================
+         LEFT SIDE (~52%): VORTEX SECURITY GATEWAY & NETWORK OVERVIEW
+         ==================================================================== -->
+    <section class="hero-environment-column" aria-label="VORTEX-SDN Intelligence Overview">
+      
+      <!-- Top Brand Header -->
+      <div class="hero-brand-header">
+        <div class="hero-brand-emblem" aria-hidden="true">
+          <svg class="icon icon-lg" viewBox="0 0 24 24" style="stroke: #050811; stroke-width: 2.4;">
+            <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+            <polyline points="2 17 12 22 22 17"/>
+            <polyline points="2 12 12 17 22 12"/>
+          </svg>
+        </div>
+        <div class="hero-brand-text">
+          <div class="hero-brand-title-row">
+            <span class="hero-brand-name">VORTEX-SDN</span>
+            <span class="hero-brand-subbadge">INTELLIGENT SDN CONTROL</span>
+          </div>
+          <div class="hero-brand-tagline">AI-DRIVEN SOFTWARE DEFINED NETWORK CONTROL</div>
+        </div>
+      </div>
+
+      <!-- Security Gateway Stage (High-Tech NOC Security Console) -->
+      <div class="guardian-stage-container" id="guardian-stage">
+        <div class="guardian-backglow" aria-hidden="true"></div>
+        
+        <!-- Stationary Gateway Core Visual -->
+        <div class="guardian-character-wrapper" id="guardian-wrapper">
+          <!-- VORTEX-SDN Network Security Hero Visual -->
+          <div class="vortex-hero-visual-frame" id="vortex-hero-frame">
+            <img 
+              src="assets/wide_futuristic_ui_dashboard_concept_scene_of_a_n.png" 
+              alt="VORTEX-SDN Network Security Gateway Console" 
+              class="vortex-hero-visual-img" 
+              id="vortex-hero-visual"
+              loading="eager"
+            />
+            <div class="hero-visual-overlay-scanline" aria-hidden="true"></div>
+            <div class="hero-visual-vignette" aria-hidden="true"></div>
+          </div>
+
+          <!-- Character / Gateway State HUD Tag -->
+          <div class="guardian-hud-tag">
+            <div class="guardian-hud-title">
+              <span class="guardian-hud-status-indicator" id="guardian-hud-indicator"></span>
+              <span>SECURITY GATEWAY</span>
+            </div>
+            <span class="guardian-hud-text" id="guardian-hud-text">MONITORING ACTIVE</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Left Network Overview & Telemetry Grid -->
+      <div class="network-overview-panel" aria-label="Network Overview Telemetry">
+        <div class="overview-header-row">
+          <div class="overview-title">
+            <svg class="icon icon-sm" viewBox="0 0 24 24" style="stroke: var(--accent-cyan);">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="2" y1="12" x2="22" y2="12"/>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+            </svg>
+            <span>SDN FABRIC OVERVIEW</span>
+          </div>
+          <div class="overview-health-tag" id="overview-health-tag">
+            <span class="status-dot"></span> <span>ALL SYSTEMS SECURE</span>
+          </div>
+        </div>
+
+        <div class="overview-metrics-grid">
+          <div class="overview-metric-card">
+            <span class="metric-label">CONTROLLERS</span>
+            <span class="metric-value" id="net-controllers">1</span>
+            <span class="metric-sub status-active">● OF 1.3</span>
+          </div>
+          <div class="overview-metric-card">
+            <span class="metric-label">SWITCHES</span>
+            <span class="metric-value" id="net-switches">4</span>
+            <span class="metric-sub status-active">● Mesh Active</span>
+          </div>
+          <div class="overview-metric-card">
+            <span class="metric-label">HOSTS</span>
+            <span class="metric-value" id="net-hosts">8</span>
+            <span class="metric-sub status-active">● Connected</span>
+          </div>
+          <div class="overview-metric-card">
+            <span class="metric-label">TRAFFIC</span>
+            <span class="metric-value" id="net-traffic">24.5 Mbps</span>
+            <span class="metric-sub status-flow">● Real-Time</span>
+          </div>
+        </div>
+
+        <!-- Live Activities Stream -->
+        <div class="live-activities-strip">
+          <span class="activities-label">LIVE TELEMETRY:</span>
+          <div class="activities-ticker" id="activities-ticker">
+            <span class="activity-item">● OpenFlow 1.3 Stream Synchronized</span>
+            <span class="activity-item">● AI Threat Scoring Model Online</span>
+            <span class="activity-item">● QoS Traffic Classification Active</span>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ====================================================================
+         RIGHT SIDE (~48%): GLASS ENTERPRISE LOGIN CARD
+         ==================================================================== -->
+    <section class="login-card-column" aria-label="Operator Authentication Form">
+      <div class="login-glass-card" id="login-card">
+        <div class="login-card-content">
+          
+          <!-- Card Header -->
+          <div class="card-header-block">
+            <div class="card-header-badge">
+              <svg class="icon icon-sm" viewBox="0 0 24 24" style="stroke: var(--accent-cyan);">
+                <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+                <polyline points="2 17 12 22 22 17"/>
+                <polyline points="2 12 12 17 22 12"/>
+              </svg>
+              <span>VORTEX-SDN</span>
+            </div>
+            <h2 class="card-title">Operator Authentication</h2>
+            <p class="card-subtitle">Intelligent SDN Control & Operations Gateway</p>
+          </div>
+
+          <!-- Login Form -->
+          <form id="login-form" novalidate>
+            
+            <!-- Email / Username Field -->
+            <div class="login-form-group">
+              <div class="login-form-label-row">
+                <label for="username" class="login-form-label">Email</label>
+                <span class="input-security-tag">
+                  <svg class="icon icon-sm" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="4"/>
+                    <path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-3.92 7.94"/>
+                  </svg>
+                  <span>OPERATOR ID</span>
+                </span>
+              </div>
+              <div class="input-wrapper">
+                <svg class="icon icon-sm input-leading-icon" viewBox="0 0 24 24">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                  <circle cx="12" cy="7" r="4"/>
+                </svg>
+                <input 
+                  type="text" 
+                  id="username" 
+                  class="login-input" 
+                  placeholder="Enter email or operator username" 
+                  required 
+                  autofocus 
+                  autocomplete="username"
+                >
+              </div>
+            </div>
+
+            <!-- Password Field -->
+            <div class="login-form-group">
+              <div class="login-form-label-row">
+                <label for="password" class="login-form-label">Password</label>
+                <span class="input-security-tag" id="pwd-security-tag">
+                  <svg class="icon icon-sm" viewBox="0 0 24 24">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                  </svg>
+                  <span>ENCRYPTED INPUT</span>
+                </span>
+              </div>
+              <div class="input-wrapper">
+                <svg class="icon icon-sm input-leading-icon" viewBox="0 0 24 24">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                </svg>
+                <input 
+                  type="password" 
+                  id="password" 
+                  class="login-input" 
+                  placeholder="Enter access password" 
+                  required 
+                  autocomplete="current-password"
+                >
+                <button 
+                  type="button" 
+                  id="toggle-pwd-btn" 
+                  class="password-toggle-btn" 
+                  title="Show Password" 
+                  aria-label="Toggle password visibility"
+                >
+                  <svg class="icon icon-sm" viewBox="0 0 24 24">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                    <circle cx="12" cy="12" r="3"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Options Row -->
+            <div class="login-options-row">
+              <label class="remember-me-checkbox">
+                <input type="checkbox" id="remember-me" checked>
+                <span>Remember Session</span>
+              </label>
+              <a href="/forgot-password" class="forgot-password-link">Forgot Password?</a>
+            </div>
+
+            <!-- Submit Action -->
+            <button type="submit" id="login-submit-btn" class="login-submit-btn">
+              <span class="submit-spinner" aria-hidden="true"></span>
+              <span class="btn-text">AUTHENTICATE TO NOC</span>
+            </button>
+
+            <!-- Inline Alert & Verification Containers -->
+            <div id="login-alert-banner" class="login-alert-banner" role="alert"></div>
+            <div id="unverified-alert-box" style="display:none;"></div>
+
+          </form>
+
+          <!-- Card Footer: Registration Link -->
+          <div class="login-card-footer">
+            <span>Need operator access?</span>
+            <a href="/register" class="register-account-link">Create VORTEX-SDN Account</a>
+          </div>
+
+          <!-- Enterprise Bottom Status Bar -->
+          <div class="bottom-system-status-bar" aria-label="System Status">
+            <div class="status-bar-item">
+              <span class="status-bar-label">CONTROLLER</span>
+              <span class="status-bar-val" id="status-controller"><span class="status-dot"></span> <span>ONLINE</span></span>
+            </div>
+            <div class="status-bar-item">
+              <span class="status-bar-label">TELEMETRY</span>
+              <span class="status-bar-val" id="status-telemetry"><span class="status-dot dot-cyan"></span> <span>LIVE</span></span>
+            </div>
+            <div class="status-bar-item">
+              <span class="status-bar-label">SECURITY</span>
+              <span class="status-bar-val" id="status-security"><span class="status-dot"></span> <span>ACTIVE</span></span>
+            </div>
+            <div class="status-bar-item">
+              <span class="status-bar-label">QOS</span>
+              <span class="status-bar-val" id="status-qos"><span class="status-dot"></span> <span>ACTIVE</span></span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Global Toast Notifications Container -->
+  <div id="toast-container"></div>
+
+  <!-- Core Scripts -->
+  <script src="/js/api.js"></script>
+  <script src="/js/utils.js"></script>
+  <script src="/js/login-interactive.js"></script>
+</body>
+</html>

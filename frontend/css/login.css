@@ -1,0 +1,1427 @@
+/* ==========================================================================
+   VORTEX-SDN Enterprise Login Page Stylesheet
+   Production-Grade Enterprise SDN/NOC Operations Security Gateway
+   ========================================================================== */
+
+:root {
+  --login-card-bg: rgba(11, 18, 36, 0.88);
+  --login-card-border: rgba(0, 242, 254, 0.22);
+  --login-card-border-focus: rgba(0, 242, 254, 0.7);
+  --login-spotlight-color: rgba(0, 242, 254, 0.14);
+  --hero-glow-cyan: rgba(0, 242, 254, 0.35);
+  --hero-glow-blue: rgba(37, 99, 235, 0.25);
+}
+
+/* Base Body & Viewport with Deep Navy NOC Cybernetic Atmosphere */
+body.vortex-login-body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  max-width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  box-sizing: border-box;
+  background-color: #060913;
+  background: 
+    radial-gradient(circle at 75% 30%, rgba(14, 25, 52, 0.6) 0%, rgba(6, 9, 19, 0.95) 75%),
+    linear-gradient(to bottom, #060913 0%, #080d1b 100%);
+  font-family: var(--font-sans);
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* Background Animated Canvas Layer */
+#sdn-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.85;
+}
+
+/* Ambient Digital Grid & Atmosphere Overlay */
+.vortex-grid-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(rgba(0, 242, 254, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 242, 254, 0.03) 1px, transparent 1px);
+  background-size: 48px 48px;
+  z-index: 2;
+  pointer-events: none;
+  mask-image: radial-gradient(circle at center, black 45%, transparent 95%);
+  -webkit-mask-image: radial-gradient(circle at center, black 45%, transparent 95%);
+}
+
+/* Main Split-Screen Container */
+.login-experience-wrapper {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 1240px;
+  min-height: 640px;
+  margin: auto;
+  padding: 24px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: 36px;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+/* ==========================================================================
+   LEFT HERO: VORTEX-SDN SECURITY GATEWAY & NETWORK OVERVIEW
+   ========================================================================== */
+
+.hero-environment-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  min-height: 600px;
+  min-width: 0;
+  box-sizing: border-box;
+  position: relative;
+  padding: 12px 18px;
+}
+
+/* Brand Header */
+.hero-brand-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.hero-brand-emblem {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--accent-cyan) 0%, #0284c7 100%);
+  box-shadow: 0 0 24px rgba(0, 242, 254, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #050811;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-brand-title-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.hero-brand-name {
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+  color: #ffffff;
+  font-family: var(--font-sans);
+}
+
+.hero-brand-subbadge {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: rgba(0, 242, 254, 0.12);
+  color: var(--accent-cyan);
+  border: 1px solid rgba(0, 242, 254, 0.35);
+  text-transform: uppercase;
+}
+
+.hero-brand-tagline {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  letter-spacing: 0.8px;
+  margin-top: 4px;
+}
+
+/* Security Gateway Stage */
+.guardian-stage-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 18px 0;
+  width: 100%;
+}
+
+.guardian-backglow {
+  position: absolute;
+  width: 90%;
+  max-width: 440px;
+  height: 220px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 242, 254, 0.16) 0%, rgba(37, 99, 235, 0.08) 50%, transparent 70%);
+  filter: blur(24px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.guardian-character-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  z-index: 1;
+}
+
+/* VORTEX-SDN Hero Visual Frame */
+.vortex-hero-visual-frame {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(0, 242, 254, 0.28);
+  background: radial-gradient(circle at 50% 50%, rgba(13, 27, 46, 0.8) 0%, rgba(7, 13, 24, 0.95) 100%);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.55), 0 0 20px rgba(0, 242, 254, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  z-index: 1;
+}
+
+.guardian-stage-container.privacy-active .vortex-hero-visual-frame {
+  border-color: rgba(245, 158, 11, 0.5);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.55), 0 0 24px rgba(245, 158, 11, 0.25);
+}
+
+.vortex-hero-visual-img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  max-height: 240px;
+  object-fit: cover;
+  display: block;
+  border-radius: 13px;
+  transition: transform 0.4s ease;
+}
+
+.vortex-hero-visual-frame:hover .vortex-hero-visual-img {
+  transform: scale(1.015);
+}
+
+.hero-visual-overlay-scanline {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.12) 0px,
+    rgba(0, 0, 0, 0.12) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  pointer-events: none;
+  opacity: 0.6;
+  z-index: 2;
+}
+
+.hero-visual-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, transparent 45%, rgba(5, 8, 17, 0.65) 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Character / Gateway State HUD Tag */
+.guardian-hud-tag {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  background: rgba(10, 16, 30, 0.88);
+  border: 1px solid var(--border-medium);
+  border-radius: 8px;
+  padding: 6px 16px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5), 0 0 12px rgba(0, 242, 254, 0.12);
+  margin-top: -16px;
+  position: relative;
+  z-index: 4;
+}
+
+.guardian-hud-title {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 0.6px;
+}
+
+.guardian-hud-status-indicator {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--status-success);
+  box-shadow: 0 0 8px var(--status-success);
+}
+
+.guardian-stage-container.privacy-active .guardian-hud-status-indicator {
+  background-color: var(--status-warning);
+  box-shadow: 0 0 8px var(--status-warning);
+}
+
+.guardian-hud-text {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--accent-cyan);
+  letter-spacing: 0.5px;
+}
+
+.guardian-stage-container.privacy-active .guardian-hud-text {
+  color: var(--status-warning);
+}
+
+/* Left Network Overview & Telemetry Grid */
+.network-overview-panel {
+  background: rgba(13, 21, 38, 0.85);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 16px 20px;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.overview-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border-subtle);
+  margin-bottom: 12px;
+}
+
+.overview-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  color: var(--text-primary);
+}
+
+.overview-health-tag {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #34d399;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-mono);
+}
+
+.overview-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.overview-metric-card {
+  background: rgba(6, 11, 22, 0.6);
+  border: 1px solid var(--border-subtle);
+  border-radius: 6px;
+  padding: 8px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.metric-label {
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--text-muted);
+  letter-spacing: 0.5px;
+}
+
+.metric-value {
+  font-size: 16px;
+  font-weight: 800;
+  font-family: var(--font-mono);
+  color: var(--text-primary);
+}
+
+.metric-sub {
+  font-size: 9px;
+  font-weight: 600;
+  color: var(--status-success);
+}
+
+.metric-sub.status-flow {
+  color: var(--accent-cyan);
+}
+
+.live-activities-strip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border-subtle);
+  font-size: 10.5px;
+  overflow: hidden;
+}
+
+.activities-label {
+  font-weight: 700;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  white-space: nowrap;
+}
+
+.activities-ticker {
+  display: flex;
+  gap: 14px;
+  white-space: nowrap;
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ==========================================================================
+   RIGHT SIDE (~48%): GLASS ENTERPRISE LOGIN CARD
+   ========================================================================== */
+
+.login-card-column {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.login-glass-card {
+  width: 100%;
+  max-width: 480px;
+  background: var(--login-card-bg);
+  border: 1px solid var(--login-card-border);
+  border-radius: var(--radius-xl);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 30px rgba(0, 242, 254, 0.08);
+  padding: 36px 38px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.login-glass-card:hover {
+  border-color: rgba(0, 242, 254, 0.35);
+}
+
+.card-header-block {
+  margin-bottom: 24px;
+}
+
+.card-header-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--accent-cyan);
+  background: rgba(0, 242, 254, 0.08);
+  border: 1px solid rgba(0, 242, 254, 0.25);
+  padding: 3px 8px;
+  border-radius: 4px;
+  margin-bottom: 12px;
+}
+
+.card-title {
+  font-size: 22px;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.3px;
+  margin-bottom: 4px;
+}
+
+.card-subtitle {
+  font-size: 12.5px;
+  color: var(--text-muted);
+}
+
+/* Form Styles */
+.login-form-group {
+  margin-bottom: 18px;
+}
+
+.login-form-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.login-form-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.input-security-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 9.5px;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+  letter-spacing: 0.5px;
+}
+
+.input-security-tag.tag-privacy {
+  color: var(--status-warning);
+}
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-leading-icon {
+  position: absolute;
+  left: 12px;
+  color: var(--text-muted);
+  pointer-events: none;
+  transition: color 0.15s ease;
+}
+
+.login-input {
+  width: 100%;
+  height: 44px;
+  background: rgba(7, 11, 22, 0.7);
+  border: 1px solid var(--border-medium);
+  border-radius: 9px;
+  padding: 0 40px 0 38px;
+  color: #ffffff;
+  font-size: 13.5px;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
+}
+
+.login-input:focus {
+  border-color: var(--accent-cyan);
+  background: rgba(9, 15, 30, 0.9);
+  box-shadow: 0 0 0 2px rgba(0, 242, 254, 0.15), 0 0 16px rgba(0, 242, 254, 0.1);
+}
+
+.login-input:focus ~ .input-leading-icon {
+  color: var(--accent-cyan);
+}
+
+.password-toggle-btn {
+  position: absolute;
+  right: 10px;
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.15s ease;
+}
+
+.password-toggle-btn:hover {
+  color: var(--text-primary);
+}
+
+.login-options-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 16px 0 22px 0;
+  font-size: 12px;
+}
+
+.remember-me-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  user-select: none;
+}
+
+.remember-me-checkbox input[type="checkbox"] {
+  accent-color: var(--accent-cyan);
+  width: 14px;
+  height: 14px;
+  cursor: pointer;
+}
+
+.forgot-password-link {
+  color: var(--accent-cyan);
+  font-weight: 500;
+  transition: color 0.15s ease;
+}
+
+.forgot-password-link:hover {
+  color: var(--accent-azure);
+  text-decoration: underline;
+}
+
+.login-submit-btn {
+  width: 100%;
+  height: 44px;
+  background: linear-gradient(135deg, var(--accent-cyan) 0%, #0284c7 100%);
+  color: #050811;
+  border: none;
+  border-radius: 9px;
+  font-size: 13.5px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 4px 16px rgba(0, 242, 254, 0.3);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+  outline: none;
+}
+
+.login-submit-btn:hover {
+  filter: brightness(1.08);
+  box-shadow: 0 6px 22px rgba(0, 242, 254, 0.45);
+  transform: translateY(-1px);
+}
+
+.login-submit-btn:active {
+  transform: translateY(1px);
+}
+
+.submit-spinner {
+  display: none;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(5, 8, 17, 0.3);
+  border-top-color: #050811;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+.login-submit-btn.loading .submit-spinner {
+  display: inline-block;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.login-alert-banner {
+  margin-top: 14px;
+  padding: 9px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  display: none;
+  animation: fadeIn 0.2s ease;
+}
+
+.login-alert-banner.error {
+  display: block;
+  background: rgba(239, 68, 68, 0.14);
+  border: 1px solid var(--status-danger);
+  color: #fca5a5;
+}
+
+.login-alert-banner.success {
+  display: block;
+  background: rgba(16, 185, 129, 0.14);
+  border: 1px solid var(--status-success);
+  color: #6ee7b7;
+}
+
+.login-card-footer {
+  margin-top: 24px;
+  padding-top: 18px;
+  border-top: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 12.5px;
+  color: var(--text-muted);
+}
+
+.register-account-link {
+  color: var(--accent-cyan);
+  font-weight: 600;
+}
+
+.register-account-link:hover {
+  text-decoration: underline;
+}
+
+/* Bottom Status Bar */
+.bottom-system-status-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-subtle);
+  font-size: 10px;
+  font-family: var(--font-mono);
+}
+
+.status-bar-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.status-bar-label {
+  color: var(--text-muted);
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.status-bar-val {
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* ==========================================================================
+   Responsive Breakpoints & Mobile Adaptation
+   ========================================================================== */
+
+/* 1. Tablet Landscape (1024x768 & 901px-1100px): Maintain side-by-side layout cleanly */
+@media (min-width: 901px) and (max-width: 1100px) {
+  .login-experience-wrapper {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+    max-width: 980px;
+    gap: 24px;
+    padding: 16px 20px;
+    min-height: auto;
+  }
+
+  .hero-environment-column {
+    min-height: 480px;
+    padding: 10px 14px;
+    min-width: 0;
+  }
+
+  .login-card-column {
+    min-width: 0;
+  }
+
+  .guardian-stage-container {
+    min-height: auto;
+    margin: 8px 0;
+  }
+
+  .vortex-hero-visual-frame {
+    max-width: 380px;
+  }
+
+  .vortex-hero-visual-img {
+    max-height: 190px;
+  }
+
+  .guardian-hud-tag {
+    margin-top: -14px;
+    padding: 5px 14px;
+  }
+
+  .overview-metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .login-glass-card {
+    padding: 24px 26px;
+  }
+}
+
+/* 2. Tablet Portrait (768x1024, 820x1180): Centered stacked column */
+@media (max-width: 1024px) and (orientation: portrait), (max-width: 900px) and (min-width: 769px) {
+  body.vortex-login-body {
+    align-items: center;
+    padding: 20px 0;
+  }
+
+  .login-experience-wrapper {
+    grid-template-columns: 1fr;
+    max-width: 520px;
+    gap: 20px;
+    padding: 20px 16px;
+    min-height: auto;
+    margin: auto;
+  }
+
+  .hero-environment-column {
+    min-height: auto;
+    padding: 8px 12px;
+    align-items: center;
+    text-align: center;
+    gap: 14px;
+  }
+
+  .hero-brand-header {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  .guardian-stage-container {
+    min-height: auto;
+    margin: 8px 0;
+    width: 100%;
+  }
+
+  .vortex-hero-visual-frame {
+    max-width: 440px;
+  }
+
+  .vortex-hero-visual-img {
+    max-height: 220px;
+  }
+
+  .guardian-hud-tag {
+    margin-top: -14px;
+    padding: 5px 14px;
+  }
+
+  .overview-metrics-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+
+  .login-card-column {
+    width: 100%;
+  }
+
+  .login-glass-card {
+    padding: 28px 24px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+/* 3. Mobile Portrait (<= 768px: 360x800, 375x812, 390x844, 412x915, 430x932) */
+@media (max-width: 768px) {
+  body.vortex-login-body {
+    align-items: center;
+    padding: 16px 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  .login-experience-wrapper {
+    grid-template-columns: 1fr;
+    padding: 12px 14px;
+    gap: 14px;
+    max-width: 440px;
+    width: 100%;
+    box-sizing: border-box;
+    margin: auto;
+    min-height: auto;
+  }
+
+  .hero-environment-column {
+    min-height: auto;
+    padding: 4px;
+    margin: 0;
+    gap: 8px;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+  }
+
+  .hero-brand-header {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+  }
+
+  .hero-brand-emblem {
+    width: 38px;
+    height: 38px;
+  }
+
+  .hero-brand-name {
+    font-size: 19px;
+    letter-spacing: 0.8px;
+  }
+
+  .hero-brand-subbadge {
+    font-size: 8.5px;
+    padding: 2px 5px;
+  }
+
+  .hero-brand-tagline {
+    font-size: 9.5px;
+    margin-top: 2px;
+    display: block;
+  }
+
+  /* Show scaled hero visual centered on mobile portrait */
+  .guardian-stage-container {
+    display: flex;
+    margin: 6px 0 10px 0;
+    width: 100%;
+    max-width: 400px;
+    justify-content: center;
+    min-height: auto;
+  }
+
+  .vortex-hero-visual-frame {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 10px;
+  }
+
+  .vortex-hero-visual-img {
+    width: 100%;
+    height: auto;
+    max-height: 180px;
+    object-fit: cover;
+    border-radius: 9px;
+  }
+
+  .guardian-hud-tag {
+    margin-top: -12px;
+    padding: 4px 12px;
+  }
+
+  .guardian-hud-title {
+    font-size: 9.5px;
+  }
+
+  .guardian-hud-text {
+    font-size: 9px;
+  }
+
+  /* SDN Fabric Overview remains cleanly below the image on mobile portrait */
+  .network-overview-panel {
+    display: block;
+    width: 100%;
+    max-width: 400px;
+    padding: 10px 14px;
+    margin-top: 4px;
+  }
+
+  .overview-metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .overview-metric-card {
+    padding: 8px 10px;
+  }
+
+  .overview-metric-card .metric-label {
+    font-size: 8.5px;
+  }
+
+  .overview-metric-card .metric-value {
+    font-size: 16px;
+  }
+
+  .overview-metric-card .metric-sub {
+    font-size: 8.5px;
+  }
+
+  .live-activities-strip {
+    font-size: 9.5px;
+    margin-top: 8px;
+    padding-top: 6px;
+  }
+
+  .login-card-column {
+    width: 100%;
+  }
+
+  .login-glass-card {
+    padding: 24px 20px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    border-radius: var(--radius-lg);
+  }
+
+  .card-header-block {
+    margin-bottom: 16px;
+    text-align: left;
+  }
+
+  .card-header-badge {
+    margin-bottom: 8px;
+  }
+
+  .card-title {
+    font-size: 19px;
+    margin-bottom: 3px;
+  }
+
+  .card-subtitle {
+    font-size: 12px;
+  }
+
+  .login-form-group {
+    margin-bottom: 14px;
+  }
+
+  .login-form-label {
+    font-size: 11.5px;
+  }
+
+  .login-input {
+    height: 44px;
+    min-height: 44px;
+    font-size: 13px;
+    padding: 0 38px 0 36px;
+  }
+
+  .login-options-row {
+    margin: 12px 0 16px 0;
+    font-size: 12px;
+  }
+
+  .login-submit-btn {
+    height: 44px;
+    min-height: 44px;
+    font-size: 13px;
+  }
+
+  .login-card-footer {
+    margin-top: 16px;
+    padding-top: 12px;
+    font-size: 12px;
+  }
+
+  .bottom-system-status-bar {
+    margin-top: 14px;
+    padding-top: 10px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+    text-align: center;
+  }
+
+  .status-bar-item {
+    align-items: center;
+  }
+}
+
+/* 4. Small Mobile Portrait (<= 480px: 360x800, 375x812) */
+@media (max-width: 480px) {
+  body.vortex-login-body {
+    padding: 10px 0;
+  }
+
+  .login-experience-wrapper {
+    padding: 8px 10px;
+    gap: 10px;
+    max-width: 100%;
+  }
+
+  .login-glass-card {
+    padding: 20px 14px;
+    border-radius: 12px;
+  }
+
+  .hero-brand-name {
+    font-size: 18px;
+  }
+
+  .hero-brand-subbadge {
+    font-size: 8.5px;
+    padding: 2px 5px;
+  }
+
+  .guardian-stage-container {
+    margin: 4px 0 8px 0;
+    max-width: 100%;
+  }
+
+  .vortex-hero-visual-frame {
+    max-width: 100%;
+    border-radius: 8px;
+  }
+
+  .vortex-hero-visual-img {
+    max-height: 155px;
+    border-radius: 7px;
+  }
+
+  .guardian-hud-tag {
+    margin-top: -10px;
+    padding: 3px 10px;
+  }
+
+  .network-overview-panel {
+    max-width: 100%;
+    padding: 8px 10px;
+  }
+
+  .overview-metric-card {
+    padding: 6px 8px;
+  }
+
+  .overview-metric-card .metric-value {
+    font-size: 14px;
+  }
+
+  .card-title {
+    font-size: 17px;
+  }
+
+  .card-subtitle {
+    font-size: 11.5px;
+  }
+
+  .login-form-group {
+    margin-bottom: 12px;
+  }
+
+  .login-input {
+    height: 44px;
+    min-height: 44px;
+    font-size: 13px;
+    padding: 0 42px 0 36px;
+  }
+
+  .input-leading-icon {
+    left: 11px;
+  }
+
+  .password-toggle-btn {
+    right: 4px;
+    width: 38px;
+    height: 38px;
+    min-height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .login-options-row {
+    font-size: 11.5px;
+    margin: 10px 0 14px 0;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .login-submit-btn {
+    height: 44px;
+    min-height: 44px;
+    font-size: 13px;
+  }
+
+  .login-card-footer {
+    flex-direction: column;
+    gap: 4px;
+    text-align: center;
+    margin-top: 12px;
+    padding-top: 10px;
+    font-size: 11.5px;
+  }
+
+  .bottom-system-status-bar {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px 12px;
+    font-size: 9px;
+    margin-top: 12px;
+    padding-top: 10px;
+  }
+
+  .status-bar-item {
+    align-items: flex-start;
+  }
+}
+
+/* Small Mobile Portrait (<= 360px: 320x568, 360x800) */
+@media (max-width: 360px) {
+  body.vortex-login-body {
+    padding: 6px 0;
+  }
+
+  .login-experience-wrapper {
+    padding: 6px 6px;
+    gap: 8px;
+  }
+
+  .login-glass-card {
+    padding: 16px 10px;
+  }
+
+  .card-title {
+    font-size: 16px;
+  }
+
+  .card-subtitle {
+    font-size: 11px;
+  }
+
+  .login-form-group {
+    margin-bottom: 10px;
+  }
+
+  .login-input {
+    height: 44px;
+    font-size: 12px;
+    padding: 0 38px 0 32px;
+  }
+
+  .input-leading-icon {
+    left: 8px;
+  }
+
+  .login-submit-btn {
+    height: 44px;
+    font-size: 12px;
+  }
+}
+
+/* 5. Mobile Landscape (800x360, 812x375, 844x390, 915x412: <= 950px width, <= 520px height) */
+@media (max-width: 950px) and (orientation: landscape) and (max-height: 520px) {
+  body.vortex-login-body {
+    align-items: center;
+    justify-content: center;
+    padding: 6px 10px;
+    overflow-y: auto;
+  }
+
+  .login-experience-wrapper {
+    grid-template-columns: 0.9fr 1.1fr !important;
+    max-width: 840px;
+    padding: 6px 12px;
+    gap: 16px;
+    min-height: auto;
+    margin: auto;
+  }
+
+  .hero-environment-column {
+    min-height: auto;
+    padding: 6px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  .hero-brand-header {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    text-align: center;
+  }
+
+  .hero-brand-emblem {
+    width: 40px;
+    height: 40px;
+  }
+
+  .hero-brand-name {
+    font-size: 17px;
+  }
+
+  .hero-brand-subbadge {
+    font-size: 8.5px;
+    padding: 2px 6px;
+  }
+
+  .hero-brand-tagline {
+    font-size: 9.5px;
+    margin-top: 2px;
+  }
+
+  /* Show scaled hero visual and telemetry on mobile landscape */
+  .guardian-stage-container {
+    display: flex;
+    margin: 4px 0 6px 0;
+    width: 100%;
+    max-width: 280px;
+    justify-content: center;
+    min-height: auto;
+  }
+
+  .vortex-hero-visual-frame {
+    width: 100%;
+    max-width: 280px;
+    border-radius: 8px;
+  }
+
+  .vortex-hero-visual-img {
+    width: 100%;
+    height: auto;
+    max-height: 110px;
+    object-fit: cover;
+    border-radius: 7px;
+  }
+
+  .guardian-hud-tag {
+    margin-top: -10px;
+    padding: 3px 8px;
+  }
+
+  .guardian-hud-title {
+    font-size: 8px;
+  }
+
+  .guardian-hud-text {
+    font-size: 7.5px;
+  }
+
+  .network-overview-panel {
+    display: block;
+    width: 100%;
+    max-width: 280px;
+    padding: 4px 8px;
+    margin-top: 4px;
+    border-radius: 8px;
+  }
+
+  .overview-header-row {
+    font-size: 8.5px;
+    margin-bottom: 2px;
+  }
+
+  .overview-metrics-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
+  }
+
+  .overview-metric-card {
+    padding: 3px 4px;
+  }
+
+  .overview-metric-card .metric-label {
+    font-size: 7.5px;
+  }
+
+  .overview-metric-card .metric-value {
+    font-size: 11px;
+  }
+
+  .overview-metric-card .metric-sub {
+    font-size: 7px;
+  }
+
+  .live-activities-strip {
+    display: none;
+  }
+
+  .login-card-column {
+    width: 100%;
+  }
+
+  .login-glass-card {
+    padding: 12px 18px;
+    max-width: 440px;
+    border-radius: 10px;
+  }
+
+  .card-header-block {
+    margin-bottom: 6px;
+  }
+
+  .card-header-badge {
+    display: none; /* Conserve vertical space */
+  }
+
+  .card-title {
+    font-size: 15px;
+    margin-bottom: 1px;
+  }
+
+  .card-subtitle {
+    font-size: 10.5px;
+  }
+
+  .login-form-group {
+    margin-bottom: 5px;
+  }
+
+  .login-form-label-row {
+    margin-bottom: 2px;
+  }
+
+  .login-form-label {
+    font-size: 11px;
+  }
+
+  .input-security-tag {
+    font-size: 8.5px;
+  }
+
+  .login-input {
+    height: 33px;
+    font-size: 12px;
+    padding: 0 34px 0 32px;
+  }
+
+  .input-leading-icon {
+    left: 9px;
+    width: 14px;
+    height: 14px;
+  }
+
+  .password-toggle-btn {
+    right: 6px;
+    padding: 4px;
+  }
+
+  .login-options-row {
+    margin: 4px 0 6px 0;
+    font-size: 11px;
+  }
+
+  .login-submit-btn {
+    height: 33px;
+    font-size: 11.5px;
+    letter-spacing: 0.5px;
+  }
+
+  .login-card-footer {
+    margin-top: 6px;
+    padding-top: 5px;
+    font-size: 10.5px;
+  }
+
+  .bottom-system-status-bar {
+    display: none;
+  }
+}

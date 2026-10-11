@@ -1,0 +1,3120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VORTEX-SDN | AI-Driven SDN Controller & NOC Platform</title>
+  <meta name="description" content="Enterprise AI-Driven Software-Defined Network Controller for Intelligent Security Threat Detection & QoS Management.">
+
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- CSS Architecture -->
+  <link rel="stylesheet" href="/css/variables.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/layout.css">
+  <link rel="stylesheet" href="/css/sidebar.css">
+  <link rel="stylesheet" href="/css/topbar.css">
+  <link rel="stylesheet" href="/css/cards.css">
+  <link rel="stylesheet" href="/css/dashboard.css">
+  <link rel="stylesheet" href="/css/tables.css">
+  <link rel="stylesheet" href="/css/charts.css">
+  <link rel="stylesheet" href="/css/topology.css">
+  <link rel="stylesheet" href="/css/modals.css">
+  <link rel="stylesheet" href="/css/chatbot.css">
+  <link rel="stylesheet" href="/css/digital_twin.css">
+  <link rel="stylesheet" href="/css/predictive.css">
+  <link rel="stylesheet" href="/css/root_cause.css">
+  <link rel="stylesheet" href="/css/settings.css">
+  <link rel="stylesheet" href="/css/responsive.css">
+</head>
+<body>
+
+<div id="app-container">
+
+  <!-- Mobile Sidebar Backdrop Overlay -->
+  <div id="sidebar-backdrop"></div>
+
+  <!-- ==================== 1. FIXED LEFT SIDEBAR (No nested scrollbar) ==================== -->
+  <aside id="sidebar">
+    <!-- Brand Header -->
+    <div class="sidebar-brand">
+      <div class="brand-logo-wrap" onclick="App.navigate('dashboard')">
+        <div class="brand-icon-svg">
+          <svg class="icon icon-lg" viewBox="0 0 24 24" style="color:#070a13; stroke-width:2.5;"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        </div>
+        <div class="brand-text">
+          <span class="brand-title">VORTEX-SDN</span>
+          <span class="brand-subtitle">NOC INTELLIGENCE</span>
+        </div>
+      </div>
+      <button class="sidebar-collapse-btn" id="sidebar-collapse-btn" title="Toggle Sidebar Width">
+        <svg class="icon icon-sm" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <button class="sidebar-close-btn mobile-only" id="mobile-sidebar-close-btn" title="Close Navigation Drawer" onclick="App.closeMobileDrawer()">
+        <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+
+    <!-- Navigation Body (Strictly fitted to 100vh) -->
+    <div class="sidebar-nav">
+      
+      <!-- Operations -->
+      <div class="nav-section-title">Operations</div>
+      <div class="nav-item active" data-view="dashboard" data-tooltip="Dashboard">
+        <span class="nav-icon"><svg class="icon" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg></span>
+        <span class="nav-label">Dashboard</span>
+      </div>
+      <div class="nav-item" data-view="topology" data-tooltip="Topology">
+        <span class="nav-icon"><svg class="icon" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></span>
+        <span class="nav-label">Network Topology</span>
+      </div>
+      <div class="nav-item" data-view="flows" data-tooltip="Flow Table">
+        <span class="nav-icon"><svg class="icon" viewBox="0 0 24 24"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg></span>
+        <span class="nav-label">Live Flow Table</span>
+      </div>
+      <div class="nav-item" data-view="scenarios" data-tooltip="Demo Scenarios">
+        <span class="nav-icon"><svg class="icon" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></span>
+        <span class="nav-label">Demo Scenarios</span>
+        <span class="nav-badge info">SIM</span>
+      </div>
+
+      <!-- Intelligence -->
+      <div class="nav-section-title">Intelligence</div>
+      <div class="nav-item" data-view="security" data-tooltip="Security Center">
+        <span class="nav-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+        <span class="nav-label">Security Center</span>
+      </div>
+      <div class="nav-item" data-view="qos" data-tooltip="QoS Center">
+        <span class="nav-icon"><svg class="icon" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></span>
+        <span class="nav-label">QoS Center</span>
+      </div>
+      <div class="nav-item" data-view="ai" data-tooltip="AI & ML">
+        <span class="nav-icon"><svg class="icon" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg></span>
+        <span class="nav-label">AI & ML Center</span>
+      </div>
+      <div class="nav-item" data-view="root-cause" data-tooltip="AI Root Cause">
+        <span class="nav-icon"><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></span>
+        <span class="nav-label">AI Root Cause</span>
+        <span class="nav-badge" style="background:rgba(0,242,254,0.18);color:#00f2fe;border:1px solid rgba(0,242,254,0.3);">RCA</span>
+      </div>
+      <div class="nav-item" data-view="predictive" data-tooltip="Predictive Intelligence">
+        <span class="nav-icon"><svg class="icon" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/><circle cx="22" cy="12" r="1" fill="currentColor"/></svg></span>
+        <span class="nav-label">Predictive Intelligence</span>
+        <span class="nav-badge" style="background:rgba(251,191,36,0.18);color:#fbbf24;border:1px solid rgba(251,191,36,0.3);">EARLY WARN</span>
+      </div>
+
+      <!-- Analysis -->
+      <div class="nav-section-title">Analysis</div>
+      <div class="nav-item" data-view="digital-twin" data-tooltip="Network Digital Twin">
+        <span class="nav-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></span>
+        <span class="nav-label">Network Digital Twin</span>
+        <span class="nav-badge live">TWIN</span>
+      </div>
+
+      <!-- Management -->
+      <div class="nav-section-title">Management</div>
+      <div class="nav-item" data-view="incidents" data-tooltip="Incidents">
+        <span class="nav-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
+        <span class="nav-label">Incidents</span>
+      </div>
+      <div class="nav-item" data-view="policies" data-tooltip="Policies">
+        <span class="nav-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span>
+        <span class="nav-label">Policies & Rules</span>
+      </div>
+      <div class="nav-item" data-view="reports" data-tooltip="Reports">
+        <span class="nav-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span>
+        <span class="nav-label">Reports & Export</span>
+      </div>
+      <div class="nav-item role-admin-only" data-view="audit" data-tooltip="Audit Logs" style="display:none;">
+        <span class="nav-icon"><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>
+        <span class="nav-label">Audit Logs</span>
+      </div>
+
+      <!-- System -->
+      <div class="nav-section-title">System</div>
+      <div class="nav-item" data-view="health" data-tooltip="System Health">
+        <span class="nav-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></span>
+        <span class="nav-label">System Health</span>
+      </div>
+      <div class="nav-item" data-view="settings" data-tooltip="User Settings">
+        <span class="nav-icon"><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span>
+        <span class="nav-label">User Settings</span>
+      </div>
+
+      <!-- Administration (Single-Admin Only) -->
+      <div class="nav-section-title role-admin-only" style="display:none;">Administration</div>
+      <div class="nav-item role-admin-only" data-view="admin-users" data-tooltip="Access Control" style="display:none;">
+        <span class="nav-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+        <span class="nav-label">Access Control</span>
+        <span class="nav-badge" id="pending-requests-count-badge" style="display:none;background:rgba(239,68,68,0.2);color:#ef4444;border:1px solid rgba(239,68,68,0.4);">0</span>
+      </div>
+
+    </div>
+  </aside>
+
+  <!-- ==================== 2. MAIN VIEWPORT COLUMN ==================== -->
+  <div id="main-wrapper">
+    
+    <!-- Topbar Header -->
+    <header id="topbar">
+      <div class="topbar-left">
+        <button class="mobile-menu-toggle" id="mobile-menu-btn" title="Open Menu">
+          <svg class="icon" viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+        <div class="topbar-breadcrumb">
+          <span class="breadcrumb-root">VORTEX</span>
+          <span class="breadcrumb-separator">/</span>
+          <span class="breadcrumb-current" id="topbar-breadcrumb-title">Operations Dashboard</span>
+        </div>
+      </div>
+
+      <!-- Center Search Trigger -->
+      <div class="topbar-center">
+        <button class="search-trigger-btn" id="global-search-trigger" aria-label="Search devices, flows, IPs, policies (Ctrl + K)">
+          <div class="search-trigger-content">
+            <svg class="icon search-trigger-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <span class="search-trigger-placeholder">Search devices, flows, IPs, policies...</span>
+          </div>
+          <kbd class="search-shortcut-kbd">Ctrl K</kbd>
+        </button>
+      </div>
+
+      <!-- Right Status Indicators & User Menu -->
+      <div class="topbar-right">
+        <div class="status-pill-group">
+          <!-- Authenticated User Presence Status -->
+          <div class="status-pill" id="status-user">
+            <span class="status-dot green"></span>
+            <span>USER ONLINE</span>
+          </div>
+
+          <!-- Controller Status -->
+          <div class="status-pill" id="status-controller">
+            <span class="status-dot green"></span>
+            <span>CONTROLLER ONLINE</span>
+          </div>
+
+          <!-- Telemetry Status -->
+          <div class="status-pill" id="status-telemetry">
+            <span class="status-dot green"></span>
+            <span>TELEMETRY LIVE</span>
+          </div>
+
+          <!-- Source Mode Badge -->
+          <span class="badge badge-demo dynamic-source-mode">DEMO</span>
+        </div>
+
+        <!-- Live Clock (Local Timezone) -->
+        <div class="topbar-clock" id="topbar-live-clock">--:--:--</div>
+
+        <!-- Notification Trigger -->
+        <div class="notif-btn-wrapper">
+          <button class="topbar-icon-btn" onclick="Notifications.togglePopover(event)" title="Notifications">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            <span class="notif-badge-bubble" id="topbar-notif-badge" style="display:none;">0</span>
+          </button>
+
+          <!-- Notification Popover -->
+          <div id="notif-popover">
+            <div class="notif-popover-header">
+              <div style="display:flex; align-items:center; gap:6px;">
+                <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                <strong style="font-size:12.5px; color:var(--text-primary);">Notifications</strong>
+              </div>
+              <div style="display:flex; align-items:center; gap:8px;">
+                <button class="notif-header-action-btn" onclick="Notifications.markAllAsRead(event)" title="Mark all notifications as read">Mark all read</button>
+                <button class="btn btn-secondary btn-sm" style="padding:2px 8px; font-size:11px;" onclick="Notifications.closePopover()">Close</button>
+              </div>
+            </div>
+            <div id="notif-popover-list"></div>
+          </div>
+        </div>
+
+        <!-- Quick Theme Toggle -->
+        <button class="theme-toggle-btn" id="topbar-theme-toggle-btn" onclick="Settings.toggleTheme()" title="Toggle Dark/Light Mode" aria-label="Toggle Theme">
+          <svg class="icon icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="icon icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        </button>
+
+        <!-- User Profile Dropdown Trigger -->
+        <div class="profile-menu-wrapper">
+          <div class="profile-trigger" id="profile-trigger-btn">
+            <div class="user-avatar-circle dynamic-user-avatar">--</div>
+            <span class="dynamic-user-name" style="font-size:12.5px; font-weight:600; color:var(--text-primary);">Loading...</span>
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+
+          <!-- User Profile Dropdown Menu -->
+          <div id="profile-dropdown-menu">
+            <div class="profile-dropdown-header">
+              <div class="dropdown-user-name dynamic-user-name">Loading...</div>
+              <div class="dropdown-user-email dynamic-user-email">--</div>
+              <div style="margin-top:4px; display:flex; gap:6px; align-items:center;"><span class="badge badge-info dynamic-user-role">OPERATOR</span><span class="badge badge-live dynamic-user-status">ONLINE</span></div>
+            </div>
+            <div class="profile-dropdown-item" onclick="App.navigate('settings')">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+              <span>Account Settings</span>
+            </div>
+            <div class="profile-dropdown-item" onclick="App.navigate('health')">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+              <span>System Health</span>
+            </div>
+            <div class="profile-dropdown-item danger" onclick="Auth.logout()">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+              <span>Sign Out of NOC</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Scrollable Main Viewport -->
+    <main id="content-viewport">
+
+      <!-- ==================== VIEW 1: DASHBOARD ==================== -->
+      <section id="view-dashboard" class="view-section active">
+        <!-- Hero Header -->
+        <div class="dashboard-hero-header">
+          <div class="hero-title-group">
+            <div class="hero-title-badge-row">
+              <h1>
+                <svg class="icon icon-lg hero-brand-icon" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                <span>VORTEX-SDN Operations Center</span>
+              </h1>
+              <div class="hero-operator-pill">
+                <span class="status-dot green"></span>
+                <span id="hero-welcome-username" class="dynamic-user-name">Operator</span>
+              </div>
+            </div>
+            <p class="hero-subtitle">Real-time AI-driven SDN network security, telemetry, QoS and automated mitigation.</p>
+          </div>
+          <div class="hero-controls">
+            <button class="btn btn-secondary btn-sm" onclick="Telemetry.pollNow()" title="Poll datapath immediately">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+              <span>Poll Now</span>
+            </button>
+            <button class="btn btn-primary btn-sm" onclick="App.navigate('scenarios')" title="Launch simulation scenarios">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              <span>Demo Scenarios</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Active Threat Warning Banner (Hidden by default) -->
+        <div id="dashboard-threat-alert" class="scenario-banner" style="display:none;"></div>
+
+        <!-- 12 KPI Cards Grid (Enterprise NOC Metrics Strip) -->
+        <div class="kpi-grid">
+          <!-- 1. Total Flows -->
+          <div class="kpi-card cyan">
+            <div class="kpi-top">
+              <span class="kpi-label">Total Flows</span>
+              <span class="kpi-icon"><svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg></span>
+            </div>
+            <div class="kpi-value" id="kpi-total-flows">--</div>
+            <div class="kpi-bottom"><span class="kpi-trend neutral" id="kpi-trend-total-flows">&bull; Active</span><span class="kpi-updated">OpenFlow 1.3</span></div>
+          </div>
+
+          <!-- 2. Malicious Flows -->
+          <div class="kpi-card red">
+            <div class="kpi-top">
+              <span class="kpi-label">Malicious Flows</span>
+              <span class="kpi-icon"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+            </div>
+            <div class="kpi-value" id="kpi-malicious-flows">--</div>
+            <div class="kpi-bottom"><span class="kpi-trend up" id="kpi-trend-malicious-flows">&bull; 0 Threats</span><span class="kpi-updated">AI Threat Layer</span></div>
+          </div>
+
+          <!-- 3. Encrypted Traffic -->
+          <div class="kpi-card purple">
+            <div class="kpi-top">
+              <span class="kpi-label">Encrypted Traffic</span>
+              <span class="kpi-icon"><svg class="icon icon-sm" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
+            </div>
+            <div class="kpi-value" id="kpi-encrypted-traffic">--</div>
+            <div class="kpi-bottom"><span class="kpi-trend neutral" id="kpi-trend-encrypted-traffic">TLS / SSH</span><span class="kpi-updated">Secure %</span></div>
+          </div>
+
+          <!-- 4. QoS Policies Active -->
+          <div class="kpi-card blue">
+            <div class="kpi-top">
+              <span class="kpi-label">QoS Policies</span>
+              <span class="kpi-icon"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg></span>
+            </div>
+            <div class="kpi-value" id="kpi-qos-policies">--</div>
+            <div class="kpi-bottom"><span class="kpi-trend up" id="kpi-trend-qos-policies">&bull; Enforced</span><span class="kpi-updated">EF / AF / BE</span></div>
+          </div>
+
+          <!-- 5. Average Latency -->
+          <div class="kpi-card yellow">
+            <div class="kpi-top">
+              <span class="kpi-label">Average Latency</span>
+              <span class="kpi-icon"><svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>
+            </div>
+            <div class="kpi-value" id="kpi-avg-latency">--</div>
+            <div class="kpi-bottom"><span class="kpi-trend neutral" id="kpi-trend-avg-latency">&bull; Delay</span><span class="kpi-updated">Fabric RTT</span></div>
+          </div>
+
+          <!-- 6. Throughput -->
+          <div class="kpi-card green">
+            <div class="kpi-top">
+              <span class="kpi-label">Throughput</span>
+              <span class="kpi-icon"><svg class="icon icon-sm" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></span>
+            </div>
+            <div class="kpi-value" id="kpi-throughput">--</div>
+            <div class="kpi-bottom"><span class="kpi-trend up" id="kpi-trend-throughput">&bull; Real Rate</span><span class="kpi-updated">Delta-based</span></div>
+          </div>
+
+          <!-- 7. Packet Loss -->
+          <div class="kpi-card red">
+            <div class="kpi-top">
+              <span class="kpi-label">Packet Loss</span>
+              <span class="kpi-icon"><svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span>
+            </div>
+            <div class="kpi-value" id="kpi-packet-loss">--</div>
+            <div class="kpi-bottom"><span class="kpi-trend neutral" id="kpi-trend-packet-loss">&bull; Fabric Loss</span><span class="kpi-updated">SLA Bound</span></div>
+          </div>
+
+          <!-- 8. Bandwidth Utilization -->
+          <div class="kpi-card cyan">
+            <div class="kpi-top">
+              <span class="kpi-label">Bandwidth Util</span>
+              <span class="kpi-icon"><svg class="icon icon-sm" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></span>
+            </div>
+            <div class="kpi-value" id="kpi-bw-utilization">--</div>
+            <div class="kpi-bottom"><span class="kpi-trend neutral" id="kpi-trend-bw-utilization">1 Gbps Fabric</span><span class="kpi-updated">Capacity</span></div>
+          </div>
+
+          <!-- 9. Active Devices -->
+          <div class="kpi-card green">
+            <div class="kpi-top">
+              <span class="kpi-label">Active Devices</span>
+              <span class="kpi-icon"><svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/></svg></span>
+            </div>
+            <div class="kpi-value" id="kpi-active-devices">--</div>
+            <div class="kpi-bottom"><span class="kpi-trend up" id="kpi-trend-active-devices">Switches & Hosts</span><span class="kpi-updated">Discovered</span></div>
+          </div>
+
+          <!-- 10. Active Incidents -->
+          <div class="kpi-card yellow">
+            <div class="kpi-top">
+              <span class="kpi-label">Active Incidents</span>
+              <span class="kpi-icon"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg></span>
+            </div>
+            <div class="kpi-value" id="kpi-active-incidents">0</div>
+            <div class="kpi-bottom"><span class="kpi-trend up" id="kpi-trend-active-incidents">&bull; 0 Open</span><span class="kpi-updated">Action Item</span></div>
+          </div>
+
+          <!-- 11. Flow Rate -->
+          <div class="kpi-card cyan">
+            <div class="kpi-top">
+              <span class="kpi-label">Flow Rate</span>
+              <span class="kpi-icon"><svg class="icon icon-sm" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span>
+            </div>
+            <div class="kpi-value" id="kpi-flow-rate">--</div>
+            <div class="kpi-bottom"><span class="kpi-trend up" id="kpi-trend-flow-rate">&bull; Real-Time</span><span class="kpi-updated">pkts/sec</span></div>
+          </div>
+
+          <!-- 12. Active Sessions -->
+          <div class="kpi-card purple">
+            <div class="kpi-top">
+              <span class="kpi-label">Active Sessions</span>
+              <span class="kpi-icon"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+            </div>
+            <div class="kpi-value" id="kpi-active-sessions">--</div>
+            <div class="kpi-bottom"><span class="kpi-trend up" id="kpi-trend-active-sessions">&bull; Concurrent</span><span class="kpi-updated">L4 Sockets</span></div>
+          </div>
+        </div>
+
+        <!-- Mid Section: Operational Intelligence, SLA, Bandwidth & Mitigation Pipeline (Sections 6-9) -->
+        <div class="dashboard-ops-quad">
+          <!-- 1. Network Intelligence Snapshot -->
+          <div class="card card-ops" id="card-ops-intelligence">
+            <div class="card-header">
+              <div class="card-title">
+                <svg class="icon icon-sm" style="color:var(--accent-cyan);" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+                <span>Network Intelligence</span>
+              </div>
+              <span class="badge badge-live" id="ops-net-status">HEALTHY</span>
+            </div>
+            <div class="ops-list">
+              <div class="ops-list-item">
+                <span class="ops-label">Fabric Datapath</span>
+                <span class="ops-val" id="ops-active-dev">8 Nodes Online</span>
+              </div>
+              <div class="ops-list-item">
+                <span class="ops-label">SDN Controller</span>
+                <span class="ops-val" id="ops-ctl-status" style="color:var(--status-success);">Ryu OF1.3 Connected</span>
+              </div>
+              <div class="ops-list-item">
+                <span class="ops-label">Telemetry Stream</span>
+                <span class="ops-val" id="ops-tel-status" style="color:var(--accent-azure);">Live (5s Interval)</span>
+              </div>
+              <div class="ops-list-item">
+                <span class="ops-label">System Uptime</span>
+                <span class="ops-val mono" id="ops-uptime">Active</span>
+              </div>
+              <div class="ops-list-item">
+                <span class="ops-label">Telemetry Events</span>
+                <span class="ops-val mono" id="ops-events-count">Listening...</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. SLA / SLO Compliance -->
+          <div class="card card-ops" id="card-ops-sla">
+            <div class="card-header">
+              <div class="card-title">
+                <svg class="icon icon-sm" style="color:var(--status-success);" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                <span>SLA / SLO Compliance</span>
+              </div>
+              <span class="badge badge-live">99.9% TARGET</span>
+            </div>
+            <div class="sla-metrics-list">
+              <!-- Availability -->
+              <div class="sla-metric-row">
+                <div class="sla-header">
+                  <span>Fabric Availability</span>
+                  <span class="sla-val mono" id="sla-avail-val">99.98%</span>
+                </div>
+                <div class="sla-bar-track">
+                  <div class="sla-bar-fill green" id="sla-avail-bar" style="width: 99.98%;"></div>
+                </div>
+              </div>
+              <!-- Latency SLA -->
+              <div class="sla-metric-row">
+                <div class="sla-header">
+                  <span>Transit Latency (&lt; 25ms)</span>
+                  <span class="sla-val mono" id="sla-lat-val">16.8 ms</span>
+                </div>
+                <div class="sla-bar-track">
+                  <div class="sla-bar-fill green" id="sla-lat-bar" style="width: 35%;"></div>
+                </div>
+              </div>
+              <!-- Packet Loss SLA -->
+              <div class="sla-metric-row">
+                <div class="sla-header">
+                  <span>Packet Drop Rate (&lt; 0.5%)</span>
+                  <span class="sla-val mono" id="sla-loss-val">0.00%</span>
+                </div>
+                <div class="sla-bar-track">
+                  <div class="sla-bar-fill green" id="sla-loss-bar" style="width: 0%;"></div>
+                </div>
+              </div>
+              <!-- Throughput Capacity -->
+              <div class="sla-metric-row">
+                <div class="sla-header">
+                  <span>Fabric Load (1 Gbps)</span>
+                  <span class="sla-val mono" id="sla-tp-val">0.1 Mbps</span>
+                </div>
+                <div class="sla-bar-track">
+                  <div class="sla-bar-fill cyan" id="sla-tp-bar" style="width: 5%;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. Top Bandwidth Consumers -->
+          <div class="card card-ops" id="card-ops-bandwidth">
+            <div class="card-header">
+              <div class="card-title">
+                <svg class="icon icon-sm" style="color:var(--accent-azure);" viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+                <span>Top Bandwidth Consumers</span>
+              </div>
+              <span class="badge badge-info">FLOW AUDIT</span>
+            </div>
+            <div class="table-responsive-wrapper" style="max-height: 180px; overflow-y: auto;">
+              <table class="vortex-table compact-table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Flow Path</th>
+                    <th>Proto</th>
+                    <th style="text-align:right;">Traffic</th>
+                  </tr>
+                </thead>
+                <tbody id="dashboard-top-consumers-tbody">
+                  <tr><td colspan="4" style="text-align:center; color:#64748b; padding:12px;">Monitoring datapath flows...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- 4. Mitigation & Recovery Pipeline -->
+          <div class="card card-ops" id="card-ops-mitigation">
+            <div class="card-header">
+              <div class="card-title">
+                <svg class="icon icon-sm" style="color:var(--accent-violet);" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                <span>Mitigation &amp; Recovery</span>
+              </div>
+              <span class="badge badge-live" id="pipe-overall-badge">ACTIVE SHIELD</span>
+            </div>
+            <div class="mitigation-pipeline">
+              <div class="pipe-step">
+                <div class="pipe-dot green" id="pipe-dot-1"></div>
+                <div class="pipe-info">
+                  <div class="pipe-title">1. Threat Detection</div>
+                  <div class="pipe-desc" id="pipe-detect-val">Continuous OpenFlow Inspection</div>
+                </div>
+                <span class="badge badge-live pipe-badge" id="pipe-detect-badge">NOMINAL</span>
+              </div>
+              <div class="pipe-connector"></div>
+              <div class="pipe-step">
+                <div class="pipe-dot cyan" id="pipe-dot-2"></div>
+                <div class="pipe-info">
+                  <div class="pipe-title">2. Flow Mitigation</div>
+                  <div class="pipe-desc" id="pipe-mitigate-val">Zero-Day Auto Drop Engine</div>
+                </div>
+                <span class="badge badge-info pipe-badge" id="pipe-mitigate-badge">READY</span>
+              </div>
+              <div class="pipe-connector"></div>
+              <div class="pipe-step">
+                <div class="pipe-dot azure" id="pipe-dot-3"></div>
+                <div class="pipe-info">
+                  <div class="pipe-title">3. Traffic Recovery</div>
+                  <div class="pipe-desc" id="pipe-recovery-val">Dynamic Alternate Routing</div>
+                </div>
+                <span class="badge badge-live pipe-badge" id="pipe-recovery-badge">NORMAL</span>
+              </div>
+              <div class="pipe-connector"></div>
+              <div class="pipe-step">
+                <div class="pipe-dot green" id="pipe-dot-4"></div>
+                <div class="pipe-info">
+                  <div class="pipe-title">4. Network Integrity</div>
+                  <div class="pipe-desc" id="pipe-status-val">SLA Thresholds Fully Preserved</div>
+                </div>
+                <span class="badge badge-live pipe-badge" id="pipe-status-badge">STABLE</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Middle Section: Real-time Traffic Monitor & Health Radial Gauges -->
+        <div class="dashboard-grid-row">
+          <!-- Left: Real-Time Traffic Monitor Chart -->
+          <div class="card" id="card-traffic-monitor">
+            <div class="card-header">
+              <div class="card-title">
+                <svg class="icon icon-sm" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                <span>Real-Time Traffic & Latency Monitor</span>
+              </div>
+              <div class="card-actions" style="display: flex; align-items: center; gap: 8px;">
+                <span class="badge badge-live" id="chart-telemetry-badge">● LIVE TELEMETRY</span>
+                <span class="chart-time-pill" id="chart-latest-timestamp">Waiting for stream...</span>
+              </div>
+            </div>
+            <div class="chart-wrapper" style="position: relative;">
+              <canvas id="dashboard-traffic-chart" class="chart-canvas"></canvas>
+              <div id="chart-tooltip" class="chart-tooltip" style="display: none;"></div>
+            </div>
+            <div class="chart-legend">
+              <div class="legend-item"><span class="legend-bar" style="background: linear-gradient(180deg, #00f2fe 0%, #0284c7 100%); box-shadow: 0 0 6px rgba(0, 242, 254, 0.4);"></span> Throughput (Mbps)</div>
+              <div class="legend-item"><span class="legend-line" style="background:#f59e0b; box-shadow: 0 0 6px rgba(245, 158, 11, 0.6);"></span> Latency (ms)</div>
+              <div class="chart-scale-labels" style="margin-left: auto; display: flex; gap: 12px; font-size: 10.5px; color: var(--text-muted); font-family: var(--font-mono);">
+                <span style="color: #00f2fe; opacity: 0.9;">▲ Left: Throughput (Mbps)</span>
+                <span style="color: #f59e0b; opacity: 0.9;">▲ Right: Latency (ms)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Radial Health Score Gauges -->
+          <div class="card" id="card-composite-health">
+            <div class="card-header">
+              <div class="card-title">
+                <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                <span>Composite Health Indices</span>
+              </div>
+              <div class="card-actions">
+                <span class="badge badge-live" id="health-status-badge">● LIVE</span>
+              </div>
+            </div>
+            <div class="health-gauges-wrapper" style="display: flex; flex-direction: column; gap: 8px;">
+              <div id="gauge-network-health" class="gauge-container gauge-hero"></div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
+                <div id="gauge-security-health" class="gauge-container gauge-secondary"></div>
+                <div id="gauge-qos-health" class="gauge-container gauge-secondary"></div>
+              </div>
+            </div>
+            <div class="health-card-footer" style="margin-top: 8px; padding-top: 6px; border-top: 1px solid var(--border-subtle); display: flex; justify-content: space-between; font-size: 10px; color: var(--text-muted); font-family: var(--font-mono);">
+              <span>Fabric Telemetry</span>
+              <span id="health-last-update">Waiting for sample...</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Intelligence, Incidents & Capacity Tri-Grid (Sections 12-14) -->
+        <div class="dashboard-grid-tri">
+          <!-- 1. AI Network Recommendations -->
+          <div class="card card-intel" id="card-ai-recommendations">
+            <div class="card-header">
+              <div class="card-title">
+                <svg class="icon icon-sm" style="color:var(--accent-cyan);" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                <span>AI Network Recommendations</span>
+              </div>
+              <span class="badge badge-live" id="rec-badge">OPTIMAL</span>
+            </div>
+            <div class="intel-body">
+              <div class="rec-card-content">
+                <div class="rec-header">
+                  <strong id="rec-title">Datapath Optimization: Optimal Route</strong>
+                  <span class="rec-time mono" id="rec-timestamp">Just now</span>
+                </div>
+                <p id="rec-explanation" class="rec-desc">All fabric switches operating under nominal load. AI predictive model forecasts 99.98% compliance over next 15 minutes.</p>
+              </div>
+              <div class="intel-actions">
+                <button class="btn btn-secondary btn-sm" onclick="App.navigate('root-cause')">View Analysis</button>
+                <button class="btn btn-primary btn-sm" onclick="App.navigate('policies')">Apply Recommendation</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. Recent Incident Timeline -->
+          <div class="card card-intel" id="card-incident-timeline">
+            <div class="card-header">
+              <div class="card-title">
+                <svg class="icon icon-sm" style="color:var(--status-warning);" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                <span>Recent Incident Timeline</span>
+              </div>
+              <span class="badge badge-live" id="timeline-status-badge">CLEAR</span>
+            </div>
+            <div class="timeline-container" id="dashboard-incident-timeline">
+              <!-- Dynamically populated from incidents / nominal state -->
+            </div>
+          </div>
+
+          <!-- 3. Network Capacity Forecast -->
+          <div class="card card-intel" id="card-capacity-forecast">
+            <div class="card-header">
+              <div class="card-title">
+                <svg class="icon icon-sm" style="color:#fbbf24;" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                <span>Network Capacity Forecast</span>
+              </div>
+              <span class="badge badge-demo" id="cap-badge">PREDICTIVE</span>
+            </div>
+            <div class="capacity-body">
+              <div class="capacity-stats-grid">
+                <div class="cap-stat-box">
+                  <span class="cap-stat-label">Current Load</span>
+                  <span class="cap-stat-val mono" id="cap-cur-val">0.0%</span>
+                </div>
+                <div class="cap-stat-box">
+                  <span class="cap-stat-label">+5 Min</span>
+                  <span class="cap-stat-val mono" id="cap-5m-val">1.2%</span>
+                </div>
+                <div class="cap-stat-box">
+                  <span class="cap-stat-label">+15 Min</span>
+                  <span class="cap-stat-val mono" id="cap-15m-val">2.5%</span>
+                </div>
+                <div class="cap-stat-box">
+                  <span class="cap-stat-label">+30 Min</span>
+                  <span class="cap-stat-val mono" id="cap-30m-val">1.8%</span>
+                </div>
+              </div>
+              <div class="capacity-bars-wrapper">
+                <div class="cap-bar-item">
+                  <div class="cap-bar-hdr"><span>Short-Term Projection (Next 15m)</span><span id="cap-risk-label" class="badge badge-live" style="font-size:9px; padding:1px 5px;">LOW RISK</span></div>
+                  <div class="sla-bar-track">
+                    <div class="sla-bar-fill cyan" id="cap-forecast-bar" style="width: 12%;"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="intel-actions" style="margin-top:auto;">
+                <button class="btn btn-secondary btn-sm" style="width:100%; justify-content:center;" onclick="App.navigate('predictive')">Explore Forecast Model</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lower Section 1: Streaming OpenFlow Telemetry & Live Network Events Stream -->
+        <div class="dashboard-grid-row">
+          <!-- Left: Recent Live Flow Table -->
+          <div class="card" id="card-streaming-flows">
+            <div class="card-header">
+              <div class="card-title">
+                <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg>
+                <span>Streaming OpenFlow Telemetry</span>
+              </div>
+              <button class="btn btn-secondary btn-sm" onclick="App.navigate('flows')">View All Flows</button>
+            </div>
+            <div class="table-responsive-wrapper">
+              <table class="vortex-table">
+                <thead>
+                  <tr>
+                    <th>Flow ID</th>
+                    <th>Source</th>
+                    <th>Destination</th>
+                    <th>Proto</th>
+                    <th>Rate</th>
+                    <th>QoS Class</th>
+                    <th>Threat</th>
+                  </tr>
+                </thead>
+                <tbody id="dashboard-recent-flows-tbody">
+                  <tr><td colspan="7" style="text-align: center; color: #64748b; padding: 18px;">Streaming active telemetry...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Right: Live Network Events Stream -->
+          <div class="card" id="card-live-events">
+            <div class="card-header">
+              <div class="card-title">
+                <svg class="icon icon-sm" viewBox="0 0 24 24" style="color:var(--accent-cyan);"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                <span>Live Network Events</span>
+              </div>
+              <div class="card-actions">
+                <span class="badge badge-live" id="events-live-badge">● LIVE STREAM</span>
+                <span class="chart-time-pill" id="events-stream-status">Active</span>
+              </div>
+            </div>
+            <!-- Event Stream Filter Pills -->
+            <div class="event-filter-bar">
+              <button class="event-filter-pill active" data-filter="ALL">All</button>
+              <button class="event-filter-pill" data-filter="SECURITY">Security</button>
+              <button class="event-filter-pill" data-filter="QOS">QoS</button>
+              <button class="event-filter-pill" data-filter="TELEMETRY">Telemetry</button>
+            </div>
+            <div class="live-events-scroll-wrapper">
+              <div id="dashboard-live-events-list" class="live-events-list">
+                <!-- Dynamically populated from real-time events -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lower Section 2: Traffic Application Category Distribution -->
+        <div class="dashboard-grid-row" style="grid-template-columns: 1fr; margin-top: 14px;">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">
+                <svg class="icon icon-sm" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/></svg>
+                <span>Traffic Application Classification & Queue Distribution (QoS)</span>
+              </div>
+              <button class="btn btn-secondary btn-sm" onclick="App.navigate('qos')">Manage QoS Policies</button>
+            </div>
+            <div id="dashboard-traffic-dist" style="padding: 6px 0;"></div>
+          </div>
+        </div>
+
+        <!-- Lower Section 3: Advanced Intelligence Layer Widgets -->
+        <div class="dashboard-grid-row" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); margin-top: 14px; gap: 14px;">
+          <!-- Widget 1: AI Root Cause -->
+          <div class="card" id="dash-widget-rca" style="padding: 16px; display:flex; flex-direction:column; justify-content:space-between;">
+            <div>
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 8px;">
+                <div style="display:flex; align-items:center; gap:8px; font-weight:700; font-size:12px; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.5px;">
+                  <svg class="icon icon-sm" style="color:var(--accent-cyan);" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                  <span>AI ROOT CAUSE</span>
+                </div>
+                <span class="badge badge-live" id="dash-rca-badge">STABLE</span>
+              </div>
+              <div style="font-size:15px; font-weight:700; color:var(--text-primary); margin-bottom:4px;" id="dash-rca-title">1 active root cause detected</div>
+              <div style="font-size:11.5px; color:var(--text-muted); line-height:1.4;" id="dash-rca-desc">Correlated datapath telemetry and anomaly diagnosis.</div>
+            </div>
+            <div style="margin-top:14px;">
+              <button class="btn btn-secondary btn-sm" style="width:100%; justify-content:center;" onclick="App.navigate('root-cause')">View Analysis</button>
+            </div>
+          </div>
+
+          <!-- Widget 2: Predictive Health -->
+          <div class="card" id="dash-widget-pred" style="padding: 16px; display:flex; flex-direction:column; justify-content:space-between;">
+            <div>
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 8px;">
+                <div style="display:flex; align-items:center; gap:8px; font-weight:700; font-size:12px; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.5px;">
+                  <svg class="icon icon-sm" style="color:#fbbf24;" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                  <span>PREDICTIVE HEALTH</span>
+                </div>
+                <span class="badge badge-demo" id="dash-pred-badge">FORECAST</span>
+              </div>
+              <div style="font-size:16px; font-weight:700; color:var(--text-primary); margin-bottom:4px;">
+                <span id="dash-pred-cur">94.2%</span> <span style="color:var(--accent-cyan); margin:0 4px;">&rarr;</span> <span id="dash-pred-fc" style="color:#fbbf24;">91.8% predicted</span>
+              </div>
+              <div style="font-size:11.5px; color:var(--text-muted); line-height:1.4;" id="dash-pred-desc">Risk Level: MEDIUM &bull; Confidence 91%</div>
+            </div>
+            <div style="margin-top:14px;">
+              <button class="btn btn-secondary btn-sm" style="width:100%; justify-content:center;" onclick="App.navigate('predictive')">View Forecast</button>
+            </div>
+          </div>
+
+          <!-- Widget 3: Digital Twin -->
+          <div class="card" id="dash-widget-twin" style="padding: 16px; display:flex; flex-direction:column; justify-content:space-between;">
+            <div>
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 8px;">
+                <div style="display:flex; align-items:center; gap:8px; font-weight:700; font-size:12px; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.5px;">
+                  <svg class="icon icon-sm" style="color:#a78bfa;" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                  <span>DIGITAL TWIN</span>
+                </div>
+                <span class="badge badge-live" id="dash-twin-badge">SYNCHRONIZED</span>
+              </div>
+              <div style="font-size:14.5px; font-weight:700; color:var(--text-primary); margin-bottom:4px;" id="dash-twin-status">Last Simulation: S3 failure</div>
+              <div style="font-size:11.5px; color:var(--text-muted); line-height:1.4;" id="dash-twin-subtext">Safe in-memory sandbox ready for 8 failure scenarios.</div>
+            </div>
+            <div style="margin-top:14px;">
+              <button class="btn btn-secondary btn-sm" style="width:100%; justify-content:center;" onclick="App.navigate('digital-twin')">Open Digital Twin</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- App Footer -->
+        <footer class="app-footer">
+          <div>VORTEX-SDN &bull; AI-Driven SDN Control & Intelligence &bull; System v2.0</div>
+          <div>OpenFlow 1.3 Datapath &bull; Ryu Protocol Connected</div>
+        </footer>
+      </section>
+
+      <!-- ==================== VIEW 2: TOPOLOGY ==================== -->
+      <section id="view-topology" class="view-section">
+        <div class="dashboard-hero-header">
+          <div class="hero-title-group">
+            <h1>
+              <svg class="icon icon-lg" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/></svg>
+              <span>Network Topology Map</span>
+            </h1>
+            <p>Discovered OpenFlow 1.3 datapaths, mesh interconnects, live traffic flow particles, and device metrics.</p>
+          </div>
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <span class="badge badge-live" id="topo-status-badge">● LIVE TOPOLOGY</span>
+            <button class="btn btn-secondary btn-sm" onclick="Topology.fetchTopology()">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+              <span>Refresh Graph</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="topology-viewport-card">
+          <canvas id="topology-canvas"></canvas>
+
+          <!-- Top Overlay Controls Toolbar -->
+          <div class="topo-controls-overlay">
+            <div class="topo-toolbar-group">
+              <button class="topo-btn" id="topo-btn-zoom-in" onclick="Topology.zoomIn()" title="Zoom In (+)">
+                <svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+              </button>
+              <button class="topo-btn" id="topo-btn-zoom-out" onclick="Topology.zoomOut()" title="Zoom Out (-)">
+                <svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+              </button>
+              <button class="topo-btn" id="topo-btn-reset" onclick="Topology.resetView()" title="Reset View / Center (0)">
+                <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><polyline points="3 3 3 8 8 8"/></svg>
+              </button>
+              <button class="topo-btn" id="topo-btn-fit" onclick="Topology.fitToScreen()" title="Fit to Screen">
+                <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+              </button>
+              <button class="topo-btn" id="topo-btn-pause" onclick="Topology.toggleAnimation()" title="Pause/Resume Animation">
+                <svg class="icon icon-sm" id="topo-icon-playpause" viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+              </button>
+            </div>
+            <div class="topo-toolbar-toggles">
+              <button class="topo-toggle-pill active" id="topo-toggle-traffic" onclick="Topology.toggleTrafficFlow()" title="Toggle Traffic Flow Particles">
+                <span style="display:inline-flex; align-items:center; gap:5px;"><svg class="icon icon-sm" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> Traffic</span>
+              </button>
+              <button class="topo-toggle-pill active" id="topo-toggle-labels" onclick="Topology.toggleLabels()" title="Toggle Device Labels">
+                <span style="display:inline-flex; align-items:center; gap:5px;"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg> Labels</span>
+              </button>
+              <button class="topo-toggle-pill active" id="topo-toggle-rates" onclick="Topology.toggleRates()" title="Toggle Link Throughput">
+                <span style="display:inline-flex; align-items:center; gap:5px;"><svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg> Rates</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Bottom Legend Overlay -->
+          <div class="topo-legend-overlay">
+            <span class="legend-item"><strong style="color:#00f2fe;">&bull;</strong> Ryu Controller</span>
+            <span class="legend-item"><strong style="color:#00f5a0;">&bull;</strong> Switch (Healthy)</span>
+            <span class="legend-item"><strong style="color:#38bdf8;">&bull;</strong> Host</span>
+            <span class="legend-item"><strong style="color:#ef4444;">&bull;</strong> Threat Alert</span>
+            <span class="legend-item"><strong style="color:#10b981;">&bull;</strong> Mitigated</span>
+            <span class="legend-item"><strong style="color:#f59e0b;">&bull;</strong> Congested</span>
+          </div>
+
+          <!-- Slide-out Node Inspector Drawer -->
+          <div id="topology-drawer" class="topo-drawer">
+            <div class="topo-drawer-header">
+              <strong style="font-size:13.5px; color:#ffffff;">Topology Inspector</strong>
+              <button class="btn btn-secondary btn-sm" onclick="Topology.closeDrawer()">✕</button>
+            </div>
+            <div id="topology-drawer-content" class="topo-drawer-body"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== VIEW 3: FLOW RULES ==================== -->
+      <section id="view-flows" class="view-section">
+        <div class="dashboard-hero-header">
+          <div class="hero-title-group">
+            <h1>
+              <svg class="icon icon-lg" viewBox="0 0 24 24"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg>
+              <span>Live OpenFlow Flow Table</span>
+            </h1>
+            <p>Active OpenFlow rules, instantaneous delta packet/byte rates, QoS classes, and threat tags.</p>
+          </div>
+          <button class="btn btn-secondary btn-sm" onclick="App.fetchFlowsView()">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+            <span>Refresh Flows</span>
+          </button>
+        </div>
+
+        <div class="card">
+          <div class="table-toolbar">
+            <div class="table-search-box">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input type="text" id="flows-search-input" placeholder="Search by IP, Port, Protocol, or Flow ID..." oninput="App.fetchFlowsView()">
+            </div>
+            <div class="table-filters">
+              <button class="btn btn-secondary btn-sm" onclick="Reports.exportReport('FLOWS')">
+                <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                <span>Export CSV</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="table-responsive-wrapper">
+            <table class="vortex-table">
+              <thead>
+                <tr>
+                  <th>Flow ID</th>
+                  <th>Source IP:Port</th>
+                  <th>Destination IP:Port</th>
+                  <th>Protocol</th>
+                  <th>Packets</th>
+                  <th>Bytes</th>
+                  <th>Rate</th>
+                  <th>QoS Class</th>
+                  <th>Threat Status</th>
+                </tr>
+              </thead>
+              <tbody id="flows-view-tbody">
+                <tr><td colspan="9" style="text-align: center; color: #64748b; padding: 24px;">Loading live flow records...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== VIEW 4: SECURITY CENTER ==================== -->
+      <section id="view-security" class="view-section">
+        <div class="dashboard-hero-header">
+          <div class="hero-title-group">
+            <h1>
+              <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              <span>Security Intelligence Center</span>
+            </h1>
+            <p>AI threat detection (RandomForest + IsolationForest), anomaly scoring, and automated OpenFlow mitigation.</p>
+          </div>
+          <button class="btn btn-secondary btn-sm" onclick="Security.fetchData()">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+            <span>Refresh Feed</span>
+          </button>
+        </div>
+
+        <div class="kpi-grid">
+          <div class="kpi-card red">
+            <div class="kpi-top"><span class="kpi-label">Threat Level</span></div>
+            <div class="kpi-value"><span id="sec-threat-level" class="badge badge-live">NORMAL</span></div>
+            <div class="kpi-bottom"><span class="kpi-trend neutral">AI Evaluated</span></div>
+          </div>
+          <div class="kpi-card yellow">
+            <div class="kpi-top"><span class="kpi-label">Active Threats</span></div>
+            <div class="kpi-value" id="sec-active-threats-count">0</div>
+            <div class="kpi-bottom"><span class="kpi-trend neutral">Live Anomalies</span></div>
+          </div>
+          <div class="kpi-card red">
+            <div class="kpi-top"><span class="kpi-label">Critical Events</span></div>
+            <div class="kpi-value" id="sec-critical-count">0</div>
+            <div class="kpi-bottom"><span class="kpi-trend down">Action Required</span></div>
+          </div>
+          <div class="kpi-card green">
+            <div class="kpi-top"><span class="kpi-label">Mitigated Threats</span></div>
+            <div class="kpi-value" id="sec-mitigated-count">0</div>
+            <div class="kpi-bottom"><span class="kpi-trend up">OpenFlow Blocks</span></div>
+          </div>
+        </div>
+
+        <div class="dashboard-grid-row">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">Active Threats Requiring Mitigation</div>
+            </div>
+            <div class="table-responsive-wrapper">
+              <table class="vortex-table">
+                <thead>
+                  <tr>
+                    <th>Threat ID</th>
+                    <th>Attack Type</th>
+                    <th>Source IP</th>
+                    <th>Target IP</th>
+                    <th>Packet Rate</th>
+                    <th>Risk Score</th>
+                    <th>Action</th>
+                    <th>Mitigate</th>
+                  </tr>
+                </thead>
+                <tbody id="sec-threats-tbody">
+                  <tr><td colspan="8" style="text-align:center; color:#64748b; padding:20px;">Loading active threat table...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">Attack Categories</div>
+            </div>
+            <div id="sec-attack-dist-bars" style="padding: 10px 0;"></div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top: 14px;">
+          <div class="card-header">
+            <div class="card-title">Historical Security Events</div>
+          </div>
+          <div class="table-responsive-wrapper">
+            <table class="vortex-table">
+              <thead>
+                <tr>
+                  <th>Timestamp</th>
+                  <th>Attack Type</th>
+                  <th>Source IP</th>
+                  <th>Target IP</th>
+                  <th>Risk Score</th>
+                  <th>Recommended Action</th>
+                </tr>
+              </thead>
+              <tbody id="sec-events-tbody">
+                <tr><td colspan="6" style="text-align:center; color:#64748b; padding:18px;">Loading event history...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== VIEW 5: QOS CENTER ==================== -->
+      <section id="view-qos" class="view-section">
+        <div class="dashboard-hero-header">
+          <div class="hero-title-group">
+            <h1>
+              <svg class="icon icon-lg" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+              <span>Quality of Service (QoS) Center</span>
+            </h1>
+            <p>Machine learning traffic classification, EF/AF/BE priority queues, latency guarantees, and SLA compliance.</p>
+          </div>
+          <button class="btn btn-secondary btn-sm" onclick="QoS.fetchData()">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+            <span>Refresh QoS</span>
+          </button>
+        </div>
+
+        <div class="dashboard-grid-tri">
+          <div class="card">
+            <div class="card-header"><div class="card-title">Average Fabric Latency</div></div>
+            <div id="qos-gauge-latency" class="gauge-container"></div>
+          </div>
+          <div class="card">
+            <div class="card-header"><div class="card-title">Packet Loss Ratio</div></div>
+            <div id="qos-gauge-loss" class="gauge-container"></div>
+          </div>
+          <div class="card">
+            <div class="card-header"><div class="card-title">Composite QoS Health</div></div>
+            <div id="qos-gauge-health" class="gauge-container"></div>
+          </div>
+        </div>
+
+        <div class="dashboard-grid-row" style="margin-top: 14px;">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">Enforced QoS Policies & Queues</div>
+            </div>
+            <div class="table-responsive-wrapper">
+              <table class="vortex-table">
+                <thead>
+                  <tr>
+                    <th>Policy Name</th>
+                    <th>Class</th>
+                    <th>Priority</th>
+                    <th>Queue</th>
+                    <th>Bandwidth</th>
+                    <th>DSCP</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="qos-policies-tbody">
+                  <tr><td colspan="7" style="text-align: center; color: #64748b; padding: 18px;">Loading QoS policies...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">Traffic Distribution</div>
+            </div>
+            <div id="qos-traffic-dist-bars" style="margin-bottom: 14px;"></div>
+            <div class="card-title" style="margin-bottom: 6px;">SLA Violations & Alerts</div>
+            <div id="qos-violations-list"></div>
+            <div class="card-title" style="margin: 10px 0 6px 0;">Optimization Advice</div>
+            <div id="qos-recommendations-list"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== VIEW 6: AI & ML CENTER ==================== -->
+      <section id="view-ai" class="view-section">
+        <div class="dashboard-hero-header">
+          <div class="hero-title-group">
+            <h1>
+              <svg class="icon icon-lg" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>
+              <span>AI & Machine Learning Center</span>
+            </h1>
+            <p>Trained neural and tree models, real evaluation metrics (Accuracy, Precision, Recall, F1), and interactive predictor.</p>
+          </div>
+          <button class="btn btn-secondary btn-sm" onclick="AI.fetchMetrics()">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+            <span>Refresh Metrics</span>
+          </button>
+        </div>
+
+        <div class="dashboard-grid-row">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">Security Threat Classifier (RandomForest + IsolationForest)</div>
+            </div>
+            <div id="ai-sec-model-metrics">Loading model metrics...</div>
+            <div class="card-title" style="font-size:12.5px; margin: 10px 0 6px 0;">Key Feature Importances</div>
+            <div id="ai-feature-importance-bars"></div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">QoS Traffic Classifier (Multi-Class RF)</div>
+            </div>
+            <div id="ai-qos-model-metrics">Loading model metrics...</div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top: 14px;">
+          <div class="card-header">
+            <div class="card-title">Interactive Live Flow Prediction Sandbox</div>
+          </div>
+          <p style="font-size: 12px; color: #94a3b8; margin-bottom: 12px;">
+            Test the live AI pipeline by feeding custom flow parameters. The models evaluate the feature vector in real-time.
+          </p>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px;">
+            <div class="form-group">
+              <label class="form-label">Packet Rate (pps)</label>
+              <input type="number" id="sb-pkt-rate" class="form-input" value="18000">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Byte Rate (bytes/sec)</label>
+              <input type="number" id="sb-byte-rate" class="form-input" value="9200000">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Destination Port</label>
+              <input type="number" id="sb-dst-port" class="form-input" value="80">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Flow Duration (sec)</label>
+              <input type="number" id="sb-duration" class="form-input" value="15">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Protocol</label>
+              <select id="sb-proto" class="form-select">
+                <option value="TCP">TCP (6)</option>
+                <option value="UDP" selected>UDP (17)</option>
+                <option value="ICMP">ICMP (1)</option>
+              </select>
+            </div>
+          </div>
+
+          <button id="ai-run-predict-btn" class="btn btn-primary" style="margin-top: 8px;">Run AI Inference</button>
+          <div id="ai-sandbox-results"></div>
+        </div>
+      </section>
+
+      <!-- ==================== VIEW 7: DEMO SCENARIOS ==================== -->
+      <section id="view-scenarios" class="view-section">
+        <div class="dashboard-hero-header">
+          <div class="hero-title-group">
+            <h1>
+              <svg class="icon icon-lg" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              <span>Demo Simulation Scenario Control</span>
+            </h1>
+            <p>Control the Python simulation engine to test the platform under various real-world network conditions.</p>
+          </div>
+          <div class="scenario-badge-current">ACTIVE: <span id="active-scenario-badge">NORMAL NETWORK</span></div>
+        </div>
+
+        <div class="card" style="margin-bottom: 14px;">
+          <p style="font-size: 12.5px; color: #94a3b8; line-height: 1.6;">
+            Select a scenario below. The backend will instantly generate matching OpenFlow telemetry streams, compute counter delta rates, run AI security/QoS inference, trigger alerts, and update charts in real-time.
+          </p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px;">
+          <div class="card" style="display:flex; flex-direction:column; justify-content:space-between;">
+            <div>
+              <div style="font-weight: 700; color: #00f5a0; font-size: 14px; margin-bottom: 4px;">1. Normal Network</div>
+              <p style="font-size: 11.5px; color: #94a3b8; margin-bottom: 10px;">Stable baseline traffic across all 4 hosts. 0% loss, ~14ms latency, 100% health.</p>
+            </div>
+            <button class="btn btn-primary scenario-trigger-btn" data-scenario="NORMAL" onclick="Scenarios.setScenario('NORMAL')">Activate Normal</button>
+          </div>
+
+          <div class="card" style="display:flex; flex-direction:column; justify-content:space-between;">
+            <div>
+              <div style="font-weight: 700; color: #ef4444; font-size: 14px; margin-bottom: 4px;">2. DDoS UDP Flood</div>
+              <p style="font-size: 11.5px; color: #94a3b8; margin-bottom: 10px;">High-rate flood from h4 (10.0.0.4) to h1 (10.0.0.1). AI detects CRITICAL attack, raises incident.</p>
+            </div>
+            <button class="btn btn-secondary scenario-trigger-btn" data-scenario="DDOS_ATTACK" onclick="Scenarios.setScenario('DDOS_ATTACK')">Trigger DDoS Attack</button>
+          </div>
+
+          <div class="card" style="display:flex; flex-direction:column; justify-content:space-between;">
+            <div>
+              <div style="font-weight: 700; color: #f59e0b; font-size: 14px; margin-bottom: 4px;">3. Multi-Port Scan</div>
+              <p style="font-size: 11.5px; color: #94a3b8; margin-bottom: 10px;">Rapid probing across ports 20..8080 from h4. AI flags PORT_SCAN anomaly and recommends ISOLATE.</p>
+            </div>
+            <button class="btn btn-secondary scenario-trigger-btn" data-scenario="PORT_SCAN" onclick="Scenarios.setScenario('PORT_SCAN')">Trigger Port Scan</button>
+          </div>
+
+          <div class="card" style="display:flex; flex-direction:column; justify-content:space-between;">
+            <div>
+              <div style="font-weight: 700; color: #f59e0b; font-size: 14px; margin-bottom: 4px;">4. SSH Brute Force</div>
+              <p style="font-size: 11.5px; color: #94a3b8; margin-bottom: 10px;">Repetitive authentication burst targeting port 22 on h2. AI raises HIGH security alert.</p>
+            </div>
+            <button class="btn btn-secondary scenario-trigger-btn" data-scenario="BRUTE_FORCE" onclick="Scenarios.setScenario('BRUTE_FORCE')">Trigger Brute Force</button>
+          </div>
+
+          <div class="card" style="display:flex; flex-direction:column; justify-content:space-between;">
+            <div>
+              <div style="font-weight: 700; color: #38bdf8; font-size: 14px; margin-bottom: 4px;">5. Network Congestion</div>
+              <p style="font-size: 11.5px; color: #94a3b8; margin-bottom: 10px;">Heavy bulk FTP transfer saturates link bandwidth (92%), latency climbs, packet loss reaches 3.8%.</p>
+            </div>
+            <button class="btn btn-secondary scenario-trigger-btn" data-scenario="NETWORK_CONGESTION" onclick="Scenarios.setScenario('NETWORK_CONGESTION')">Trigger Congestion</button>
+          </div>
+
+          <div class="card" style="display:flex; flex-direction:column; justify-content:space-between;">
+            <div>
+              <div style="font-weight: 700; color: #a855f7; font-size: 14px; margin-bottom: 4px;">6. QoS Degradation</div>
+              <p style="font-size: 11.5px; color: #94a3b8; margin-bottom: 10px;">Jitter spikes to 28ms, voice/video quality degrades, QoS policy engine flags violations.</p>
+            </div>
+            <button class="btn btn-secondary scenario-trigger-btn" data-scenario="QOS_DEGRADATION" onclick="Scenarios.setScenario('QOS_DEGRADATION')">Trigger QoS Drop</button>
+          </div>
+
+          <div class="card" style="display:flex; flex-direction:column; justify-content:space-between;">
+            <div>
+              <div style="font-weight: 700; color: #f59e0b; font-size: 14px; margin-bottom: 4px;">7. High Latency Spike</div>
+              <p style="font-size: 11.5px; color: #94a3b8; margin-bottom: 10px;">Simulated link transit delay rises to 90ms+ across all switches.</p>
+            </div>
+            <button class="btn btn-secondary scenario-trigger-btn" data-scenario="HIGH_LATENCY" onclick="Scenarios.setScenario('HIGH_LATENCY')">Trigger High Latency</button>
+          </div>
+
+          <div class="card" style="display:flex; flex-direction:column; justify-content:space-between;">
+            <div>
+              <div style="font-weight: 700; color: #00f2fe; font-size: 14px; margin-bottom: 4px;">8. Mitigation & Recovery</div>
+              <p style="font-size: 11.5px; color: #94a3b8; margin-bottom: 10px;">OpenFlow DROP/RATE_LIMIT rules clear attack streams, network health recovers to 98%.</p>
+            </div>
+            <button class="btn btn-primary scenario-trigger-btn" data-scenario="RECOVERY" onclick="Scenarios.setScenario('RECOVERY')">Execute Recovery</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== VIEW: AI ROOT-CAUSE ANALYSIS ==================== -->
+      <section id="view-root-cause" class="view-section">
+        <div class="dashboard-hero-header">
+          <div class="hero-title-group">
+            <h1>
+              <svg class="icon icon-lg" style="color:var(--accent-cyan);" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              <span>AI ROOT-CAUSE ANALYSIS</span>
+            </h1>
+            <p>Automated telemetry and security anomaly correlation &bull; Root cause diagnosis &bull; Impact & recovery tracking</p>
+          </div>
+          <div class="hero-controls">
+            <span class="rca-status-badge stable" id="rca-status-badge">
+              <span class="rca-pulse-dot"></span>
+              <span>STABLE</span>
+            </span>
+            <button class="btn btn-secondary btn-sm" onclick="RootCause.reanalyze()">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+              <span>Re-analyze Datapath</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="rca-container">
+          <!-- Primary Diagnostics Hero Card -->
+          <div class="rca-hero-card">
+            <div class="rca-summary-grid">
+              <div>
+                <div class="rca-diagnosis-title">Diagnosed Incident</div>
+                <div class="rca-diagnosis-incident" id="rca-incident-title">Normal Baseline Operation</div>
+                <div class="rca-diagnosis-title" style="margin-top:12px;">Identified Root Cause</div>
+                <div class="rca-root-cause-text" id="rca-root-cause-text">All OpenFlow switches and host endpoints are operating within normal baseline telemetry parameters.</div>
+              </div>
+              <div class="rca-kpi-card">
+                <div>
+                  <div class="rca-diagnosis-title">AI Diagnostic Confidence</div>
+                  <div class="rca-conf-score"><span id="rca-confidence-val">97.4%</span></div>
+                  <div class="rca-conf-bar-bg">
+                    <div id="rca-confidence-bar" class="rca-conf-bar-fill" style="width: 97.4%;"></div>
+                  </div>
+                </div>
+                <div style="font-size:11px; color:var(--text-muted); margin-top:10px;">
+                  Derived from Random Forest feature importance, flow velocity, and entropy signals.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Evidence & Impact 2-Column Grid -->
+          <div class="rca-detail-grid">
+            <!-- Evidence Panel -->
+            <div class="rca-panel">
+              <div class="rca-panel-header">
+                <div class="rca-panel-title">
+                  <svg class="icon icon-sm" style="color:var(--accent-cyan);" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                  <span>Correlated Telemetry Evidence</span>
+                </div>
+                <span class="badge badge-subtle">LIVE SIGNALS</span>
+              </div>
+              <div class="rca-evidence-list" id="rca-evidence-list">
+                <!-- Dynamically populated -->
+              </div>
+            </div>
+
+            <!-- Impact & Mitigation Panel -->
+            <div class="rca-panel">
+              <div class="rca-panel-header">
+                <div class="rca-panel-title">
+                  <svg class="icon icon-sm" style="color:#ef4444;" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                  <span>Observed Impact & Mitigation Action</span>
+                </div>
+                <span class="badge badge-subtle">DATAPATH</span>
+              </div>
+              <div class="rca-impact-list" id="rca-impact-list">
+                <!-- Dynamically populated -->
+              </div>
+              <div style="display:flex; flex-direction:column; gap:8px; margin-top:8px;">
+                <div class="rca-action-card">
+                  <div>
+                    <div class="rca-action-title">Mitigation Enforced</div>
+                    <div class="rca-action-desc" id="rca-mitigation-text">None required</div>
+                  </div>
+                  <svg class="icon icon-sm" style="color:#34d399;" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                </div>
+                <div class="rca-action-card" style="border-color:rgba(0,242,254,0.25); background:rgba(0,242,254,0.04);">
+                  <div>
+                    <div class="rca-action-title" style="color:var(--accent-cyan);">Recovery Status</div>
+                    <div class="rca-action-desc" id="rca-recovery-text">Network recovering</div>
+                  </div>
+                  <svg class="icon icon-sm" style="color:var(--accent-cyan);" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Logical Event Chain Timeline -->
+          <div class="rca-timeline-card">
+            <div style="font-weight:700; font-size:13px; color:var(--text-primary); margin-bottom:12px; display:flex; align-items:center; gap:8px;">
+              <svg class="icon icon-sm" style="color:var(--accent-cyan);" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <span>Chronological Event Chain Timeline</span>
+            </div>
+            <div class="rca-timeline-steps" id="rca-timeline-steps">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+
+          <!-- Visual Relationship Graph -->
+          <div class="rca-graph-card">
+            <div style="font-weight:700; font-size:13px; color:var(--text-primary); margin-bottom:12px; display:flex; align-items:center; gap:8px;">
+              <svg class="icon icon-sm" style="color:var(--accent-cyan);" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+              <span>AI Root-Cause Relationship Pipeline</span>
+            </div>
+            <div class="rca-graph-container" id="rca-graph-container">
+              <!-- Dynamically populated nodes and arrows -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== VIEW 7b: DIGITAL TWIN ==================== -->
+      <section id="view-digital-twin" class="view-section">
+        <!-- Hero Header -->
+        <div class="dashboard-hero-header">
+          <div class="hero-title-group">
+            <h1>
+              <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+              <span>VORTEX Network Digital Twin</span>
+            </h1>
+            <p>Virtual OpenFlow snapshot experimentation, what-if resilience simulations, and automated failover path analysis.</p>
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <button class="btn btn-secondary btn-sm" onclick="DigitalTwin.fetchSnapshot()" title="Capture fresh live snapshot">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+              <span>Refresh Snapshot</span>
+            </button>
+            <button class="btn btn-secondary btn-sm" onclick="DigitalTwin.resetSimulation()" title="Reset virtual model to live state">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><polyline points="3 3 3 8 8 8"/></svg>
+              <span>Reset</span>
+            </button>
+            <button class="btn btn-primary btn-sm" onclick="DigitalTwin.exportReport()" title="Export simulation report">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <span>Export Report</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Safety Banner & Mode Pill -->
+        <div class="twin-mode-banner">
+          <div class="twin-banner-content">
+            <svg class="twin-banner-icon" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            <div>
+              <div class="twin-banner-title">DIGITAL TWIN SIMULATION ENVIRONMENT</div>
+              <div class="twin-banner-subtitle">All what-if scenarios execute strictly within an isolated in-memory graph. The live SDN data plane is never modified.</div>
+            </div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <span style="font-size: 11px; color: #94a3b8;">Snapshot: <span id="twin-snapshot-time" class="mono">Just now</span></span>
+            <span id="twin-mode-pill" class="twin-mode-pill live">● LIVE SNAPSHOT SYNCHRONIZED</span>
+          </div>
+        </div>
+
+        <!-- Simulation Controls Toolbar -->
+        <div class="twin-control-card">
+          <div class="twin-toolbar-grid">
+            <div class="twin-field-group">
+              <label for="twin-scenario-select" class="twin-field-label">What-If Scenario</label>
+              <select id="twin-scenario-select" class="form-select form-select-sm">
+                <option value="disable_switch" selected>1. Disable Switch</option>
+                <option value="disable_link">2. Disable Link</option>
+                <option value="increase_traffic">3. Increase Traffic</option>
+                <option value="simulate_ddos">4. Simulate DDoS</option>
+                <option value="apply_qos_policy">5. Apply QoS Policy</option>
+                <option value="remove_qos_policy">6. Remove QoS Policy</option>
+                <option value="add_traffic_load">7. Add Traffic Load</option>
+                <option value="isolate_host">8. Isolate Host</option>
+              </select>
+            </div>
+
+            <div class="twin-field-group" id="twin-target-group">
+              <label for="twin-target-select" class="twin-field-label">Target Switch</label>
+              <select id="twin-target-select" class="form-select form-select-sm">
+                <option value="s3" selected>Switch 3 (s3) - Aggregation (Recommended test)</option>
+                <option value="s2">Switch 2 (s2) - Core Transit</option>
+                <option value="s1">Switch 1 (s1) - Edge Gateway</option>
+                <option value="s4">Switch 4 (s4) - Edge Gateway</option>
+              </select>
+            </div>
+
+            <div class="twin-field-group" id="twin-param-group" style="display: none;"></div>
+
+            <div class="twin-btn-group">
+              <button id="twin-run-btn" class="btn btn-primary" onclick="DigitalTwin.runSimulation()">
+                <svg class="icon icon-sm" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                <span>RUN SIMULATION</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Main Simulation Grid -->
+        <div class="twin-main-grid">
+          <!-- Left/Top: Interactive Digital Twin Canvas -->
+          <div class="twin-canvas-card">
+            <div class="twin-canvas-header">
+              <div class="twin-canvas-title">
+                <svg class="icon icon-sm" viewBox="0 0 24 24" style="color:var(--accent-cyan);"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+                <span>Digital Twin Topology & Failover Flow Map</span>
+              </div>
+              <div style="display: flex; gap: 12px; font-size: 11px; color: #94a3b8;">
+                <span>Click any switch/host to inspect</span>
+              </div>
+            </div>
+
+            <div id="twin-svg-container" class="twin-svg-container">
+              <!-- SVG Topology rendered by digital_twin.js -->
+            </div>
+          </div>
+
+          <!-- Right: Resilience, Comparison, & SPOF Cards -->
+          <div class="twin-side-panel">
+            <!-- Resilience Score Card -->
+            <div class="twin-resilience-card">
+              <div class="twin-resilience-header">
+                <span class="twin-resilience-title">Network Resilience Score</span>
+                <span id="twin-resilience-delta" class="twin-score-delta neutral">(Live Baseline)</span>
+              </div>
+              <div class="twin-score-display">
+                <span id="twin-resilience-val" class="twin-score-val">96%</span>
+              </div>
+              <div class="twin-score-bar-bg">
+                <div id="twin-resilience-bar" class="twin-score-bar-fill" style="width: 96%;"></div>
+              </div>
+            </div>
+
+            <!-- Before vs After Comparison Card -->
+            <div class="twin-comparison-card">
+              <div style="font-weight: 700; font-size: 12.5px; color: #ffffff; margin-bottom: 6px;">Live vs Predicted Comparison</div>
+              <table class="twin-comp-table">
+                <thead>
+                  <tr>
+                    <th>Metric</th>
+                    <th>Current</th>
+                    <th>Simulated</th>
+                  </tr>
+                </thead>
+                <tbody id="twin-comp-tbody">
+                  <!-- Injected dynamically -->
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Critical Node & SPOF Card -->
+            <div class="twin-spof-card">
+              <div style="font-weight: 700; font-size: 12.5px; color: #ffffff; margin-bottom: 4px;">Critical Infrastructure Analysis</div>
+              <div id="twin-critical-list" class="twin-critical-list">
+                <!-- Injected dynamically -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lower Grid: Timeline & Simulation Insights -->
+        <div class="card-grid col-2" style="margin-bottom: 14px;">
+          <!-- Simulation Timeline -->
+          <div class="card" style="padding: 16px;">
+            <div style="font-weight: 700; font-size: 13px; color: #ffffff; margin-bottom: 8px; display:flex; align-items:center; gap:8px;">
+              <svg class="icon icon-sm" viewBox="0 0 24 24" style="color:var(--accent-cyan);"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <span>Simulation Execution Timeline</span>
+            </div>
+            <div id="twin-timeline-list" class="twin-timeline-list">
+              <!-- Steps injected dynamically -->
+            </div>
+          </div>
+
+          <!-- Resilience Insights & Path Analysis -->
+          <div class="card" style="padding: 16px; background: rgba(0, 242, 254, 0.03); border-color: rgba(0, 242, 254, 0.2);">
+            <div style="font-weight: 700; font-size: 13px; color: #00f2fe; margin-bottom: 8px; display:flex; align-items:center; gap:8px;">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+              <span>Resilience Insights & Conclusion</span>
+            </div>
+            <div id="twin-insights-content">
+              <!-- Injected dynamically -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Session Simulation History -->
+        <div class="twin-history-card">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+            <div style="font-weight: 700; font-size: 13px; color: #ffffff;">Session Simulation History</div>
+            <button class="btn btn-secondary btn-sm" onclick="DigitalTwin.clearHistory()">Clear History</button>
+          </div>
+          <div class="table-responsive-wrapper">
+            <table class="vortex-table">
+              <thead>
+                <tr>
+                  <th>Run ID</th>
+                  <th>Scenario</th>
+                  <th>Target Component</th>
+                  <th>Survivability</th>
+                  <th>Resilience</th>
+                  <th>Executed At</th>
+                  <th style="text-align: right;">Action</th>
+                </tr>
+              </thead>
+              <tbody id="twin-history-tbody">
+                <tr><td colspan="7" style="text-align:center; color:#64748b; padding:16px;">No simulation runs in current session.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== VIEW: PREDICTIVE INTELLIGENCE ==================== -->
+      <section id="view-predictive" class="view-section">
+        <div class="dashboard-hero-header">
+          <div class="hero-title-group">
+            <h1>
+              <svg class="icon icon-lg" style="color:var(--accent-cyan);" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+              <span>Predictive Network Intelligence</span>
+            </h1>
+            <p>Early warning and network trend analysis &bull; Statistical anomaly forecasting &bull; Risk projection</p>
+          </div>
+          <div class="hero-controls">
+            <div class="pred-time-pills">
+              <button class="pred-time-pill active" data-window="15m">15m</button>
+              <button class="pred-time-pill" data-window="1h">1h</button>
+              <button class="pred-time-pill" data-window="6h">6h</button>
+              <button class="pred-time-pill" data-window="24h">24h</button>
+              <button class="pred-time-pill" data-window="7d">7d</button>
+            </div>
+            <button class="btn btn-secondary btn-sm" onclick="Predictive.refresh()">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+              <span>Refresh Analysis</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 6 KPI Cards -->
+        <div class="kpi-grid" style="grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); margin-bottom:14px;">
+          <!-- 1. Network Risk -->
+          <div class="kpi-card red">
+            <div class="kpi-top"><span class="kpi-label">Predictive Network Risk</span><span class="kpi-icon"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg></span></div>
+            <div class="kpi-value" id="pred-kpi-network-risk">--</div>
+            <div class="kpi-bottom"><span class="kpi-trend" id="pred-kpi-risk-badge">LOW</span><span class="kpi-updated">Predictive Engine</span></div>
+          </div>
+          <!-- 2. Traffic Trend -->
+          <div class="kpi-card cyan">
+            <div class="kpi-top"><span class="kpi-label">Traffic Trend</span><span class="kpi-icon"><svg class="icon icon-sm" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></span></div>
+            <div class="kpi-value" id="pred-kpi-traffic-trend" style="font-size:14px;">--</div>
+            <div class="kpi-bottom"><span class="kpi-trend neutral">&bull; Throughput</span><span class="kpi-updated">Rolling Analysis</span></div>
+          </div>
+          <!-- 3. Security Risk -->
+          <div class="kpi-card red">
+            <div class="kpi-top"><span class="kpi-label">Security Risk</span><span class="kpi-icon"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span></div>
+            <div class="kpi-value" id="pred-kpi-security-risk">--</div>
+            <div class="kpi-bottom"><span class="kpi-trend neutral">&bull; Threat Trend</span><span class="kpi-updated">Security Analysis</span></div>
+          </div>
+          <!-- 4. QoS Risk -->
+          <div class="kpi-card orange">
+            <div class="kpi-top"><span class="kpi-label">QoS Risk</span><span class="kpi-icon"><svg class="icon icon-sm" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></span></div>
+            <div class="kpi-value" id="pred-kpi-qos-risk">--</div>
+            <div class="kpi-bottom"><span class="kpi-trend neutral">&bull; Latency + Loss</span><span class="kpi-updated">QoS Analysis</span></div>
+          </div>
+          <!-- 5. Predicted Anomalies -->
+          <div class="kpi-card purple">
+            <div class="kpi-top"><span class="kpi-label">Predicted Anomalies</span><span class="kpi-icon"><svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></span></div>
+            <div class="kpi-value" id="pred-kpi-anomalies-count">--</div>
+            <div class="kpi-bottom"><span class="kpi-trend neutral">&bull; Statistical</span><span class="kpi-updated">Z-Score / IQR</span></div>
+          </div>
+          <!-- 6. Early Warnings -->
+          <div class="kpi-card orange">
+            <div class="kpi-top"><span class="kpi-label">Early Warnings</span><span class="kpi-icon"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span></div>
+            <div class="kpi-value" id="pred-kpi-warnings-count">--</div>
+            <div class="kpi-bottom"><span class="kpi-trend neutral">&bull; Active</span><span class="kpi-updated">Cooldown Protected</span></div>
+          </div>
+        </div>
+
+        <!-- PREDICTIVE NETWORK INTELLIGENCE HERO PANEL -->
+        <div class="card" style="padding: 20px; margin-bottom: 14px; background: linear-gradient(135deg, rgba(15,23,42,0.9), rgba(17,28,51,0.95)); border-color: rgba(56,189,248,0.25);">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:16px; border-bottom:1px solid rgba(255,255,255,0.06); padding-bottom:12px;">
+            <div>
+              <div style="font-size:11px; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-muted); font-weight:700;">PREDICTIVE NETWORK INTELLIGENCE</div>
+              <div style="font-size:18px; font-weight:800; color:var(--text-primary); margin-top:2px;">Near-Term Health & Trend Trajectory</div>
+            </div>
+            <div style="display:flex; align-items:center; gap:10px;">
+              <span class="badge" id="pred-hero-risk-badge" style="background:rgba(251,191,36,0.2); color:#fbbf24; border:1px solid rgba(251,191,36,0.4);">MEDIUM</span>
+              <span style="font-size:12px; color:var(--text-secondary); font-family:var(--font-mono);">Confidence: <strong id="pred-hero-confidence" style="color:var(--accent-cyan);">91%</strong></span>
+            </div>
+          </div>
+
+          <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap:14px; margin-bottom:16px;">
+            <div style="background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.05); border-radius:var(--radius-md); padding:12px 14px;">
+              <div style="font-size:11px; color:var(--text-muted); text-transform:uppercase;">Current Health</div>
+              <div style="font-size:24px; font-weight:800; color:#34d399; font-family:var(--font-mono); margin-top:4px;" id="pred-hero-cur-health">94.2%</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.05); border-radius:var(--radius-md); padding:12px 14px;">
+              <div style="font-size:11px; color:var(--text-muted); text-transform:uppercase;">Predicted Health (5m)</div>
+              <div style="font-size:24px; font-weight:800; color:#fbbf24; font-family:var(--font-mono); margin-top:4px;" id="pred-hero-pred-health">89.7%</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.05); border-radius:var(--radius-md); padding:12px 14px; grid-column:span 2;">
+              <div style="font-size:11px; color:var(--text-muted); text-transform:uppercase;">Forecast Reason</div>
+              <div style="font-size:13.5px; font-weight:600; color:var(--text-primary); margin-top:6px;" id="pred-hero-reason">S3 utilization increasing</div>
+            </div>
+          </div>
+
+          <!-- Forecast Horizon Steps & Curve -->
+          <div style="background:rgba(6,9,19,0.7); border:1px solid var(--border-subtle); border-radius:var(--radius-md); padding:14px 16px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+              <span style="font-size:11px; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.05em;">Forecast Horizon: NOW &rarr; 1m &rarr; 5m &rarr; 10m</span>
+              <span style="font-size:11px; color:var(--accent-cyan); font-family:var(--font-mono);">Smooth Trajectory Projection</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; margin-bottom:10px; font-family:var(--font-mono); font-size:12px;">
+              <div style="text-align:center;"><span style="color:var(--text-muted);">NOW</span><br><strong id="pred-step-now" style="color:#34d399; font-size:14px;">94%</strong></div>
+              <div style="text-align:center;"><span style="color:var(--text-muted);">1m</span><br><strong id="pred-step-1m" style="color:#38bdf8; font-size:14px;">93%</strong></div>
+              <div style="text-align:center;"><span style="color:var(--text-muted);">5m</span><br><strong id="pred-step-5m" style="color:#fbbf24; font-size:14px;">90%</strong></div>
+              <div style="text-align:center;"><span style="color:var(--text-muted);">10m</span><br><strong id="pred-step-10m" style="color:#f87171; font-size:14px;">88%</strong></div>
+            </div>
+            <div id="pred-smooth-curve-container" style="width:100%; height:60px;"></div>
+          </div>
+        </div>
+
+        <!-- PREDICTIVE SECURITY & PREDICTIVE QOS ROW -->
+        <div class="twin-grid" style="grid-template-columns: 1fr 1fr; gap:14px; margin-bottom:14px;">
+          <!-- Security Risk Forecast -->
+          <div class="card" style="padding:16px;">
+            <div class="card-header" style="border:none; padding:0 0 10px 0;">
+              <div class="card-title">
+                <svg class="icon icon-sm" style="color:#ef4444;" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                SECURITY RISK FORECAST
+              </div>
+            </div>
+            <div style="display:flex; gap:12px; margin-bottom:10px;">
+              <div style="flex:1; background:rgba(255,255,255,0.02); padding:10px; border-radius:var(--radius-sm); border:1px solid rgba(255,255,255,0.05);">
+                <div style="font-size:10.5px; color:var(--text-muted);">Current Risk</div>
+                <div style="font-size:18px; font-weight:700; color:#34d399;" id="pred-sec-curr">LOW</div>
+              </div>
+              <div style="flex:1; background:rgba(255,255,255,0.02); padding:10px; border-radius:var(--radius-sm); border:1px solid rgba(255,255,255,0.05);">
+                <div style="font-size:10.5px; color:var(--text-muted);">Predicted Risk</div>
+                <div style="font-size:18px; font-weight:700; color:#fbbf24;" id="pred-sec-pred">MEDIUM</div>
+              </div>
+            </div>
+            <div style="font-size:12px; color:var(--text-secondary); background:rgba(0,0,0,0.2); padding:8px 12px; border-radius:var(--radius-sm); border-left:3px solid #fbbf24;" id="pred-sec-reason">
+              Abnormal flow rate increasing.
+            </div>
+          </div>
+
+          <!-- QoS Forecast -->
+          <div class="card" style="padding:16px;">
+            <div class="card-header" style="border:none; padding:0 0 10px 0;">
+              <div class="card-title">
+                <svg class="icon icon-sm" style="color:var(--accent-cyan);" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                QoS FORECAST
+              </div>
+            </div>
+            <div style="display:flex; gap:12px; margin-bottom:10px;">
+              <div style="flex:1; background:rgba(255,255,255,0.02); padding:10px; border-radius:var(--radius-sm); border:1px solid rgba(255,255,255,0.05);">
+                <div style="font-size:10.5px; color:var(--text-muted);">Current QoS</div>
+                <div style="font-size:18px; font-weight:700; color:#34d399;" id="pred-qos-curr">98%</div>
+              </div>
+              <div style="flex:1; background:rgba(255,255,255,0.02); padding:10px; border-radius:var(--radius-sm); border:1px solid rgba(255,255,255,0.05);">
+                <div style="font-size:10.5px; color:var(--text-muted);">Predicted QoS</div>
+                <div style="font-size:18px; font-weight:700; color:#fbbf24;" id="pred-qos-pred">93%</div>
+              </div>
+            </div>
+            <div style="font-size:12px; color:var(--text-secondary); background:rgba(0,0,0,0.2); padding:8px 12px; border-radius:var(--radius-sm); border-left:3px solid var(--accent-cyan);" id="pred-qos-issue">
+              Latency increasing on affected traffic class.
+            </div>
+          </div>
+        </div>
+
+        <!-- MULTI-METRIC TREND FORECAST TABLE -->
+        <div class="card" style="margin-bottom:14px;">
+          <div class="card-header">
+            <div class="card-title">
+              <svg class="icon icon-sm" style="color:var(--accent-cyan);" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+              Predictive Metric Trends & Forecast Breakdown
+            </div>
+            <span class="badge badge-subtle">HORIZON 1m / 5m / 10m</span>
+          </div>
+          <div class="card-body" style="padding:0;">
+            <div class="table-wrapper">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Metric</th>
+                    <th>Current</th>
+                    <th>+1m Forecast</th>
+                    <th>+5m Forecast</th>
+                    <th>+10m Forecast</th>
+                    <th>Trend Trajectory</th>
+                    <th>Projected Risk</th>
+                  </tr>
+                </thead>
+                <tbody id="pred-multi-metrics-tbody">
+                  <tr><td colspan="7" style="text-align:center; color:#64748b; padding:16px;">Collecting telemetry for prediction...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Health vs Predictive Risk Contrast Banner -->
+        <div class="pred-contrast-banner">
+          <div class="pred-contrast-side">
+            <div>
+              <div class="pred-contrast-val health" id="pred-contrast-health-val">96%</div>
+              <div class="pred-contrast-desc">
+                <strong style="color:#10b981;">Current Network Health</strong><br>
+                Live operational baseline measured by VORTEX telemetry engine.
+              </div>
+            </div>
+          </div>
+          <div class="pred-contrast-side">
+            <div>
+              <div class="pred-contrast-val risk-low" id="pred-contrast-risk-val">23%</div>
+              <div class="pred-contrast-desc">
+                <strong style="color:#38bdf8;">Predictive Network Risk</strong><br>
+                <span id="pred-contrast-risk-desc">Live network is healthy and telemetry operates within normal baseline bounds. Predictive risk is minimal.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Forecast Chart + Early Warnings Row -->
+        <div class="twin-grid" style="grid-template-columns: 1fr 1fr; gap:14px; margin-bottom:14px;">
+          <!-- Forecast Chart -->
+          <div class="pred-chart-card">
+            <div class="pred-chart-header">
+              <div>
+                <div class="card-title" style="margin:0;">Traffic Utilization Forecast</div>
+                <div style="font-size:11px; color:#64748b; margin-top:2px;">Historical baseline &rarr; Current &rarr; Near-term estimate (ESTIMATE)</div>
+              </div>
+              <div class="pred-chart-legend">
+                <div class="pred-legend-item"><div class="pred-legend-line solid"></div><span>Historical</span></div>
+                <div class="pred-legend-item"><div class="pred-legend-line dashed"></div><span>Forecast</span></div>
+                <div class="pred-legend-item"><div class="pred-legend-line threshold"></div><span>Risk Threshold</span></div>
+              </div>
+            </div>
+            <div id="pred-svg-chart-container" class="pred-svg-chart-container"></div>
+          </div>
+
+          <!-- Early Warnings Panel -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">
+                <svg class="icon icon-sm" style="color:#fbbf24;" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                Early Warnings
+              </div>
+            </div>
+            <div class="card-body">
+              <div id="pred-warning-list" class="pred-warning-list"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Device Risk + Top Risks Row -->
+        <div class="twin-grid" style="grid-template-columns: 1fr 1fr; gap:14px; margin-bottom:14px;">
+          <!-- Device Risk Rankings -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">
+                <svg class="icon icon-sm" style="color:#38bdf8;" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+                Device Risk Assessment
+              </div>
+            </div>
+            <div class="card-body">
+              <div id="pred-device-risk-list"></div>
+            </div>
+          </div>
+
+          <!-- Model Information -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">
+                <svg class="icon icon-sm" style="color:#a78bfa;" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/></svg>
+                Predictive Engine Status
+              </div>
+            </div>
+            <div class="card-body">
+              <div id="pred-model-info-grid" class="pred-model-meta-grid"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Predicted Anomalies Table -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">
+              <svg class="icon icon-sm" style="color:#f87171;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              Detected Statistical Anomalies
+            </div>
+            <div style="display:flex; gap:6px; flex-wrap:wrap;">
+              <button class="pred-time-pill pred-anom-tab active" data-cat="ALL" onclick="Predictive.filterAnomalies('ALL')">ALL</button>
+              <button class="pred-time-pill pred-anom-tab" data-cat="TRAFFIC" onclick="Predictive.filterAnomalies('TRAFFIC')">TRAFFIC</button>
+              <button class="pred-time-pill pred-anom-tab" data-cat="SECURITY" onclick="Predictive.filterAnomalies('SECURITY')">SECURITY</button>
+              <button class="pred-time-pill pred-anom-tab" data-cat="LATENCY" onclick="Predictive.filterAnomalies('LATENCY')">LATENCY</button>
+              <button class="pred-time-pill pred-anom-tab" data-cat="QOS" onclick="Predictive.filterAnomalies('QOS')">QOS</button>
+            </div>
+          </div>
+          <div class="card-body" style="padding:0;">
+            <div class="table-wrapper">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Category</th>
+                    <th>Description</th>
+                    <th>Severity</th>
+                    <th>Observed vs Baseline</th>
+                    <th>Confidence</th>
+                    <th>Recommended Action</th>
+                  </tr>
+                </thead>
+                <tbody id="pred-anomalies-tbody">
+                  <tr><td colspan="7" style="text-align:center; color:#64748b; padding:16px;">Loading predictive analysis...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- View Related Incidents Link -->
+        <div style="display:flex; justify-content:flex-end; margin-top:10px;">
+          <button class="btn btn-secondary btn-sm" onclick="App.navigate('incidents')">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>
+            View Related Incidents
+          </button>
+        </div>
+      </section>
+
+      <!-- ==================== VIEW 8: INCIDENTS ==================== -->
+      <section id="view-incidents" class="view-section">
+        <div class="dashboard-hero-header">
+          <div class="hero-title-group">
+            <h1>
+              <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              <span>Intelligent Incident Management & Root Cause Analysis</span>
+            </h1>
+            <p>Correlated NOC incident lifecycle, cross-layer automated root cause analysis, and impact tracking.</p>
+          </div>
+          <button class="btn btn-secondary btn-sm" onclick="Incidents.fetchIncidents()">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+            <span>Refresh Incidents</span>
+          </button>
+        </div>
+
+        <!-- 6 KPI CARDS -->
+        <div class="kpi-grid">
+          <div class="kpi-card yellow">
+            <div class="kpi-top"><span class="kpi-label">Active Incidents</span></div>
+            <div class="kpi-value" id="inc-kpi-active">0</div>
+            <div class="kpi-bottom"><span class="kpi-trend neutral">Under Management</span></div>
+          </div>
+          <div class="kpi-card red">
+            <div class="kpi-top"><span class="kpi-label">Critical Priority</span></div>
+            <div class="kpi-value" id="inc-kpi-critical">0</div>
+            <div class="kpi-bottom"><span class="kpi-trend down">Immediate Action</span></div>
+          </div>
+          <div class="kpi-card yellow">
+            <div class="kpi-top"><span class="kpi-label">High Priority</span></div>
+            <div class="kpi-value" id="inc-kpi-high">0</div>
+            <div class="kpi-bottom"><span class="kpi-trend neutral">Elevated Risk</span></div>
+          </div>
+          <div class="kpi-card blue">
+            <div class="kpi-top"><span class="kpi-label">Medium Priority</span></div>
+            <div class="kpi-value" id="inc-kpi-medium">0</div>
+            <div class="kpi-bottom"><span class="kpi-trend neutral">Performance SLA</span></div>
+          </div>
+          <div class="kpi-card green">
+            <div class="kpi-top"><span class="kpi-label">Resolved Today</span></div>
+            <div class="kpi-value" id="inc-kpi-resolved">0</div>
+            <div class="kpi-bottom"><span class="kpi-trend up">SLA Maintained</span></div>
+          </div>
+          <div class="kpi-card cyan">
+            <div class="kpi-top"><span class="kpi-label">Mean Time to Resolution (MTTR)</span></div>
+            <div class="kpi-value" id="inc-kpi-mttr">0m</div>
+            <div class="kpi-bottom"><span class="kpi-trend up">Auto Mitigation Speed</span></div>
+          </div>
+        </div>
+
+        <!-- INCIDENT CONTROLS & FILTER BAR -->
+        <div class="card" style="margin-bottom: 14px; padding: 14px 16px;">
+          <div class="incident-toolbar-row">
+            <!-- Search Input -->
+            <div class="incident-search-box">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input type="text" id="inc-search-input" placeholder="Search by ID, title, source IP, target, or switch..." oninput="Incidents.onFilterChange()">
+            </div>
+
+            <!-- Time Filter -->
+            <div class="incident-select-group">
+              <label for="inc-time-select" class="incident-filter-label">Time Window:</label>
+              <select id="inc-time-select" class="form-select form-select-sm" onchange="Incidents.onFilterChange()">
+                <option value="all">All Time</option>
+                <option value="15m">Last 15 minutes</option>
+                <option value="1h">Last 1 hour</option>
+                <option value="6h">Last 6 hours</option>
+                <option value="24h" selected>Last 24 hours</option>
+                <option value="7d">Last 7 days</option>
+              </select>
+            </div>
+
+            <!-- Sort By -->
+            <div class="incident-select-group">
+              <label for="inc-sort-select" class="incident-filter-label">Sort:</label>
+              <select id="inc-sort-select" class="form-select form-select-sm" onchange="Incidents.onFilterChange()">
+                <option value="newest" selected>Newest First</option>
+                <option value="severity">Severity (Highest)</option>
+                <option value="last_updated">Last Updated</option>
+                <option value="oldest">Oldest First</option>
+                <option value="status">Status</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Status Filter Tabs -->
+          <div class="incident-status-tabs" id="inc-status-tabs">
+            <button type="button" class="inc-tab-btn active" data-status="ALL" onclick="Incidents.setStatusFilter('ALL')">All</button>
+            <button type="button" class="inc-tab-btn" data-status="ACTIVE" onclick="Incidents.setStatusFilter('ACTIVE')">Active</button>
+            <button type="button" class="inc-tab-btn" data-status="CRITICAL" onclick="Incidents.setStatusFilter('CRITICAL')">Critical</button>
+            <button type="button" class="inc-tab-btn" data-status="HIGH" onclick="Incidents.setStatusFilter('HIGH')">High</button>
+            <button type="button" class="inc-tab-btn" data-status="MEDIUM" onclick="Incidents.setStatusFilter('MEDIUM')">Medium</button>
+            <button type="button" class="inc-tab-btn" data-status="MITIGATING" onclick="Incidents.setStatusFilter('MITIGATING')">Mitigating</button>
+            <button type="button" class="inc-tab-btn" data-status="RECOVERING" onclick="Incidents.setStatusFilter('RECOVERING')">Recovering</button>
+            <button type="button" class="inc-tab-btn" data-status="RESOLVED" onclick="Incidents.setStatusFilter('RESOLVED')">Resolved</button>
+          </div>
+        </div>
+
+        <!-- ENTERPRISE INCIDENT TABLE -->
+        <div class="card">
+          <div class="table-responsive-wrapper">
+            <table class="vortex-table incident-main-table">
+              <thead>
+                <tr>
+                  <th>Incident ID</th>
+                  <th>Title & Category</th>
+                  <th>Severity</th>
+                  <th>Source Host</th>
+                  <th>Affected Device</th>
+                  <th>Status</th>
+                  <th>First Seen</th>
+                  <th>Last Updated</th>
+                  <th style="text-align: right;">Action</th>
+                </tr>
+              </thead>
+              <tbody id="incidents-table-tbody">
+                <tr><td colspan="9" style="text-align: center; color: #64748b; padding: 24px;">Loading incident records...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== VIEW 9: POLICIES ==================== -->
+      <section id="view-policies" class="view-section">
+        <div class="dashboard-hero-header">
+          <div class="hero-title-group">
+            <h1>
+              <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg>
+              <span>Network Policies & Rules</span>
+            </h1>
+            <p>Configure QoS classification policies, DSCP mappings, and OpenFlow security rate-limit rules.</p>
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <button id="btn-create-policy" class="btn btn-primary btn-sm" onclick="Policies.openCreateModal()" style="display: none;">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              <span>Create Policy / Rule</span>
+            </button>
+            <button class="btn btn-secondary btn-sm" onclick="Policies.fetchPolicies()">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+              <span>Refresh Policies</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="card" style="margin-bottom: 14px;">
+          <div class="card-header">
+            <div class="card-title">QoS Priority Policies (EF / AF / BE)</div>
+          </div>
+          <div class="table-responsive-wrapper">
+            <table class="vortex-table">
+              <thead>
+                <tr>
+                  <th>Policy Name</th>
+                  <th>Traffic Class</th>
+                  <th>Priority</th>
+                  <th>Queue ID</th>
+                  <th>Bandwidth Range</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="pol-qos-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Security Firewall & Rate-Limit Rules</div>
+          </div>
+          <div class="table-responsive-wrapper">
+            <table class="vortex-table">
+              <thead>
+                <tr>
+                  <th>Rule Name</th>
+                  <th>Rule Type</th>
+                  <th>Source IP</th>
+                  <th>Target IP</th>
+                  <th>Threshold</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="pol-sec-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== VIEW 10: REPORTS ==================== -->
+      <section id="view-reports" class="view-section">
+        <div class="dashboard-hero-header">
+          <div class="hero-title-group">
+            <h1>
+              <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <span>Analytics & Export Reports</span>
+            </h1>
+            <p>Generate and export analytical network intelligence datasets in CSV format.</p>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px;">
+          <div class="card">
+            <div class="card-title" style="margin-bottom: 6px;">Traffic & Flow Dataset</div>
+            <p style="font-size: 12px; color: #94a3b8; margin-bottom: 12px;">Complete rolling OpenFlow telemetry history with packet rates and QoS classifications.</p>
+            <button class="btn btn-primary btn-sm" onclick="Reports.exportReport('TRAFFIC')">Export Flows CSV</button>
+          </div>
+
+          <div class="card">
+            <div class="card-title" style="margin-bottom: 6px;">Security Threat Log</div>
+            <p style="font-size: 12px; color: #94a3b8; margin-bottom: 12px;">Historical security anomalies, AI confidence scores, and mitigation records.</p>
+            <button class="btn btn-primary btn-sm" onclick="Reports.exportReport('SECURITY')">Export Security CSV</button>
+          </div>
+
+          <div class="card">
+            <div class="card-title" style="margin-bottom: 6px;">System Audit Trail</div>
+            <p style="font-size: 12px; color: #94a3b8; margin-bottom: 12px;">Tamper-evident audit trail of administrative operations and controller flow mods.</p>
+            <button class="btn btn-primary btn-sm" onclick="Reports.exportReport('AUDIT')">Export Audit CSV</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== VIEW 11: AUDIT LOGS ==================== -->
+      <section id="view-audit" class="view-section">
+        <div class="dashboard-hero-header">
+          <div class="hero-title-group">
+            <h1>
+              <svg class="icon icon-lg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <span>System Audit Trail</span>
+            </h1>
+            <p>Tamper-evident log of administrative logins, mitigation actions, and policy modifications.</p>
+          </div>
+          <button class="btn btn-secondary btn-sm" onclick="Audit.fetchLogs()">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+            <span>Refresh Audit</span>
+          </button>
+        </div>
+
+        <div class="card">
+          <div class="table-responsive-wrapper">
+            <table class="vortex-table">
+              <thead>
+                <tr>
+                  <th>Timestamp</th>
+                  <th>User</th>
+                  <th>Role</th>
+                  <th>Action</th>
+                  <th>Resource</th>
+                  <th>Result</th>
+                  <th>Client IP</th>
+                </tr>
+              </thead>
+              <tbody id="audit-table-tbody">
+                <tr><td colspan="7" style="text-align: center; color: #64748b; padding: 18px;">Loading audit logs...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== VIEW 12: SYSTEM HEALTH ==================== -->
+      <section id="view-health" class="view-section">
+        <div class="dashboard-hero-header">
+          <div class="hero-title-group">
+            <h1>
+              <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+              <span>System Component Health</span>
+            </h1>
+            <p>Runtime status of Controller, Telemetry Subsystem, Security AI, and Database Persistence.</p>
+          </div>
+          <button class="btn btn-secondary btn-sm" onclick="App.fetchHealthView()">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+            <span>Refresh Health</span>
+          </button>
+        </div>
+
+        <div class="kpi-grid">
+          <div class="kpi-card green">
+            <div class="kpi-top"><span class="kpi-label">Network Health</span></div>
+            <div class="kpi-value" id="health-net-score">--</div>
+            <div class="kpi-bottom"><span class="kpi-trend up">&bull; Operational</span></div>
+          </div>
+          <div class="kpi-card cyan">
+            <div class="kpi-top"><span class="kpi-label">Security Health</span></div>
+            <div class="kpi-value" id="health-sec-score">--</div>
+            <div class="kpi-bottom"><span class="kpi-trend up">&bull; Protected</span></div>
+          </div>
+          <div class="kpi-card blue">
+            <div class="kpi-top"><span class="kpi-label">QoS Health</span></div>
+            <div class="kpi-value" id="health-qos-score">--</div>
+            <div class="kpi-bottom"><span class="kpi-trend up">&bull; SLAs Met</span></div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top: 14px;">
+          <div class="card-header">
+            <div class="card-title">Subsystem Diagnostic Status</div>
+          </div>
+          <div class="topo-prop-row"><span class="topo-prop-label">Flask REST API Server:</span><span class="topo-prop-value" style="color:#10b981;">ONLINE (127.0.0.1:5000)</span></div>
+          <div class="topo-prop-row"><span class="topo-prop-label">Ryu OpenFlow 1.3 Controller:</span><span class="topo-prop-value" style="color:#10b981;">ACTIVE / LISTENING (Port 6653)</span></div>
+          <div class="topo-prop-row"><span class="topo-prop-label">Machine Learning Threat Engine:</span><span class="topo-prop-value" style="color:#10b981;">ONLINE (RandomForest Loaded)</span></div>
+          <div class="topo-prop-row"><span class="topo-prop-label">QoS Traffic Classification Engine:</span><span class="topo-prop-value" style="color:#10b981;">ONLINE (Multi-Class Loaded)</span></div>
+          <div class="topo-prop-row"><span class="topo-prop-label">SQLite Persistence Layer:</span><span class="topo-prop-value" style="color:#10b981;">HEALTHY (WAL Mode)</span></div>
+          <div class="topo-prop-row"><span class="topo-prop-label">Delta Telemetry Poller:</span><span class="topo-prop-value" style="color:#10b981;">STREAMING (5.0s interval)</span></div>
+        </div>
+      </section>
+
+      <!-- ==================== VIEW 13: SETTINGS ==================== -->
+      <section id="view-settings" class="view-section">
+        <div class="dashboard-hero-header">
+          <div class="hero-title-group">
+            <h1>
+              <svg class="icon icon-lg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+              <span>User & Network Settings</span>
+            </h1>
+            <p>Personalize appearance, telemetry refresh rates, notification preferences, and account profile.</p>
+          </div>
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <span id="settings-saved-indicator" class="saved-status-indicator">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Saved just now</span>
+            </span>
+            <button id="save-settings-btn" class="btn btn-primary">Save Preferences</button>
+          </div>
+        </div>
+
+        <div class="settings-layout">
+          <div class="settings-nav">
+            <button class="settings-tab-btn active" data-tab="profile" onclick="Settings.switchTab('profile')">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              <span>Profile & Account</span>
+            </button>
+            <button class="settings-tab-btn" data-tab="appearance" onclick="Settings.switchTab('appearance')">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 0 20z"/></svg>
+              <span>Appearance & Theme</span>
+            </button>
+            <button class="settings-tab-btn" data-tab="dashboard" onclick="Settings.switchTab('dashboard')">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+              <span>Dashboard & Polling</span>
+            </button>
+            <button class="settings-tab-btn" data-tab="notifications" onclick="Settings.switchTab('notifications')">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+              <span>Notifications</span>
+            </button>
+          </div>
+
+          <div class="settings-content-panel">
+            <!-- TAB 1: Profile & Account -->
+            <div id="settings-panel-profile" class="settings-section-panel active">
+              <div class="settings-section-title">User Account Profile</div>
+              <div class="settings-section-desc">Changes will persist directly in the SQLite user table for your account.</div>
+
+              <div class="form-group">
+                <label class="form-label">Full Name</label>
+                <input type="text" id="set-full-name" class="form-input" placeholder="Full Name">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Email Address</label>
+                <input type="email" id="set-email" class="form-input" placeholder="Email Address" disabled>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Assigned Role</label>
+                <input type="text" class="form-input dynamic-user-role" value="OPERATOR" disabled>
+              </div>
+
+              <!-- Operator Access Request Box for Readers -->
+              <div id="operator-request-box" style="margin-top: 14px; margin-bottom: 20px; padding: 14px 16px; background: rgba(14, 165, 233, 0.08); border: 1px solid rgba(14, 165, 233, 0.2); border-radius: 8px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+                  <div>
+                    <div style="font-weight: 600; font-size: 13px; color: #ffffff;" id="op-req-status-title">Access Tier: <span class="dynamic-user-role">READER</span></div>
+                    <div style="font-size: 11.5px; color: var(--text-muted); margin-top: 2px;" id="op-req-status-desc">Read-Only NOC Observability.</div>
+                  </div>
+                  <button type="button" id="btn-request-operator" class="btn btn-primary btn-sm" onclick="Auth.requestOperatorAccess()" style="display: none;">
+                    Request Operator Access
+                  </button>
+                </div>
+              </div>
+
+              <div style="margin: 28px 0 20px 0; border-top: 1px solid var(--border-subtle); padding-top: 20px;">
+                <div class="settings-section-title">Change Password</div>
+                <div class="settings-section-desc">Change your account password. A security confirmation email will be sent to your registered email address.</div>
+
+                <form id="settings-change-password-form" onsubmit="Settings.changePassword(event)">
+                  <div class="form-group">
+                    <label class="form-label" for="set-current-password">Current Password</label>
+                    <input type="password" id="set-current-password" class="form-input" placeholder="Enter current password" required autocomplete="current-password">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="set-new-password">New Password</label>
+                    <input type="password" id="set-new-password" class="form-input" placeholder="Min 8 characters" required autocomplete="new-password">
+                    <div style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">Minimum 8 characters with uppercase, lowercase, number and special character.</div>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="set-confirm-password">Confirm New Password</label>
+                    <input type="password" id="set-confirm-password" class="form-input" placeholder="Confirm new password" required autocomplete="new-password">
+                  </div>
+                  <button type="submit" id="btn-change-password" class="btn btn-secondary">
+                    Update Password
+                  </button>
+                  <div id="change-password-status-msg" style="margin-top: 10px; font-size: 12.5px; display: none;"></div>
+                </form>
+              </div>
+            </div>
+
+            <!-- TAB 2: Appearance & Theme -->
+            <div id="settings-panel-appearance" class="settings-section-panel">
+              <div class="settings-section-title">Appearance & Theme Customization</div>
+              <div class="settings-section-desc">Configure NOC visual theme, brand accents, UI density, and animations.</div>
+
+              <div class="form-group">
+                <label class="form-label">NOC Color Theme</label>
+                <select id="set-theme" class="form-select" onchange="Settings.onThemeChange(this.value)">
+                  <option value="dark" selected>Dark NOC Mode (Deep Navy - Recommended)</option>
+                  <option value="light">Light NOC Mode</option>
+                  <option value="system">System Default (OS Synced)</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Brand Accent Color</label>
+                <select id="set-accent" class="form-select" onchange="Settings.onAccentChange(this.value)">
+                  <option value="cyan" selected>Cyan (#00f2fe - Default)</option>
+                  <option value="blue">Blue (#3b82f6)</option>
+                  <option value="violet">Violet (#8b5cf6)</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Interface Layout Density</label>
+                <select id="set-density" class="form-select" onchange="Settings.onDensityChange(this.value)">
+                  <option value="comfortable" selected>Comfortable (Default Spacing)</option>
+                  <option value="compact">Compact (High-Density Monitoring)</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="toggle-switch-label">
+                  <div>
+                    <div style="font-weight: 600; color: var(--text-primary); font-size: 13px;">Reduce Animations</div>
+                    <div style="font-size: 11px; color: var(--text-muted);">Minimize decorative transitions while preserving live telemetry updates.</div>
+                  </div>
+                  <div class="toggle-switch">
+                    <input type="checkbox" id="set-reduce-motion" onchange="Settings.onReduceMotionChange(this.checked)">
+                    <span class="toggle-slider"></span>
+                  </div>
+                </label>
+              </div>
+
+              <div class="settings-reset-row">
+                <div>
+                  <div style="font-size: 12px; font-weight: 600; color: var(--text-primary);">Reset Appearance</div>
+                  <div style="font-size: 11px; color: var(--text-muted);">Restore Dark NOC theme, Cyan accent, and comfortable density.</div>
+                </div>
+                <button class="btn btn-secondary btn-sm" onclick="Settings.resetAppearance()">Reset Appearance Defaults</button>
+              </div>
+            </div>
+
+            <!-- TAB 3: Dashboard & Polling -->
+            <div id="settings-panel-dashboard" class="settings-section-panel">
+              <div class="settings-section-title">Dashboard & Telemetry Polling</div>
+              <div class="settings-section-desc">Manage real-time telemetry streaming rates and pause behavior without creating duplicate polling loops.</div>
+
+              <!-- Live Poller Status Card -->
+              <div class="settings-status-card">
+                <div class="settings-status-row">
+                  <span class="settings-status-label">Polling Status</span>
+                  <span id="settings-polling-status" class="settings-status-val">
+                    <span class="status-dot green"></span>
+                    <span>Active</span>
+                  </span>
+                </div>
+                <div class="settings-status-row">
+                  <span class="settings-status-label">Current Interval</span>
+                  <span id="settings-current-interval-val" class="settings-status-val">5 seconds</span>
+                </div>
+                <div class="settings-status-row">
+                  <span class="settings-status-label">Last Telemetry Refresh</span>
+                  <span id="settings-last-update-val" class="settings-status-val mono">--:--:--</span>
+                </div>
+                <div style="display: flex; gap: 8px; margin-top: 6px;">
+                  <button id="settings-pause-btn" class="btn btn-secondary btn-sm" onclick="Settings.togglePausePolling()">Pause Live Updates</button>
+                  <button class="btn btn-secondary btn-sm" onclick="Settings.refreshNow()">Refresh Now</button>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="toggle-switch-label">
+                  <div>
+                    <div style="font-weight: 600; color: var(--text-primary); font-size: 13px;">Auto Refresh</div>
+                    <div style="font-size: 11px; color: var(--text-muted);">Continuously stream live OpenFlow telemetry updates to the NOC dashboard.</div>
+                  </div>
+                  <div class="toggle-switch">
+                    <input type="checkbox" id="set-auto-refresh" checked onchange="Settings.onAutoRefreshChange(this.checked)">
+                    <span class="toggle-slider"></span>
+                  </div>
+                </label>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Telemetry Polling Interval</label>
+                <select id="set-refresh-interval" class="form-select" onchange="Settings.onPollingIntervalChange(this.value)">
+                  <option value="2">2 Seconds (High Frequency)</option>
+                  <option value="5" selected>5 Seconds (Recommended)</option>
+                  <option value="10">10 Seconds</option>
+                  <option value="15">15 Seconds</option>
+                  <option value="30">30 Seconds</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Traffic Chart History Retention</label>
+                <select id="set-chart-history" class="form-select" onchange="Settings.onChartHistoryChange(this.value)">
+                  <option value="10">Short (10 Data Points)</option>
+                  <option value="20" selected>Standard (20 Data Points)</option>
+                  <option value="40">Extended (40 Data Points)</option>
+                </select>
+              </div>
+
+              <div class="settings-reset-row">
+                <div>
+                  <div style="font-size: 12px; font-weight: 600; color: var(--text-primary);">Reset Dashboard Settings</div>
+                  <div style="font-size: 11px; color: var(--text-muted);">Restore 5-second polling, Auto Refresh ON, and Standard chart history.</div>
+                </div>
+                <button class="btn btn-secondary btn-sm" onclick="Settings.resetDashboard()">Reset Dashboard Defaults</button>
+              </div>
+            </div>
+
+            <!-- TAB 4: Notifications -->
+            <div id="settings-panel-notifications" class="settings-section-panel">
+              <div class="settings-section-title">Notification Preferences & Filtering</div>
+              <div class="settings-section-desc">Configure in-app alert categories, severity thresholds, audio cues, and quiet hours.</div>
+
+              <div class="form-group">
+                <label class="toggle-switch-label">
+                  <div>
+                    <div style="font-weight: 600; color: var(--text-primary); font-size: 13px;">Master In-App Notifications</div>
+                    <div style="font-size: 11px; color: var(--text-muted);">Enable or suppress topbar notification badge and popover alerts.</div>
+                  </div>
+                  <div class="toggle-switch">
+                    <input type="checkbox" id="set-notif-master" checked onchange="Settings.onNotifChange()">
+                    <span class="toggle-slider"></span>
+                  </div>
+                </label>
+              </div>
+
+              <div style="font-size: 12px; font-weight: 600; color: var(--text-primary); margin: 18px 0 8px 0;">Alert Categories</div>
+              <div style="display: flex; flex-direction: column; gap: 8px; font-size: 13px; max-width: 450px;">
+                <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; color: var(--text-primary);">
+                  <input type="checkbox" id="set-notif-sec" checked onchange="Settings.onNotifChange()">
+                  <span>Security Threats & DDoS Floods</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; color: var(--text-primary);">
+                  <input type="checkbox" id="set-notif-crit" checked onchange="Settings.onNotifChange()">
+                  <span>Critical Severity Security Alerts</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; color: var(--text-primary);">
+                  <input type="checkbox" id="set-notif-net" checked onchange="Settings.onNotifChange()">
+                  <span>Network Topology & Controller Events</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; color: var(--text-primary);">
+                  <input type="checkbox" id="set-notif-qos" checked onchange="Settings.onNotifChange()">
+                  <span>QoS Policies & SLA Violations</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; color: var(--text-primary);">
+                  <input type="checkbox" id="set-notif-inc" checked onchange="Settings.onNotifChange()">
+                  <span>Incident Management Lifecycle Updates</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; color: var(--text-primary);">
+                  <input type="checkbox" id="set-notif-sys" checked onchange="Settings.onNotifChange()">
+                  <span>System Health & Telemetry State Changes</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; color: var(--text-primary);">
+                  <input type="checkbox" id="set-notif-audit" checked onchange="Settings.onNotifChange()">
+                  <span>Audit Trail Actions & Policy Deletions</span>
+                </label>
+              </div>
+
+              <div style="font-size: 12px; font-weight: 600; color: var(--text-primary); margin: 20px 0 8px 0;">Severity Filter</div>
+              <div style="display: flex; flex-wrap: wrap; gap: 14px; font-size: 12.5px; max-width: 450px;">
+                <label style="display: flex; align-items: center; gap: 6px; cursor: pointer; color: var(--text-primary);">
+                  <input type="checkbox" id="set-sev-crit" checked onchange="Settings.onNotifChange()">
+                  <span class="badge badge-critical" style="font-size: 9px;">CRITICAL</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 6px; cursor: pointer; color: var(--text-primary);">
+                  <input type="checkbox" id="set-sev-high" checked onchange="Settings.onNotifChange()">
+                  <span class="badge badge-critical" style="font-size: 9px;">HIGH</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 6px; cursor: pointer; color: var(--text-primary);">
+                  <input type="checkbox" id="set-sev-med" checked onchange="Settings.onNotifChange()">
+                  <span class="badge badge-warning" style="font-size: 9px;">MEDIUM</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 6px; cursor: pointer; color: var(--text-primary);">
+                  <input type="checkbox" id="set-sev-low" checked onchange="Settings.onNotifChange()">
+                  <span class="badge badge-info" style="font-size: 9px;">LOW</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 6px; cursor: pointer; color: var(--text-primary);">
+                  <input type="checkbox" id="set-sev-info" checked onchange="Settings.onNotifChange()">
+                  <span class="badge badge-live" style="font-size: 9px;">INFO</span>
+                </label>
+              </div>
+
+              <div style="font-size: 12px; font-weight: 600; color: var(--text-primary); margin: 20px 0 8px 0;">Audio & Schedule Behavior</div>
+              <div class="form-group">
+                <label class="toggle-switch-label">
+                  <div>
+                    <div style="font-weight: 600; color: var(--text-primary); font-size: 13px;">Notification Audio Chime</div>
+                    <div style="font-size: 11px; color: var(--text-muted);">Play a subtle harmonic NOC tone when new unread alerts arrive.</div>
+                  </div>
+                  <div class="toggle-switch">
+                    <input type="checkbox" id="set-notif-sound" onchange="Settings.onNotifChange()">
+                    <span class="toggle-slider"></span>
+                  </div>
+                </label>
+              </div>
+
+              <div class="form-group">
+                <label class="toggle-switch-label">
+                  <div>
+                    <div style="font-weight: 600; color: var(--text-primary); font-size: 13px;">Quiet Hours Mode</div>
+                    <div style="font-size: 11px; color: var(--text-muted);">Mute non-critical alerts during scheduled hours (CRITICAL threats always alert).</div>
+                  </div>
+                  <div class="toggle-switch">
+                    <input type="checkbox" id="set-notif-quiet" onchange="Settings.onNotifChange()">
+                    <span class="toggle-slider"></span>
+                  </div>
+                </label>
+              </div>
+
+              <div class="form-group">
+                <label class="toggle-switch-label">
+                  <div>
+                    <div style="font-weight: 600; color: var(--text-primary); font-size: 13px;">Mark as Read When Clicked</div>
+                    <div style="font-size: 11px; color: var(--text-muted);">Automatically mark individual notifications as read upon clicking.</div>
+                  </div>
+                  <div class="toggle-switch">
+                    <input type="checkbox" id="set-notif-mark-read" checked onchange="Settings.onNotifChange()">
+                    <span class="toggle-slider"></span>
+                  </div>
+                </label>
+              </div>
+
+              <div class="settings-reset-row">
+                <div>
+                  <div style="font-size: 12px; font-weight: 600; color: var(--text-primary);">Reset Notification Settings</div>
+                  <div style="font-size: 11px; color: var(--text-muted);">Restore all alert categories, severities, and default audio behavior.</div>
+                </div>
+                <button class="btn btn-secondary btn-sm" onclick="Settings.resetNotifications()">Reset Notification Defaults</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== VIEW 14: ACCESS CONTROL & USER ADMINISTRATION ==================== -->
+      <section id="view-admin-users" class="view-section">
+        <!-- Hero Header -->
+        <div class="dashboard-hero-header">
+          <div class="hero-title-group">
+            <div class="hero-title-badge-row">
+              <h1>
+                <svg class="icon icon-lg hero-brand-icon" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                <span>Access Control & User Administration</span>
+              </h1>
+              <div class="hero-operator-pill">
+                <span class="status-dot green"></span>
+                <span>SINGLE-ADMIN NOC ENFORCEMENT</span>
+              </div>
+            </div>
+            <p class="hero-subtitle">Review pending operator access requests, grant granular permissions, and manage platform identities.</p>
+          </div>
+          <div class="hero-controls">
+            <button class="btn btn-secondary btn-sm" onclick="Admin.loadData()" title="Reload Access Control Tables">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+              <span>Refresh</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 1. PENDING OPERATOR REQUESTS PANEL -->
+        <div class="card card-admin-panel" id="admin-panel-requests">
+          <div class="card-header admin-card-header">
+            <div class="card-header-left">
+              <span class="badge badge-warning" id="admin-pending-badge">0 PENDING</span>
+              <h3 class="admin-card-title">Pending Operator Requests</h3>
+            </div>
+            <div class="admin-card-subtitle">Requires explicit administrator approval before operator login is granted</div>
+          </div>
+          <div class="table-container admin-requests-table-container">
+            <table class="data-table" id="admin-requests-table">
+              <thead>
+                <tr>
+                  <th>Requester Name</th>
+                  <th>Email</th>
+                  <th>Requested At</th>
+                  <th>Status</th>
+                  <th>Client IP / Device</th>
+                  <th style="text-align: right;">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="admin-requests-tbody">
+                <tr><td colspan="6" style="text-align:center; padding: 20px; color: var(--text-muted);">Loading pending requests...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 2. ACTIVE USERS & OPERATORS DIRECTORY -->
+        <div class="card card-admin-panel" id="admin-panel-users">
+          <div class="card-header admin-card-header">
+            <div class="card-header-left">
+              <span class="badge badge-info" id="admin-users-count-badge">0 USERS</span>
+              <h3 class="admin-card-title">Platform Users & Operators Directory</h3>
+            </div>
+            <div class="card-header-right">
+              <input type="text" id="admin-user-search-input" class="form-input" placeholder="Search user name or email..." oninput="Admin.filterUsers(this.value)">
+            </div>
+          </div>
+          <div class="table-container admin-users-table-container">
+            <table class="data-table" id="admin-users-table">
+              <thead>
+                <tr>
+                  <th>User Identity</th>
+                  <th>Email</th>
+                  <th>Role</th>
+                  <th>Status</th>
+                  <th>Email Verified</th>
+                  <th>Permissions</th>
+                  <th style="text-align: right;">Administrative Actions</th>
+                </tr>
+              </thead>
+              <tbody id="admin-users-tbody">
+                <tr><td colspan="7" style="text-align:center; padding: 20px; color: var(--text-muted);">Loading user records...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<!-- ==================== 3. FLOATING AI ASSISTANT ==================== -->
+<div id="chatbot-launcher" title="Open VORTEX AI Assistant" aria-label="Open VORTEX AI Assistant" role="button" tabindex="0">
+  <svg class="icon icon-lg" viewBox="0 0 24 24" style="color:#070a13; stroke-width:2.5;"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>
+  <span class="launcher-pulse"></span>
+</div>
+
+<div id="chatbot-window" aria-label="VORTEX AI Network Assistant" role="dialog" aria-modal="false">
+  <div class="chatbot-header">
+    <div class="chatbot-header-info">
+      <div class="chatbot-avatar">
+        <svg class="icon icon-sm" viewBox="0 0 24 24" style="color:#070a13;"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>
+      </div>
+      <div>
+        <div class="chatbot-title-row">
+          <span class="chatbot-title">VORTEX AI</span>
+          <span class="chatbot-subbadge">NOC</span>
+        </div>
+        <div id="chatbot-status-badge" class="chatbot-status online">
+          <span class="status-indicator-dot"></span>
+          <span id="chatbot-status-text">AI ONLINE</span>
+        </div>
+      </div>
+    </div>
+    <div class="chatbot-header-actions">
+      <button id="chatbot-clear-btn" class="chatbot-action-icon-btn" title="Clear conversation history" aria-label="Clear conversation">
+        <svg class="icon icon-xs" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
+      </button>
+      <button id="chatbot-minimize-btn" class="chatbot-action-icon-btn" title="Minimize / Expand chat" aria-label="Minimize chat">
+        <svg class="icon icon-xs" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </button>
+      <button id="chatbot-close-btn" class="chatbot-action-icon-btn" title="Close chat (ESC)" aria-label="Close chat">
+        <svg class="icon icon-xs" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="chatbot-messages-body" class="chatbot-body" tabindex="0" aria-live="polite">
+    <div class="chat-bubble assistant">
+      <div class="assistant-msg-header">
+        <strong>VORTEX Network Assistant</strong>
+        <span class="source-badge">LIVE ENGINE</span>
+      </div>
+      Hello. I'm your VORTEX network assistant. I can analyze flows, security, QoS, topology, and network health across all data plane switches in real-time.
+    </div>
+  </div>
+
+  <!-- Suggested Quick Action Prompt Chips -->
+  <div id="chatbot-suggestions-wrap" class="chatbot-suggestions" aria-label="Quick Action Prompts">
+    <button type="button" class="suggestion-chip" onclick="Chatbot.sendMessage('What is the current network health?')">Network Health</button>
+    <button type="button" class="suggestion-chip" onclick="Chatbot.sendMessage('Are there any active threats?')">Security Status</button>
+    <button type="button" class="suggestion-chip" onclick="Chatbot.sendMessage('What is the QoS status?')">QoS Status</button>
+    <button type="button" class="suggestion-chip" onclick="Chatbot.sendMessage('Show top flows')">Top Flows</button>
+    <button type="button" class="suggestion-chip" onclick="Chatbot.sendMessage('Show topology and controller fabric')">Topology</button>
+    <button type="button" class="suggestion-chip" onclick="Chatbot.sendMessage('Are there any critical incidents?')">Incidents</button>
+    <button type="button" class="suggestion-chip" onclick="Chatbot.sendMessage('Which devices are currently offline?')">Device Status</button>
+    <button type="button" class="suggestion-chip" onclick="Chatbot.sendMessage('What happened recently?')">Recent Events</button>
+    <button type="button" class="suggestion-chip" onclick="Chatbot.sendMessage('What should I investigate first?')">Recommendations</button>
+  </div>
+
+  <!-- Chat Input -->
+  <div class="chatbot-input-area">
+    <input type="text" id="chatbot-input" placeholder="Ask about your network..." aria-label="Ask VORTEX AI Assistant">
+    <button id="chatbot-send-btn" class="chatbot-send-btn" title="Send Query" aria-label="Send Query">
+      <svg class="icon icon-sm" viewBox="0 0 24 24" style="color:#070a13;"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- ==================== 4. GLOBAL SEARCH MODAL ==================== -->
+<div id="search-modal" class="modal-overlay" onclick="if(event.target===this)Search.close()">
+  <div class="modal-box search-modal-box">
+    <div class="search-input-header">
+      <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" id="search-modal-input" placeholder="Search switches, hosts, flows, policies, security alerts...">
+      <button class="search-shortcut-kbd" id="search-modal-esc" onclick="Search.close()" title="Close search overlay (ESC)" type="button">ESC</button>
+    </div>
+    <div id="search-results-list" class="search-results-list"></div>
+  </div>
+</div>
+
+<!-- ==================== 5. MITIGATION CONFIRMATION MODAL ==================== -->
+<div id="mitigation-modal" class="modal-overlay">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-title">
+        <svg class="icon" viewBox="0 0 24 24" style="color:var(--status-danger);"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <span>Execute Security Mitigation</span>
+      </div>
+      <button class="modal-close-btn" onclick="Security.closeMitigationModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:12.5px; color:#94a3b8; margin-bottom:12px;">
+        Applying this action will install high-priority OpenFlow flow modifications onto the switch data plane.
+      </p>
+      <div class="topo-prop-row"><span class="topo-prop-label">Threat ID:</span><span id="modal-mit-threat-id" class="topo-prop-value">thr_001</span></div>
+      <div class="topo-prop-row"><span class="topo-prop-label">Source IP:</span><span id="modal-mit-src" class="topo-prop-value">10.0.0.4</span></div>
+      <div class="topo-prop-row"><span class="topo-prop-label">Target IP:</span><span id="modal-mit-dst" class="topo-prop-value">10.0.0.1</span></div>
+      
+      <div class="form-group" style="margin-top:14px;">
+        <label class="form-label">Mitigation Action</label>
+        <select id="modal-mit-action-select" class="form-select">
+          <option value="BLOCK">BLOCK (OpenFlow Table-Miss Drop)</option>
+          <option value="RATE_LIMIT">RATE LIMIT (OpenFlow Meter 500 pps)</option>
+          <option value="ISOLATE">ISOLATE (Quarantine VLAN 999)</option>
+          <option value="MONITOR">MONITOR (Log Only)</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="Security.closeMitigationModal()">Cancel</button>
+      <button class="btn btn-danger" onclick="Security.executeMitigation()">Dispatch OpenFlow Rule</button>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== 5b. INCIDENT DETAIL MODAL ==================== -->
+<div id="incident-detail-modal" class="modal-overlay" onclick="if(event.target===this)Incidents.closeDetailModal()">
+  <div class="modal-box incident-detail-modal-box">
+    <div class="modal-header">
+      <div class="modal-title">
+        <svg class="icon" viewBox="0 0 24 24" style="color:var(--accent-cyan);"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <span id="modal-inc-id">INC-00000</span>
+        <span id="modal-inc-title-tag" class="inc-title-tag">Traffic Anomaly</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:8px;">
+        <span id="modal-inc-sev-badge" class="badge badge-critical">CRITICAL</span>
+        <span id="modal-inc-status-badge" class="badge badge-demo">MITIGATING</span>
+        <button class="modal-close-btn" onclick="Incidents.closeDetailModal()" title="Close (ESC)">✕</button>
+      </div>
+    </div>
+    
+    <div class="modal-body incident-modal-body" id="modal-inc-body">
+      <!-- Dynamic Incident Details Content Injected by incidents.js -->
+    </div>
+
+    <div class="modal-footer" id="modal-inc-footer">
+      <!-- Action buttons injected dynamically -->
+    </div>
+  </div>
+</div>
+
+<!-- ==================== 5c. PERMISSION MANAGEMENT MODAL ==================== -->
+<div id="admin-permissions-modal" class="modal-overlay" onclick="if(event.target===this)Admin.closePermissionsModal()">
+  <div class="modal-box" style="max-width: 680px;">
+    <div class="modal-header">
+      <div class="modal-title">
+        <svg class="icon" viewBox="0 0 24 24" style="color:var(--accent-cyan);"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+        <span>Manage Operator Permissions</span>
+      </div>
+      <button class="modal-close-btn" onclick="Admin.closePermissionsModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div style="background:rgba(255,255,255,0.03); border:1px solid var(--border-subtle); border-radius:6px; padding:12px 14px; margin-bottom:16px;">
+        <div style="font-size:13px; font-weight:600; color:#ffffff;" id="admin-modal-username">User Name</div>
+        <div style="font-size:11.5px; color:var(--text-muted);" id="admin-modal-useremail">user@vortex.local</div>
+      </div>
+      <p style="font-size:12px; color:var(--text-secondary); margin-bottom:14px;">
+        Grant or revoke granular capabilities. Changes are enforced on the backend immediately upon saving.
+      </p>
+
+      <div id="admin-modal-perms-container" style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; max-height:360px; overflow-y:auto;">
+        <!-- Permissions dynamically rendered with checkboxes -->
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="Admin.closePermissionsModal()">Cancel</button>
+      <button class="btn btn-primary" id="admin-modal-save-btn" onclick="Admin.savePermissions()">Save Permissions</button>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== 5d. POLICY / RULE CREATE & EDIT MODAL ==================== -->
+<div id="policy-modal" class="modal-overlay" onclick="if(event.target===this)Policies.closeModal()">
+  <div class="modal-box policy-modal-box">
+    <!-- Header with Icon, Title, Subtitle, and Close Button -->
+    <div class="modal-header policy-modal-header">
+      <div class="policy-modal-header-left">
+        <div class="policy-modal-icon-badge" id="policy-modal-icon-badge">
+          <svg class="icon" id="policy-modal-icon" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+        </div>
+        <div class="policy-modal-title-wrap">
+          <h3 class="modal-title" id="policy-modal-title">Create Policy / Rule</h3>
+          <p class="modal-subtitle" id="policy-modal-subtitle">Define a new network policy or rule for the SDN environment</p>
+        </div>
+      </div>
+      <button class="modal-close-btn" onclick="Policies.closeModal()" title="Close (ESC)" aria-label="Close modal">✕</button>
+    </div>
+
+    <!-- Modal Body with Form Groups -->
+    <div class="modal-body policy-modal-body">
+      <input type="hidden" id="policy-form-id" value="" />
+      
+      <!-- General Configuration Group -->
+      <div class="policy-section-divider">
+        <span class="policy-section-label">
+          <svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          General Configuration
+        </span>
+        <div class="policy-section-line"></div>
+      </div>
+
+      <div class="policy-form-grid">
+        <div class="policy-field-group">
+          <label class="policy-field-label" for="policy-form-type">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+            <span>Policy Type</span>
+          </label>
+          <select id="policy-form-type" class="form-control" onchange="Policies.handleTypeChange()">
+            <option value="QOS">⚡ QoS Policy (Queueing & Bandwidth)</option>
+            <option value="SECURITY">🛡️ Security Rule (Firewall & Rate Limiting)</option>
+          </select>
+        </div>
+        <div class="policy-field-group">
+          <label class="policy-field-label" for="policy-form-status">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"/><line x1="12" y1="2" x2="12" y2="12"/></svg>
+            <span>Status</span>
+          </label>
+          <select id="policy-form-status" class="form-control">
+            <option value="1">● Enabled (Active)</option>
+            <option value="0">○ Disabled (Inactive)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="policy-field-group">
+        <label class="policy-field-label" for="policy-form-name">
+          <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+          <span>Name / Label</span>
+        </label>
+        <input type="text" id="policy-form-name" class="form-control" placeholder="e.g. High Priority Voice Traffic" />
+      </div>
+
+      <!-- QoS Specific Fields -->
+      <div id="policy-fields-qos">
+        <div class="policy-section-divider">
+          <span class="policy-section-label">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            QoS Bandwidth & Queueing Parameters
+          </span>
+          <div class="policy-section-line"></div>
+        </div>
+
+        <div class="policy-form-grid">
+          <div class="policy-field-group">
+            <label class="policy-field-label" for="policy-form-traffic-class">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+              <span>Traffic Class</span>
+            </label>
+            <select id="policy-form-traffic-class" class="form-control">
+              <option value="VOICE">VOICE (Ultra Low Latency)</option>
+              <option value="VIDEO">VIDEO (Streaming Media)</option>
+              <option value="CRITICAL_APPLICATION">CRITICAL_APPLICATION (High Priority)</option>
+              <option value="WEB">WEB (Standard HTTP/HTTPS)</option>
+              <option value="FILE_TRANSFER">FILE_TRANSFER (Bulk Transfer)</option>
+              <option value="EMAIL">EMAIL (Standard SMTP/IMAP)</option>
+              <option value="P2P">P2P (Low Priority)</option>
+              <option value="BEST_EFFORT">BEST_EFFORT (Default)</option>
+            </select>
+          </div>
+          <div class="policy-field-group">
+            <label class="policy-field-label" for="policy-form-priority-code">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              <span>Priority Code</span>
+            </label>
+            <select id="policy-form-priority-code" class="form-control">
+              <option value="EF">EF (Expedited Forwarding)</option>
+              <option value="AF">AF (Assured Forwarding)</option>
+              <option value="BE">BE (Best Effort)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="policy-form-grid">
+          <div class="policy-field-group">
+            <label class="policy-field-label" for="policy-form-min-bw">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+              <span>Min Bandwidth (Mbps)</span>
+            </label>
+            <input type="number" id="policy-form-min-bw" class="form-control" value="10" min="0" step="0.5" />
+          </div>
+          <div class="policy-field-group">
+            <label class="policy-field-label" for="policy-form-max-bw">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+              <span>Max Bandwidth (Mbps)</span>
+            </label>
+            <input type="number" id="policy-form-max-bw" class="form-control" value="50" min="1" step="0.5" />
+          </div>
+        </div>
+
+        <div class="policy-form-grid">
+          <div class="policy-field-group">
+            <label class="policy-field-label" for="policy-form-queue-id">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+              <span>Queue ID (0-8)</span>
+            </label>
+            <input type="number" id="policy-form-queue-id" class="form-control" value="1" min="0" max="8" />
+          </div>
+          <div class="policy-field-group">
+            <label class="policy-field-label" for="policy-form-dscp">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="15" x2="20" y2="15"/><line x1="10" y1="3" x2="8" y2="21"/><line x1="16" y1="3" x2="14" y2="21"/></svg>
+              <span>DSCP Mark (0-63)</span>
+            </label>
+            <input type="number" id="policy-form-dscp" class="form-control" value="46" min="0" max="63" />
+          </div>
+        </div>
+
+        <div class="policy-field-group">
+          <label class="policy-field-label" for="policy-form-criteria">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <span>Match Criteria / Description</span>
+          </label>
+          <input type="text" id="policy-form-criteria" class="form-control" placeholder="e.g. UDP dst_port: 5060, 10000-20000" />
+        </div>
+      </div>
+
+      <!-- Security Specific Fields -->
+      <div id="policy-fields-sec" style="display: none;">
+        <div class="policy-section-divider">
+          <span class="policy-section-label">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Security Firewall & Attack Mitigation Rules
+          </span>
+          <div class="policy-section-line"></div>
+        </div>
+
+        <div class="policy-form-grid">
+          <div class="policy-field-group">
+            <label class="policy-field-label" for="policy-form-rule-type">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
+              <span>Rule Type / Action</span>
+            </label>
+            <select id="policy-form-rule-type" class="form-control">
+              <option value="BLOCK">BLOCK (Drop Packets)</option>
+              <option value="RATE_LIMIT">RATE_LIMIT (Throttle Bandwidth)</option>
+              <option value="ISOLATE">ISOLATE (VLAN Quarantine)</option>
+              <option value="MONITOR">MONITOR (Log Only)</option>
+            </select>
+          </div>
+          <div class="policy-field-group">
+            <label class="policy-field-label" for="policy-form-protocol">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+              <span>Protocol</span>
+            </label>
+            <select id="policy-form-protocol" class="form-control">
+              <option value="TCP">TCP</option>
+              <option value="UDP">UDP</option>
+              <option value="ICMP">ICMP</option>
+              <option value="ANY">ANY (All Protocols)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="policy-form-grid">
+          <div class="policy-field-group">
+            <label class="policy-field-label" for="policy-form-src-ip">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+              <span>Source IP</span>
+            </label>
+            <input type="text" id="policy-form-src-ip" class="form-control" value="*" placeholder="e.g. 192.168.1.0/24 or *" />
+          </div>
+          <div class="policy-field-group">
+            <label class="policy-field-label" for="policy-form-dst-ip">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="22" y1="12" x2="18" y2="12"/><line x1="6" y1="12" x2="2" y2="12"/><line x1="12" y1="6" x2="12" y2="2"/><line x1="12" y1="22" x2="12" y2="18"/></svg>
+              <span>Destination IP</span>
+            </label>
+            <input type="text" id="policy-form-dst-ip" class="form-control" value="*" placeholder="e.g. 10.0.0.1 or *" />
+          </div>
+        </div>
+
+        <div class="policy-field-group">
+          <label class="policy-field-label" for="policy-form-threshold">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+            <span>Threshold (Packets/Sec)</span>
+          </label>
+          <input type="number" id="policy-form-threshold" class="form-control" value="5000" min="1" step="100" />
+        </div>
+      </div>
+
+      <!-- Informational Description Card -->
+      <div class="policy-modal-info-panel" id="policy-modal-info-panel">
+        <svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+        <span id="policy-modal-info-text">QoS Policy configures traffic class prioritization and queue DSCP mappings on OpenFlow switches.</span>
+      </div>
+    </div>
+
+    <!-- Footer Action Buttons -->
+    <div class="modal-footer policy-modal-footer">
+      <button class="btn btn-secondary" onclick="Policies.closeModal()">Cancel</button>
+      <button class="btn btn-primary" id="policy-modal-submit-btn" onclick="Policies.submitModal()">Create Policy</button>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== 6. TOAST CONTAINER ==================== -->
+<div id="toast-container"></div>
+
+<!-- JavaScript Architecture -->
+<script src="/js/api.js"></script>
+<script src="/js/utils.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/state.js"></script>
+<script src="/js/charts.js"></script>
+<script src="/js/telemetry.js"></script>
+<script src="/js/dashboard.js"></script>
+<script src="/js/topology.js"></script>
+<script src="/js/security.js"></script>
+<script src="/js/qos.js"></script>
+<script src="/js/ai.js"></script>
+<script src="/js/incidents.js"></script>
+<script src="/js/policies.js"></script>
+<script src="/js/reports.js"></script>
+<script src="/js/audit.js"></script>
+<script src="/js/settings.js"></script>
+<script src="/js/search.js"></script>
+<script src="/js/notifications.js"></script>
+<script src="/js/scenarios.js"></script>
+<script src="/js/digital_twin.js"></script>
+<script src="/js/predictive.js"></script>
+<script src="/js/root_cause.js"></script>
+<script src="/js/chatbot.js"></script>
+<script src="/js/admin.js"></script>
+<script src="/js/app.js"></script>
+
+</body>
+</html>

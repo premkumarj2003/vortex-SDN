@@ -1,0 +1,120 @@
+{
+  "model_name": "VORTEX QoS Traffic Classifier",
+  "model_type": "Multi-Class Random Forest Classifier",
+  "version": "1.0.0",
+  "status": "HEALTHY",
+  "dataset_source": "SYNTHETIC TRAINING DATA (6,000 observations)",
+  "total_samples": 6000,
+  "train_samples": 4800,
+  "test_samples": 1200,
+  "accuracy": 0.9817,
+  "precision": 0.9814,
+  "recall": 0.9817,
+  "f1_score": 0.9815,
+  "classes": [
+    "BEST_EFFORT",
+    "CRITICAL",
+    "EMAIL",
+    "FILE_TRANSFER",
+    "P2P",
+    "VIDEO",
+    "VOICE",
+    "WEB"
+  ],
+  "confusion_matrix": [
+    [
+      50,
+      0,
+      3,
+      0,
+      0,
+      0,
+      0,
+      7
+    ],
+    [
+      0,
+      60,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      4,
+      0,
+      89,
+      0,
+      0,
+      0,
+      0,
+      3
+    ],
+    [
+      0,
+      0,
+      0,
+      180,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      84,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      240,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      180,
+      0
+    ],
+    [
+      3,
+      0,
+      2,
+      0,
+      0,
+      0,
+      0,
+      295
+    ]
+  ],
+  "feature_importance": {
+    "throughput_mbps": 0.1722,
+    "byte_rate": 0.1385,
+    "packet_rate": 0.128,
+    "packet_size": 0.1218,
+    "latency_ms": 0.1206,
+    "jitter_ms": 0.0946,
+    "packet_loss_pct": 0.0942,
+    "protocol_num": 0.0538,
+    "destination_port": 0.0411,
+    "flow_duration": 0.0353
+  },
+  "last_trained": "2026-08-18T14:06:08.706510+00:00",
+  "inference_count": 0
+}

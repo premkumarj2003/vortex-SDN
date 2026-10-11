@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VORTEX-SDN | Register Account</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/variables.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: radial-gradient(circle at top right, #0f172a 0%, #070a13 70%);
+      padding: 20px;
+    }
+    .auth-container {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      width: 100%;
+      max-width: 900px;
+      min-height: 520px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-medium);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+    }
+    .auth-brand-side {
+      background: linear-gradient(145deg, #0c1222 0%, #060913 100%);
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-right: 1px solid var(--border-subtle);
+    }
+    .brand-logo-cluster {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand-logo-icon {
+      width: 42px;
+      height: 42px;
+      background: linear-gradient(135deg, #00f2fe 0%, #0284c7 100%);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #070a13;
+      box-shadow: 0 0 16px rgba(0, 242, 254, 0.4);
+    }
+    .auth-form-side {
+      padding: 36px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .form-group {
+      margin-bottom: 14px;
+    }
+    .form-label {
+      display: block;
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 4px;
+    }
+    .form-input, .form-select {
+      width: 100%;
+      background: var(--bg-card);
+      border: 1px solid var(--border-medium);
+      border-radius: var(--radius-md);
+      padding: 10px 12px;
+      min-height: 44px;
+      color: var(--text-primary);
+      font-size: 13px;
+      outline: none;
+      transition: border-color var(--transition-fast);
+      box-sizing: border-box;
+    }
+    .form-input:focus, .form-select:focus {
+      border-color: var(--accent-cyan);
+    }
+    .pwd-input-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+      width: 100%;
+    }
+    .pwd-input-wrap .form-input {
+      padding-right: 44px;
+      width: 100%;
+    }
+    .pwd-toggle-btn {
+      position: absolute;
+      right: 4px;
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      width: 40px;
+      height: 40px;
+      min-height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color var(--transition-fast);
+      outline: none;
+      border-radius: var(--radius-sm);
+    }
+    .pwd-toggle-btn:hover {
+      color: var(--accent-cyan);
+    }
+    .role-hint-box {
+      background: rgba(14, 165, 233, 0.08);
+      border: 1px solid rgba(14, 165, 233, 0.2);
+      border-radius: var(--radius-sm);
+      padding: 8px 10px;
+      font-size: 11px;
+      color: var(--text-secondary);
+      margin-top: 6px;
+      line-height: 1.4;
+    }
+    .pwd-req-box {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid var(--border-medium);
+      border-radius: var(--radius-sm);
+      padding: 8px 10px;
+      margin-top: 4px;
+      margin-bottom: 12px;
+    }
+    .pwd-req-title {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 4px;
+    }
+    .strength-track {
+      height: 4px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 2px;
+      overflow: hidden;
+      margin: 4px 0 6px 0;
+    }
+    .strength-fill {
+      height: 100%;
+      width: 0%;
+      transition: width var(--transition-normal), background-color var(--transition-normal);
+      background: var(--status-danger);
+    }
+    .req-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px 8px;
+      font-size: 10.5px;
+    }
+    .req-item {
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: color var(--transition-fast);
+    }
+    .req-item.valid {
+      color: var(--status-success);
+      font-weight: 500;
+    }
+    .req-item .req-dot {
+      display: inline-block;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+    .reg-pwd-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    @media (max-width: 768px) {
+      body {
+        padding: 12px;
+      }
+      .auth-container {
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+      .auth-brand-side {
+        display: none;
+      }
+      .auth-form-side {
+        padding: 24px 20px;
+      }
+    }
+    @media (max-width: 480px) {
+      body {
+        padding: 8px;
+      }
+      .auth-form-side {
+        padding: 20px 14px;
+      }
+      .reg-pwd-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+      .req-grid {
+        grid-template-columns: 1fr;
+      }
+      #req-special {
+        grid-column: span 1 !important;
+      }
+    }
+    @media (max-width: 360px) {
+      body {
+        padding: 4px;
+      }
+      .auth-form-side {
+        padding: 16px 10px;
+      }
+      .form-group {
+        margin-bottom: 10px;
+      }
+      .form-label {
+        font-size: 11px;
+      }
+      .form-input, .form-select {
+        font-size: 12.5px;
+        padding: 8px 10px;
+      }
+    }
+    @media (max-width: 950px) and (orientation: landscape) and (max-height: 520px) {
+      body {
+        padding: 8px 12px;
+        align-items: flex-start;
+        overflow-y: auto;
+        overflow-x: hidden;
+      }
+      .auth-container {
+        grid-template-columns: 1fr;
+        max-width: 520px;
+        min-height: auto;
+        margin: auto;
+      }
+      .auth-brand-side {
+        display: none;
+      }
+      .auth-form-side {
+        padding: 14px 18px;
+      }
+      .form-group {
+        margin-bottom: 6px;
+      }
+      .form-input, .form-select {
+        padding: 6px 10px;
+        font-size: 12px;
+      }
+      .reg-pwd-row {
+        gap: 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="auth-container">
+  <!-- Left Side Branding -->
+  <div class="auth-brand-side">
+    <div>
+      <div class="brand-logo-cluster">
+        <div class="brand-logo-icon">
+          <svg class="icon icon-lg" viewBox="0 0 24 24" style="color:#070a13; stroke-width:2.5;"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        </div>
+        <div>
+          <div style="font-size: 20px; font-weight: 800; color: #ffffff; letter-spacing: 0.5px;">VORTEX-SDN</div>
+          <div style="font-size: 10px; color: var(--accent-cyan); font-weight: 700; letter-spacing: 1.2px;">SECURE ACCESS CONTROL</div>
+        </div>
+      </div>
+
+      <div style="margin-top: 36px;">
+        <h2 style="font-size: 18px; font-weight: 700; color: #ffffff; margin-bottom: 8px;">Role-Based NOC Access</h2>
+        <p style="font-size: 12.5px; color: var(--text-secondary); line-height: 1.6;">
+          Register an account to monitor SDN topology, telemetry analytics, and network security status.
+        </p>
+      </div>
+
+      <div style="margin-top: 24px; font-size: 11.5px; color: var(--text-muted); line-height: 1.6;">
+        <strong style="color:var(--text-primary);">Role Tiers:</strong><br>
+        &bull; <strong>READER:</strong> Read-only observability for dashboards, telemetry, and reports.<br>
+        &bull; <strong>OPERATOR:</strong> Active SDN control & threat mitigation (Requires Administrator Approval).<br>
+        &bull; <em>Note: Platform administration is restricted to the single designated administrator.</em>
+      </div>
+    </div>
+
+    <div style="font-size: 11px; color: var(--text-disabled);">
+      VORTEX-SDN Enterprise System v2.0
+    </div>
+  </div>
+
+  <!-- Right Side Registration Form -->
+  <div class="auth-form-side">
+    <div style="margin-bottom: 18px;">
+      <h1 style="font-size: 20px; font-weight: 700; color: #ffffff; margin-bottom: 4px;">Register Account</h1>
+      <p style="font-size: 12px; color: var(--text-muted);">Create your secure credentials for the VORTEX SDN platform.</p>
+    </div>
+
+    <form id="register-form">
+      <div class="form-group">
+        <label class="form-label">Full Name</label>
+        <input type="text" id="reg-fullname" class="form-input" placeholder="e.g. Shiva Prasad" required autofocus>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Gmail Address</label>
+        <input type="email" id="reg-email" class="form-input" placeholder="e.g. user@gmail.com" required>
+        <div id="email-hint" style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">Enter a valid Gmail address (@gmail.com).</div>
+      </div>
+
+      <div class="reg-pwd-row">
+        <div class="form-group" style="margin-bottom: 6px;">
+          <label class="form-label" for="reg-password">Password</label>
+          <div class="pwd-input-wrap">
+            <input type="password" id="reg-password" class="form-input" placeholder="Min 8 chars" required autocomplete="new-password">
+            <button type="button" class="pwd-toggle-btn" id="toggle-reg-password" title="Toggle password visibility" aria-label="Toggle password visibility">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="form-group" style="margin-bottom: 6px;">
+          <label class="form-label" for="reg-confirm">Confirm Password</label>
+          <div class="pwd-input-wrap">
+            <input type="password" id="reg-confirm" class="form-input" placeholder="Confirm" required autocomplete="new-password">
+            <button type="button" class="pwd-toggle-btn" id="toggle-reg-confirm" title="Toggle confirm password visibility" aria-label="Toggle confirm password visibility">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Password Requirements & Strength Indicator -->
+      <div class="pwd-req-box">
+        <div class="pwd-req-title">Minimum 8 characters with uppercase, lowercase, number and special character.</div>
+        <div style="display: flex; justify-content: space-between; align-items: center; font-size: 10.5px;">
+          <span style="color: var(--text-muted);">Password Strength:</span>
+          <span id="strength-label" style="font-weight: 600; color: var(--text-muted);">Enter password</span>
+        </div>
+        <div class="strength-track">
+          <div id="strength-bar" class="strength-fill"></div>
+        </div>
+        <div class="req-grid">
+          <div id="req-len" class="req-item"><span class="req-dot"></span> At least 8 characters</div>
+          <div id="req-upper" class="req-item"><span class="req-dot"></span> 1 uppercase letter</div>
+          <div id="req-lower" class="req-item"><span class="req-dot"></span> 1 lowercase letter</div>
+          <div id="req-num" class="req-item"><span class="req-dot"></span> 1 number</div>
+          <div id="req-special" class="req-item" style="grid-column: span 2;"><span class="req-dot"></span> 1 special character (!@#$%^&*...)</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Access Level</label>
+        <select id="reg-role" class="form-select">
+          <option value="READER" selected>READER (Read-Only NOC Observability)</option>
+          <option value="OPERATOR">OPERATOR (Requires Administrator Approval)</option>
+        </select>
+        <div class="role-hint-box" id="role-hint">
+          Standard Read-Only access. You can view dashboards, telemetry, and reports after email verification.
+        </div>
+      </div>
+
+      <button type="submit" id="reg-submit-btn" class="btn btn-primary" style="width: 100%; padding: 10px; font-size: 13.5px; margin-top: 8px;">
+        Register Account
+      </button>
+
+      <div style="text-align: center; margin-top: 14px; font-size: 12px;">
+        <a href="/login" style="color: var(--accent-cyan);">Already have an account? Sign in</a>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div id="toast-container"></div>
+
+<script src="/js/api.js"></script>
+<script src="/js/utils.js"></script>
+<script>
+  const roleSelect = document.getElementById("reg-role");
+  const roleHint = document.getElementById("role-hint");
+  const pwdInput = document.getElementById("reg-password");
+  const confirmInput = document.getElementById("reg-confirm");
+  const emailInput = document.getElementById("reg-email");
+
+  const reqLen = document.getElementById("req-len");
+  const reqUpper = document.getElementById("req-upper");
+  const reqLower = document.getElementById("req-lower");
+  const reqNum = document.getElementById("req-num");
+  const reqSpecial = document.getElementById("req-special");
+  const strengthBar = document.getElementById("strength-bar");
+  const strengthLabel = document.getElementById("strength-label");
+
+  function evaluatePasswordStrength(pwd) {
+    const hasLen = pwd.length >= 8;
+    const hasUpper = /[A-Z]/.test(pwd);
+    const hasLower = /[a-z]/.test(pwd);
+    const hasNum = /[0-9]/.test(pwd);
+    const hasSpecial = /[^A-Za-z0-9]/.test(pwd);
+
+    if (reqLen) reqLen.classList.toggle("valid", hasLen);
+    if (reqUpper) reqUpper.classList.toggle("valid", hasUpper);
+    if (reqLower) reqLower.classList.toggle("valid", hasLower);
+    if (reqNum) reqNum.classList.toggle("valid", hasNum);
+    if (reqSpecial) reqSpecial.classList.toggle("valid", hasSpecial);
+
+    const score = [hasLen, hasUpper, hasLower, hasNum, hasSpecial].filter(Boolean).length;
+
+    if (!pwd) {
+      strengthBar.style.width = "0%";
+      strengthBar.style.background = "var(--status-danger)";
+      strengthLabel.textContent = "Enter password";
+      strengthLabel.style.color = "var(--text-muted)";
+    } else if (score < 3) {
+      strengthBar.style.width = "25%";
+      strengthBar.style.background = "var(--status-danger)";
+      strengthLabel.textContent = "Weak";
+      strengthLabel.style.color = "var(--status-danger)";
+    } else if (score < 5) {
+      strengthBar.style.width = "60%";
+      strengthBar.style.background = "var(--status-warning)";
+      strengthLabel.textContent = "Moderate";
+      strengthLabel.style.color = "var(--status-warning)";
+    } else {
+      strengthBar.style.width = "100%";
+      strengthBar.style.background = "var(--status-success)";
+      strengthLabel.textContent = "Strong";
+      strengthLabel.style.color = "var(--status-success)";
+    }
+
+    return { hasLen, hasUpper, hasLower, hasNum, hasSpecial, isStrong: score === 5 };
+  }
+
+  pwdInput.addEventListener("input", (e) => {
+    evaluatePasswordStrength(e.target.value);
+  });
+
+  roleSelect.addEventListener("change", () => {
+    if (roleSelect.value === "OPERATOR") {
+      roleHint.innerHTML = '<strong style="color:var(--accent-cyan);">Approval Required:</strong> An operator access request will be submitted to the administrator for review. Your account will start as Reader until approved.';
+    } else {
+      roleHint.innerHTML = 'Standard Read-Only access. You can view dashboards, telemetry, and reports after email verification.';
+    }
+  });
+
+  document.getElementById("register-form").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById("reg-submit-btn");
+    const fullName = document.getElementById("reg-fullname").value.trim();
+    const rawEmail = emailInput.value.trim();
+    const password = pwdInput.value;
+    const confirm = confirmInput.value;
+    const role = roleSelect.value;
+
+    if (!fullName || !rawEmail || !password) {
+      Utils.showToast("All fields are required.", "danger");
+      return;
+    }
+
+    // Gmail normalization & validation
+    const emailNormalized = rawEmail.toLowerCase();
+    const gmailRegex = /^[a-z0-9][a-z0-9._%+-]*@gmail\.com$/;
+    if (!emailNormalized || !gmailRegex.test(emailNormalized) || !emailNormalized.endsWith("@gmail.com") || emailNormalized.includes(" ") || emailNormalized.includes("..") || emailNormalized.startsWith(".")) {
+      Utils.showToast("Please enter a valid Gmail address.", "danger");
+      emailInput.focus();
+      return;
+    }
+
+    // Strong Password Validation
+    const strength = evaluatePasswordStrength(password);
+    if (!strength.isStrong) {
+      const missing = [];
+      if (!strength.hasLen) missing.push("minimum 8 characters");
+      if (!strength.hasUpper) missing.push("uppercase letter");
+      if (!strength.hasLower) missing.push("lowercase letter");
+      if (!strength.hasNum) missing.push("number");
+      if (!strength.hasSpecial) missing.push("special character");
+      Utils.showToast("Password must include at least one " + missing.join(", ") + ".", "danger");
+      pwdInput.focus();
+      return;
+    }
+
+    if (password !== confirm) {
+      Utils.showToast("Passwords do not match.", "danger");
+      confirmInput.focus();
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = "Creating Account...";
+
+    try {
+      const data = await API.post("/api/auth/register", {
+        full_name: fullName,
+        email: emailNormalized,
+        password: password,
+        confirm_password: confirm,
+        role: role,
+        request_operator: role === "OPERATOR"
+      });
+
+      if (data.email_sent === true && (data.status === "SUCCESS" || data.success === true)) {
+        sessionStorage.setItem("vortex_otp_email", emailNormalized);
+        localStorage.setItem("vortex_last_registered_email", emailNormalized);
+
+        let opNotice = "";
+        if (data.operator_requested) {
+          opNotice = `<p style="font-size: 12px; color: var(--accent-cyan); background: rgba(0, 242, 254, 0.08); padding: 8px 12px; border-radius: 6px; margin: 12px 0;">
+            <strong>Operator Request Noted:</strong> Your request for Operator access has been submitted for Administrator review.
+          </p>`;
+        }
+
+        const msgText = `A six-digit verification code was sent to <strong style="color: #ffffff;">${Utils.escapeHtml(emailNormalized)}</strong>.`;
+
+        document.querySelector(".auth-form-side").innerHTML = `
+          <div style="text-align: center; padding: 10px 0;">
+            <div style="width: 56px; height: 56px; border-radius: 50%; background: rgba(0, 242, 254, 0.15); color: var(--accent-cyan); display: flex; align-items: center; justify-content: center; margin: 0 auto 18px auto;">
+              <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+            </div>
+            <h2 style="font-size: 19px; color: #ffffff; margin-bottom: 8px;">Verification Code Sent!</h2>
+            <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 12px;">
+              ${msgText}
+            </p>
+            ${opNotice}
+            <a href="/verify-email?email=${encodeURIComponent(emailNormalized)}&sent=1" class="btn btn-primary" style="display: inline-flex; align-items: center; justify-content: center; width: 100%; min-height: 44px; padding: 11px; font-size: 14px; text-decoration: none; margin-top: 14px;">
+              Enter Verification Code &rarr;
+            </a>
+          </div>
+        `;
+
+        setTimeout(() => {
+          window.location.href = `/verify-email?email=${encodeURIComponent(emailNormalized)}&sent=1`;
+        }, 1200);
+        return;
+      } else {
+        const warningMsg = data.message || "Your account was created, but the verification email could not be sent. Please try again.";
+        document.querySelector(".auth-form-side").innerHTML = `
+          <div style="text-align: center; padding: 10px 0;">
+            <div style="width: 56px; height: 56px; border-radius: 50%; background: rgba(245, 158, 11, 0.15); color: var(--status-warning); display: flex; align-items: center; justify-content: center; margin: 0 auto 18px auto;">
+              <svg class="icon icon-lg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            </div>
+            <h2 style="font-size: 18px; color: #ffffff; margin-bottom: 8px;">Account Created</h2>
+            <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 20px;">
+              ${Utils.escapeHtml(warningMsg)}
+            </p>
+            <a href="/verify-email?email=${encodeURIComponent(emailNormalized)}" class="btn btn-primary" style="display: inline-flex; align-items: center; justify-content: center; width: 100%; min-height: 44px; padding: 10px; font-size: 13.5px; text-decoration: none;">
+              Verify Email with OTP
+            </a>
+          </div>
+        `;
+      }
+    } catch (err) {
+      if (err.data && (err.data.code === "EMAIL_NOT_VERIFIED" || (err.data.message && err.data.message.toLowerCase().includes("verify your gmail")))) {
+        sessionStorage.setItem("vortex_otp_email", emailNormalized);
+        Utils.showToast("Account exists and is unverified. Directing to verification...", "warning");
+        setTimeout(() => {
+          window.location.href = `/verify-email?email=${encodeURIComponent(emailNormalized)}`;
+        }, 1000);
+        return;
+      }
+
+      if (err.data && (err.data.code === "EMAIL_SEND_FAILED" || err.data.status === "WARNING" || err.data.email_sent === false)) {
+        const failureMsg = (err.data && err.data.message) || err.message || "We could not deliver a verification email to this Gmail address. Please check the address and try again.";
+        document.querySelector(".auth-form-side").innerHTML = `
+          <div style="text-align: center; padding: 10px 0;">
+            <div style="width: 56px; height: 56px; border-radius: 50%; background: rgba(245, 158, 11, 0.15); color: var(--status-warning); display: flex; align-items: center; justify-content: center; margin: 0 auto 18px auto;">
+              <svg class="icon icon-lg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            </div>
+            <h2 style="font-size: 18px; color: #ffffff; margin-bottom: 8px;">Email Delivery Notice</h2>
+            <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 20px;">
+              ${Utils.escapeHtml(failureMsg)}
+            </p>
+            <a href="/login" class="btn btn-primary" style="display: inline-flex; align-items: center; justify-content: center; width: 100%; min-height: 44px; padding: 10px; font-size: 13.5px; text-decoration: none;">
+              Proceed to Sign In
+            </a>
+          </div>
+        `;
+        return;
+      }
+      Utils.showToast(err.message || "Unable to register account. Please try again.", "danger");
+      btn.disabled = false;
+      btn.textContent = "Register Account";
+    }
+  });
+
+  // Password visibility eye toggle functionality
+  const eyeOpenSvg = `<svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>`;
+  const eyeClosedSvg = `<svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>`;
+
+  function setupPasswordToggle(inputId, buttonId) {
+    const input = document.getElementById(inputId);
+    const btn = document.getElementById(buttonId);
+    if (!input || !btn) return;
+    btn.addEventListener("click", () => {
+      const isPassword = input.type === "password";
+      input.type = isPassword ? "text" : "password";
+      btn.innerHTML = isPassword ? eyeClosedSvg : eyeOpenSvg;
+      btn.title = isPassword ? "Hide password" : "Show password";
+    });
+  }
+
+  setupPasswordToggle("reg-password", "toggle-reg-password");
+  setupPasswordToggle("reg-confirm", "toggle-reg-confirm");
+</script>
+</body>
+</html>

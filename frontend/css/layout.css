@@ -1,0 +1,137 @@
+/* ==========================================================================
+   VORTEX-SDN Application Layout Structure
+   Architecture:
+   BODY -> APP-CONTAINER
+            ├── SIDEBAR-BACKDROP (Mobile overlay)
+            ├── SIDEBAR (position: fixed; top: 0; left: 0; height: 100vh; NO SCROLLBAR)
+            └── MAIN-WRAPPER (margin-left: 260px; height: 100vh)
+                 ├── TOPBAR (height: 60px; fixed header)
+                 └── CONTENT-VIEWPORT (flex: 1; ONLY area that scrolls)
+   ========================================================================== */
+
+#app-container {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+  background-color: var(--bg-primary);
+}
+
+/* Mobile Sidebar Backdrop */
+#sidebar-backdrop {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(3, 7, 18, 0.75);
+  backdrop-filter: blur(4px);
+  z-index: calc(var(--z-sidebar) - 5);
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+  pointer-events: none;
+}
+
+#sidebar-backdrop.active {
+  display: block;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Fixed Desktop Sidebar */
+#sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: var(--sidebar-width);
+  height: 100vh;
+  background-color: var(--bg-secondary);
+  border-right: 1px solid var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: var(--z-sidebar);
+  transition: width var(--transition-speed), transform var(--transition-speed);
+  overflow: hidden; /* STRICT: No internal scrollbar */
+}
+
+/* Collapsed Sidebar State */
+#sidebar.collapsed {
+  width: var(--sidebar-collapsed-width);
+}
+
+/* Main Content Column (Takes rest of viewport) */
+#main-wrapper {
+  margin-left: var(--sidebar-width);
+  width: calc(100vw - var(--sidebar-width));
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+  transition: margin-left var(--transition-speed), width var(--transition-speed);
+}
+
+/* Main wrapper adjusts when sidebar is collapsed */
+#sidebar.collapsed ~ #main-wrapper {
+  margin-left: var(--sidebar-collapsed-width);
+  width: calc(100vw - var(--sidebar-collapsed-width));
+}
+
+/* Topbar Header (Fixed in place at top of main wrapper) */
+#topbar {
+  height: var(--topbar-height);
+  min-height: var(--topbar-height);
+  background-color: var(--bg-surface);
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--space-lg);
+  gap: var(--space-md);
+  z-index: var(--z-topbar);
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+
+/* Scrollable Viewport (ONLY region that scrolls) */
+#content-viewport {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: var(--space-lg);
+  background-color: var(--bg-primary);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+/* View Sections */
+.view-section {
+  display: none;
+  animation: fadeIn 0.15s ease-in-out;
+  width: 100%;
+}
+
+.view-section.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(2px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Subtle Global App Footer */
+.app-footer {
+  margin-top: auto;
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--text-muted);
+}

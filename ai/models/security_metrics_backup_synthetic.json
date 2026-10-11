@@ -1,0 +1,89 @@
+{
+  "model_name": "VORTEX Security Threat Classifier",
+  "model_type": "Random Forest + Isolation Forest Ensemble",
+  "version": "1.0.0",
+  "status": "HEALTHY",
+  "dataset_source": "SYNTHETIC TRAINING DATA (6,000 observations)",
+  "total_samples": 6000,
+  "train_samples": 4800,
+  "test_samples": 1200,
+  "accuracy": 1.0,
+  "precision": 1.0,
+  "recall": 1.0,
+  "f1_score": 1.0,
+  "classes": [
+    "ANOMALY",
+    "BENIGN",
+    "BRUTE_FORCE",
+    "DDOS",
+    "FLOOD",
+    "PORT_SCAN"
+  ],
+  "confusion_matrix": [
+    [
+      96,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      540,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      120,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      180,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      120,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      144
+    ]
+  ],
+  "feature_importance": {
+    "packet_rate": 0.25,
+    "byte_rate": 0.1248,
+    "destination_frequency": 0.1138,
+    "source_frequency": 0.1031,
+    "unique_destinations": 0.0969,
+    "connection_frequency": 0.0941,
+    "packet_size": 0.0745,
+    "destination_port": 0.0507,
+    "packets": 0.0446,
+    "bytes": 0.0431,
+    "flow_duration": 0.0031,
+    "protocol_num": 0.0008,
+    "source_port": 0.0006
+  },
+  "last_trained": "2026-08-18T14:06:01.320988+00:00",
+  "inference_count": 0
+}

@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VORTEX-SDN | Verify Email OTP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/variables.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      min-height: 100dvh;
+      margin: 0;
+      padding: 16px;
+      background: radial-gradient(circle at top right, #0f172a 0%, #070a13 70%);
+      font-family: var(--font-sans);
+      color: var(--text-primary);
+      overflow-x: hidden;
+    }
+    .verify-card {
+      width: 100%;
+      max-width: 480px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-medium);
+      border-radius: var(--radius-lg);
+      padding: 36px 30px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+      text-align: center;
+      position: relative;
+    }
+    .brand-cluster {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 22px;
+    }
+    .brand-icon {
+      width: 38px;
+      height: 38px;
+      background: linear-gradient(135deg, #00f2fe 0%, #0284c7 100%);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #070a13;
+      box-shadow: 0 0 14px rgba(0, 242, 254, 0.4);
+    }
+    .brand-title {
+      font-size: 19px;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: 0.5px;
+      text-align: left;
+      line-height: 1.1;
+    }
+    .brand-badge {
+      font-size: 9px;
+      color: var(--accent-cyan);
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-align: left;
+    }
+    .verify-heading {
+      font-size: 21px;
+      font-weight: 700;
+      color: #ffffff;
+      margin: 0 0 8px 0;
+    }
+    .verify-subtext {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      margin: 0 0 16px 0;
+    }
+    .email-display-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(0, 242, 254, 0.08);
+      border: 1px solid rgba(0, 242, 254, 0.25);
+      padding: 5px 12px;
+      border-radius: var(--radius-full);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--accent-cyan);
+      margin-bottom: 22px;
+      word-break: break-all;
+      max-width: 100%;
+    }
+    .email-edit-btn {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 0;
+      font-size: 11px;
+      text-decoration: underline;
+      display: inline-flex;
+      align-items: center;
+    }
+    .email-edit-btn:hover {
+      color: #ffffff;
+    }
+    .email-prompt-wrap {
+      margin-bottom: 18px;
+      text-align: left;
+    }
+    .email-prompt-input {
+      width: 100%;
+      background: var(--bg-card);
+      border: 1px solid var(--border-medium);
+      border-radius: var(--radius-md);
+      padding: 10px 14px;
+      color: var(--text-primary);
+      font-size: 13.5px;
+      min-height: 44px;
+      outline: none;
+    }
+    .email-prompt-input:focus {
+      border-color: var(--accent-cyan);
+    }
+    .otp-inputs-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 8px;
+      width: 100%;
+      max-width: 390px;
+      margin: 0 auto 20px auto;
+    }
+    .otp-digit-box {
+      width: 100%;
+      height: 52px;
+      min-height: 44px;
+      background: var(--bg-card);
+      border: 1.5px solid var(--border-medium);
+      border-radius: var(--radius-md);
+      color: #ffffff;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 22px;
+      font-weight: 700;
+      text-align: center;
+      outline: none;
+      transition: all var(--transition-fast);
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    .otp-digit-box:focus {
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 12px rgba(0, 242, 254, 0.4);
+      background: rgba(15, 23, 42, 0.9);
+    }
+    .otp-digit-box.filled {
+      border-color: rgba(0, 242, 254, 0.5);
+      background: rgba(0, 242, 254, 0.04);
+    }
+    .otp-digit-box.error {
+      border-color: var(--status-danger);
+      box-shadow: 0 0 10px rgba(239, 68, 68, 0.35);
+    }
+    .alert-box {
+      border-radius: var(--radius-md);
+      padding: 10px 14px;
+      font-size: 12px;
+      margin-bottom: 18px;
+      line-height: 1.4;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-align: left;
+    }
+    .alert-box.danger {
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      color: #fca5a5;
+    }
+    .alert-box.warning {
+      background: rgba(245, 158, 11, 0.12);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      color: #fcd34d;
+    }
+    .alert-box.success {
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      color: #6ee7b7;
+    }
+    .verify-btn {
+      width: 100%;
+      padding: 12px;
+      min-height: 44px;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      border-radius: var(--radius-md);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+    .verify-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    .resend-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 12.5px;
+      color: var(--text-secondary);
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+    .resend-action-btn {
+      background: none;
+      border: none;
+      color: var(--accent-cyan);
+      font-weight: 600;
+      font-size: 12.5px;
+      cursor: pointer;
+      padding: 4px 6px;
+      min-height: 36px;
+      display: inline-flex;
+      align-items: center;
+      transition: color var(--transition-fast);
+      text-decoration: none;
+    }
+    .resend-action-btn:hover:not(:disabled) {
+      color: #38bdf8;
+      text-decoration: underline;
+    }
+    .resend-action-btn:disabled {
+      color: var(--text-muted);
+      cursor: not-allowed;
+      text-decoration: none;
+    }
+    .back-nav-link {
+      color: var(--text-muted);
+      font-size: 12px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: color var(--transition-fast);
+      min-height: 44px;
+      padding: 4px;
+    }
+    .back-nav-link:hover {
+      color: #ffffff;
+    }
+    .icon-spin {
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      100% { transform: rotate(360deg); }
+    }
+    .state-icon-wrap {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      margin: 0 auto 16px auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .state-icon-wrap.success {
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--status-success);
+    }
+    .state-icon-wrap.loading {
+      background: rgba(0, 242, 254, 0.15);
+      color: var(--accent-cyan);
+    }
+
+    /* Mobile Responsive Optimizations */
+    @media (max-width: 480px) {
+      body {
+        padding: 8px;
+      }
+      .verify-card {
+        padding: 24px 14px;
+        border-radius: var(--radius-md);
+      }
+      .brand-title {
+        font-size: 17px;
+      }
+      .verify-heading {
+        font-size: 18px;
+      }
+      .otp-inputs-grid {
+        gap: 5px;
+        max-width: 100%;
+      }
+      .otp-digit-box {
+        height: 48px;
+        font-size: 19px;
+      }
+      .email-display-badge {
+        font-size: 11px;
+        padding: 4px 10px;
+      }
+    }
+    @media (max-width: 360px) {
+      .otp-inputs-grid {
+        gap: 4px;
+      }
+      .otp-digit-box {
+        height: 44px;
+        font-size: 17px;
+      }
+      .verify-heading {
+        font-size: 17px;
+      }
+      .verify-subtext {
+        font-size: 12px;
+      }
+    }
+    @media (max-height: 520px) and (orientation: landscape) {
+      body {
+        align-items: flex-start;
+        padding: 10px;
+        overflow-y: auto;
+      }
+      .verify-card {
+        padding: 18px 20px;
+        margin: auto;
+      }
+      .brand-cluster {
+        margin-bottom: 12px;
+      }
+      .otp-inputs-grid {
+        margin-bottom: 14px;
+      }
+      .otp-digit-box {
+        height: 44px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="verify-card" id="verify-card-panel">
+
+  <!-- Brand Emblem -->
+  <div class="brand-cluster">
+    <div class="brand-icon" aria-hidden="true">
+      <svg class="icon icon-md" viewBox="0 0 24 24" style="stroke: #070a13; stroke-width: 2.4;">
+        <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+        <polyline points="2 17 12 22 22 17"/>
+        <polyline points="2 12 12 17 22 12"/>
+      </svg>
+    </div>
+    <div>
+      <div class="brand-title">VORTEX-SDN</div>
+      <div class="brand-badge">SECURE ACCESS CONTROL</div>
+    </div>
+  </div>
+
+  <!-- STATE: OTP ENTRY (Default) -->
+  <div id="otp-form-view">
+    <h1 class="verify-heading">Verify Your Email</h1>
+    <p class="verify-subtext" id="verify-instruction-text">
+      Please enter the six-digit verification code sent to your registered Gmail address.
+    </p>
+
+    <!-- Destination Email Display Badge -->
+    <div id="email-badge-container" style="display: none;">
+      <div class="email-display-badge">
+        <svg class="icon icon-xs" viewBox="0 0 24 24" style="stroke: currentColor;"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        <span id="masked-email-text">user@gmail.com</span>
+        <button type="button" class="email-edit-btn" id="change-email-btn" title="Change target email address">Change</button>
+      </div>
+    </div>
+
+    <!-- Email Input (shown if no email in URL or storage) -->
+    <div id="manual-email-container" class="email-prompt-wrap" style="display: none;">
+      <label for="manual-email-input" style="display:block; font-size:11.5px; font-weight:600; color:var(--text-secondary); margin-bottom:5px;">
+        Registered Gmail Address
+      </label>
+      <input type="email" id="manual-email-input" class="email-prompt-input" placeholder="e.g. user@gmail.com" required autocomplete="email">
+      <div style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">Enter the Gmail address used during registration.</div>
+    </div>
+
+    <!-- Alert / Error Banner -->
+    <div id="otp-alert" class="alert-box danger" style="display: none;" role="alert">
+      <svg class="icon icon-sm" viewBox="0 0 24 24" style="flex-shrink: 0;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <span id="otp-alert-msg">Incorrect code.</span>
+    </div>
+
+    <!-- 6-Digit OTP Inputs Group -->
+    <div class="otp-inputs-grid" id="otp-inputs-group">
+      <input type="text" class="otp-digit-box" maxlength="1" inputmode="numeric" pattern="[0-9]*" autocomplete="one-time-code" data-index="0" aria-label="Digit 1">
+      <input type="text" class="otp-digit-box" maxlength="1" inputmode="numeric" pattern="[0-9]*" autocomplete="off" data-index="1" aria-label="Digit 2">
+      <input type="text" class="otp-digit-box" maxlength="1" inputmode="numeric" pattern="[0-9]*" autocomplete="off" data-index="2" aria-label="Digit 3">
+      <input type="text" class="otp-digit-box" maxlength="1" inputmode="numeric" pattern="[0-9]*" autocomplete="off" data-index="3" aria-label="Digit 4">
+      <input type="text" class="otp-digit-box" maxlength="1" inputmode="numeric" pattern="[0-9]*" autocomplete="off" data-index="4" aria-label="Digit 5">
+      <input type="text" class="otp-digit-box" maxlength="1" inputmode="numeric" pattern="[0-9]*" autocomplete="off" data-index="5" aria-label="Digit 6">
+    </div>
+
+    <!-- Submit Verification Button -->
+    <button type="button" id="verify-btn" class="btn btn-primary verify-btn" disabled>
+      <span id="verify-btn-spinner" style="display: none;">
+        <svg class="icon icon-sm icon-spin" viewBox="0 0 24 24"><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/></svg>
+      </span>
+      <span id="verify-btn-text">Verify Email</span>
+    </button>
+
+    <!-- Resend OTP Control with Visible Countdown -->
+    <div class="resend-row">
+      <span>Didn't receive the code?</span>
+      <button type="button" id="resend-otp-btn" class="resend-action-btn">
+        Resend Code
+      </button>
+      <span id="cooldown-timer-wrap" style="color: var(--text-muted); font-size: 11.5px; display: none;">
+        (<span id="cooldown-seconds">60</span>s)
+      </span>
+    </div>
+
+    <!-- Navigation Link -->
+    <div>
+      <a href="/register" class="back-nav-link" id="back-nav-btn">
+        &larr; Back to Registration
+      </a>
+    </div>
+  </div>
+
+  <!-- STATE: SUCCESS VIEW -->
+  <div id="otp-success-view" style="display: none;">
+    <div class="state-icon-wrap success">
+      <svg class="icon icon-lg" viewBox="0 0 24 24" style="stroke-width: 2.6;"><polyline points="20 6 9 17 4 12"/></svg>
+    </div>
+    <h2 class="verify-heading" style="color: #ffffff;">Email Verified Successfully!</h2>
+    <p id="success-msg-text" style="color: var(--text-secondary); font-size: 13.5px; line-height: 1.6; margin-bottom: 24px;">
+      Your email address has been verified. Your VORTEX-SDN account is now activated.
+    </p>
+    <a href="/login" class="btn btn-primary verify-btn" style="text-decoration: none; width: 100%;">
+      Proceed to NOC Sign In
+    </a>
+  </div>
+
+  <!-- STATE: LEGACY LINK VALIDATING -->
+  <div id="legacy-validating-view" style="display: none;">
+    <div class="state-icon-wrap loading">
+      <svg class="icon icon-lg icon-spin" viewBox="0 0 24 24"><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/></svg>
+    </div>
+    <h2 class="verify-heading">Validating Verification Link...</h2>
+    <p style="color: var(--text-muted); font-size: 13px;">Checking cryptographic verification token with controller...</p>
+  </div>
+
+</div>
+
+<div id="toast-container"></div>
+
+<script src="/js/api.js"></script>
+<script src="/js/utils.js"></script>
+<script>
+  (function() {
+    'use strict';
+
+    // DOM References
+    const otpFormView = document.getElementById("otp-form-view");
+    const otpSuccessView = document.getElementById("otp-success-view");
+    const legacyValidatingView = document.getElementById("legacy-validating-view");
+    const successMsgText = document.getElementById("success-msg-text");
+
+    const emailBadgeContainer = document.getElementById("email-badge-container");
+    const maskedEmailText = document.getElementById("masked-email-text");
+    const changeEmailBtn = document.getElementById("change-email-btn");
+    const manualEmailContainer = document.getElementById("manual-email-container");
+    const manualEmailInput = document.getElementById("manual-email-input");
+
+    const otpBoxes = Array.from(document.querySelectorAll(".otp-digit-box"));
+    const verifyBtn = document.getElementById("verify-btn");
+    const verifyBtnSpinner = document.getElementById("verify-btn-spinner");
+    const verifyBtnText = document.getElementById("verify-btn-text");
+
+    const resendBtn = document.getElementById("resend-otp-btn");
+    const cooldownTimerWrap = document.getElementById("cooldown-timer-wrap");
+    const cooldownSecondsSpan = document.getElementById("cooldown-seconds");
+
+    const alertBox = document.getElementById("otp-alert");
+    const alertMsg = document.getElementById("otp-alert-msg");
+
+    // State Variables
+    let currentEmail = "";
+    let isVerifying = false;
+    let isResending = false;
+    let countdownInterval = null;
+
+    // Helper: Mask email safely (e.g. j***e@gmail.com)
+    function maskEmail(email) {
+      if (!email || !email.includes("@")) return email || "";
+      const [local, domain] = email.split("@");
+      if (local.length <= 2) {
+        return local[0] + "***@" + domain;
+      }
+      const first = local[0];
+      const last = local[local.length - 1];
+      const stars = "*".repeat(Math.min(local.length - 2, 4));
+      return `${first}${stars}${last}@${domain}`;
+    }
+
+    function showAlert(msg, type = "danger") {
+      alertBox.className = `alert-box ${type}`;
+      alertMsg.textContent = msg;
+      alertBox.style.display = "flex";
+    }
+
+    function hideAlert() {
+      alertBox.style.display = "none";
+      alertMsg.textContent = "";
+    }
+
+    // Set or resolve active email address
+    function setEmail(email) {
+      currentEmail = (email || "").trim().toLowerCase();
+      if (currentEmail) {
+        sessionStorage.setItem("vortex_otp_email", currentEmail);
+        maskedEmailText.textContent = maskEmail(currentEmail);
+        emailBadgeContainer.style.display = "inline-flex";
+        manualEmailContainer.style.display = "none";
+      } else {
+        emailBadgeContainer.style.display = "none";
+        manualEmailContainer.style.display = "block";
+      }
+      checkButtonState();
+    }
+
+    // Gather 6 digits
+    function getEnteredOtp() {
+      return otpBoxes.map(b => b.value.trim()).join("");
+    }
+
+    // Check if 6 digits are complete and email is present
+    function checkButtonState() {
+      const code = getEnteredOtp();
+      const email = currentEmail || (manualEmailInput ? manualEmailInput.value.trim() : "");
+      const isComplete = code.length === 6 && /^\d{6}$/.test(code) && Boolean(email);
+      verifyBtn.disabled = !isComplete || isVerifying;
+    }
+
+    // Setup OTP Boxes Navigation & Paste Handling
+    function setupOtpInputs() {
+      otpBoxes.forEach((box, idx) => {
+        // Enforce numeric only on input
+        box.addEventListener("input", (e) => {
+          const val = e.target.value.replace(/[^0-9]/g, "");
+          e.target.value = val;
+
+          if (val) {
+            box.classList.add("filled");
+            box.classList.remove("error");
+            if (idx < otpBoxes.length - 1) {
+              otpBoxes[idx + 1].focus();
+              otpBoxes[idx + 1].select();
+            }
+          } else {
+            box.classList.remove("filled");
+          }
+
+          hideAlert();
+          checkButtonState();
+        });
+
+        // Keydown handling (Backspace, Arrow keys)
+        box.addEventListener("keydown", (e) => {
+          if (e.key === "Backspace") {
+            if (!box.value && idx > 0) {
+              otpBoxes[idx - 1].focus();
+              otpBoxes[idx - 1].value = "";
+              otpBoxes[idx - 1].classList.remove("filled");
+              e.preventDefault();
+            } else {
+              box.value = "";
+              box.classList.remove("filled");
+            }
+            checkButtonState();
+          } else if (e.key === "ArrowLeft" && idx > 0) {
+            otpBoxes[idx - 1].focus();
+            otpBoxes[idx - 1].select();
+          } else if (e.key === "ArrowRight" && idx < otpBoxes.length - 1) {
+            otpBoxes[idx + 1].focus();
+            otpBoxes[idx + 1].select();
+          }
+        });
+
+        // Focus & Click: Auto-select for fast editing
+        box.addEventListener("focus", () => {
+          box.select();
+        });
+
+        // Paste support: Handles pasting full 6 digits
+        box.addEventListener("paste", (e) => {
+          e.preventDefault();
+          const pasteData = (e.clipboardData || window.clipboardData).getData("text") || "";
+          const digits = pasteData.replace(/[^0-9]/g, "").slice(0, 6);
+          if (digits) {
+            digits.split("").forEach((d, i) => {
+              if (otpBoxes[i]) {
+                otpBoxes[i].value = d;
+                otpBoxes[i].classList.add("filled");
+                otpBoxes[i].classList.remove("error");
+              }
+            });
+            const nextIdx = Math.min(digits.length, otpBoxes.length - 1);
+            otpBoxes[nextIdx].focus();
+            checkButtonState();
+          }
+        });
+      });
+    }
+
+    // Cooldown Timer
+    function startCooldownTimer(seconds = 60) {
+      if (countdownInterval) clearInterval(countdownInterval);
+      let rem = parseInt(seconds, 10) || 60;
+
+      resendBtn.disabled = true;
+      cooldownTimerWrap.style.display = "inline";
+      cooldownSecondsSpan.textContent = rem;
+
+      countdownInterval = setInterval(() => {
+        rem -= 1;
+        if (rem <= 0) {
+          clearInterval(countdownInterval);
+          countdownInterval = null;
+          resendBtn.disabled = false;
+          cooldownTimerWrap.style.display = "none";
+        } else {
+          cooldownSecondsSpan.textContent = rem;
+        }
+      }, 1000);
+    }
+
+    // Submit OTP Verification
+    async function verifyOtp() {
+      const code = getEnteredOtp();
+      const email = (currentEmail || (manualEmailInput ? manualEmailInput.value.trim() : "")).toLowerCase();
+
+      if (!email) {
+        showAlert("Please enter your registered Gmail address.", "warning");
+        if (manualEmailInput) manualEmailInput.focus();
+        return;
+      }
+
+      if (code.length !== 6 || !/^\d{6}$/.test(code)) {
+        showAlert("Please enter all 6 digits of your verification code.", "warning");
+        return;
+      }
+
+      if (isVerifying) return;
+      isVerifying = true;
+      verifyBtn.disabled = true;
+      verifyBtnSpinner.style.display = "inline-block";
+      verifyBtnText.textContent = "Verifying Code...";
+      hideAlert();
+
+      try {
+        const res = await API.post("/api/auth/verify-otp", {
+          email: email,
+          otp: code
+        });
+
+        if (res && (res.status === "SUCCESS" || res.success === true)) {
+          // Success State
+          otpFormView.style.display = "none";
+          otpSuccessView.style.display = "block";
+          if (res.message) {
+            successMsgText.textContent = res.message;
+          }
+          if (typeof Utils !== "undefined" && Utils.showToast) {
+            Utils.showToast("Email verified successfully!", "success");
+          }
+          sessionStorage.removeItem("vortex_otp_email");
+        } else {
+          throw new Error(res.message || "Verification code could not be verified.");
+        }
+      } catch (err) {
+        const errData = err.data || {};
+        const errMsg = errData.message || err.message || "Invalid or expired verification code.";
+        showAlert(errMsg, "danger");
+
+        otpBoxes.forEach(b => {
+          b.classList.add("error");
+        });
+
+        // Focus the first box so user can quickly retry
+        if (otpBoxes[0]) {
+          otpBoxes[0].focus();
+          otpBoxes[0].select();
+        }
+
+        if (typeof Utils !== "undefined" && Utils.showToast) {
+          Utils.showToast(errMsg, "danger");
+        }
+      } finally {
+        isVerifying = false;
+        verifyBtnSpinner.style.display = "none";
+        verifyBtnText.textContent = "Verify Email";
+        checkButtonState();
+      }
+    }
+
+    // Resend OTP Action
+    async function resendOtp() {
+      const email = (currentEmail || (manualEmailInput ? manualEmailInput.value.trim() : "")).toLowerCase();
+      if (!email) {
+        showAlert("Please enter your registered Gmail address to resend code.", "warning");
+        if (manualEmailInput) manualEmailInput.focus();
+        return;
+      }
+
+      if (isResending || resendBtn.disabled) return;
+      isResending = true;
+      resendBtn.disabled = true;
+      const prevText = resendBtn.textContent;
+      resendBtn.textContent = "Sending...";
+      hideAlert();
+
+      try {
+        const res = await API.post("/api/auth/resend-verification", { email: email });
+        if (res && (res.status === "SUCCESS" || res.success === true || res.email_sent === true)) {
+          const cooldown = res.cooldown_seconds || 60;
+          showAlert(res.message || "A new 6-digit verification code was sent to your email.", "success");
+          if (typeof Utils !== "undefined" && Utils.showToast) {
+            Utils.showToast(res.message || "Verification code sent!", "success");
+          }
+          // Clear boxes for clean new entry
+          otpBoxes.forEach(b => {
+            b.value = "";
+            b.classList.remove("filled", "error");
+          });
+          if (otpBoxes[0]) otpBoxes[0].focus();
+          startCooldownTimer(cooldown);
+        } else {
+          throw new Error(res.message || "Failed to resend code.");
+        }
+      } catch (err) {
+        const errData = err.data || {};
+        const isRateLimit = err.status === 429 || errData.rate_limited === true;
+        if (isRateLimit) {
+          const retrySec = errData.retry_after_seconds || 60;
+          showAlert(`Please wait ${retrySec} seconds before requesting a new verification code.`, "warning");
+          startCooldownTimer(retrySec);
+        } else {
+          showAlert(err.message || "Unable to send verification code. Please check mail settings.", "danger");
+          resendBtn.disabled = false;
+        }
+      } finally {
+        isResending = false;
+        resendBtn.textContent = "Resend Code";
+      }
+    }
+
+    // Check legacy token if URL contains ?token=...
+    async function checkLegacyToken(token) {
+      legacyValidatingView.style.display = "block";
+      otpFormView.style.display = "none";
+      try {
+        const res = await API.get(`/api/auth/verify-email?token=${encodeURIComponent(token)}`);
+        if (res.status === "SUCCESS" || res.success === true) {
+          legacyValidatingView.style.display = "none";
+          otpSuccessView.style.display = "block";
+          if (res.message) successMsgText.textContent = res.message;
+        } else {
+          throw new Error(res.message || "Token verification failed.");
+        }
+      } catch (err) {
+        legacyValidatingView.style.display = "none";
+        otpFormView.style.display = "block";
+        showAlert(err.message || "Verification link is invalid or has expired. Please enter the 6-digit code.", "danger");
+      }
+    }
+
+    // Initialize Page
+    function init() {
+      setupOtpInputs();
+
+      const params = new URLSearchParams(window.location.search);
+      const urlToken = params.get("token");
+      const urlEmail = params.get("email");
+      const urlOtp = params.get("otp") || params.get("code");
+
+      // Legacy token param check
+      if (urlToken && !urlEmail && !urlOtp) {
+        checkLegacyToken(urlToken);
+        return;
+      }
+
+      // Email discovery priority: query param -> sessionStorage -> localStorage
+      const discoveredEmail = urlEmail || sessionStorage.getItem("vortex_otp_email") || localStorage.getItem("vortex_last_registered_email");
+      setEmail(discoveredEmail);
+
+      // Pre-fill OTP if provided in query
+      if (urlOtp && urlOtp.length === 6) {
+        urlOtp.split("").forEach((d, i) => {
+          if (otpBoxes[i]) {
+            otpBoxes[i].value = d;
+            otpBoxes[i].classList.add("filled");
+          }
+        });
+        checkButtonState();
+      }
+
+      // Event Listeners
+      verifyBtn.addEventListener("click", verifyOtp);
+      resendBtn.addEventListener("click", resendOtp);
+
+      if (changeEmailBtn) {
+        changeEmailBtn.addEventListener("click", () => {
+          emailBadgeContainer.style.display = "none";
+          manualEmailContainer.style.display = "block";
+          if (manualEmailInput) {
+            manualEmailInput.value = currentEmail;
+            manualEmailInput.focus();
+            manualEmailInput.select();
+          }
+        });
+      }
+
+      if (manualEmailInput) {
+        manualEmailInput.addEventListener("input", (e) => {
+          currentEmail = e.target.value.trim().toLowerCase();
+          checkButtonState();
+        });
+      }
+
+      // Initial focus on first OTP box
+      if (otpBoxes[0] && (!manualEmailContainer || manualEmailContainer.style.display === "none")) {
+        otpBoxes[0].focus();
+      }
+
+      // Start initial cooldown if user just navigated from registration
+      const justRegistered = params.get("sent") === "1" || params.get("registered") === "1";
+      if (justRegistered) {
+        startCooldownTimer(60);
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", init);
+  })();
+</script>
+</body>
+</html>

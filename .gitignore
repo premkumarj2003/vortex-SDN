@@ -1,0 +1,19 @@
+# Environment variables
+.env
+
+# Python bytecode & cache
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Data directory
+data/
+*.sqlite
+*.db
+
+# Nested Ryu virtual environment
+VORTEX-SDN/.venv-ryu/
+
+# Nested Ryu virtual environment
+VORTEX-SDN/.venv-ryu/

@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+*.pyc
+.env
+*.log
+*.pkl
+*.joblib
+.pytest_cache/
+node_modules/
+dist/
+build/

@@ -1,0 +1,585 @@
+/* ==========================================================================
+   VORTEX-SDN Enterprise Sidebar Styling
+   Two-State Collapse/Expand (260px <-> 72px)
+   STRICT: Zero Internal Nested Scrollbar (Fits 100vh)
+   ========================================================================== */
+
+/* Brand Header */
+.sidebar-brand {
+  height: var(--topbar-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--space-md);
+  border-bottom: 1px solid var(--border-subtle);
+  background: var(--bg-secondary);
+  flex-shrink: 0;
+}
+
+.brand-logo-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  overflow: hidden;
+  user-select: none;
+  transition: opacity 0.18s ease;
+}
+
+.brand-icon-svg {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, var(--accent-cyan) 0%, #0284c7 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #070a13;
+  flex-shrink: 0;
+  box-shadow: 0 0 14px rgba(var(--accent-cyan-rgb), 0.35);
+  transition: box-shadow 0.2s ease, transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .brand-logo-wrap:hover .brand-icon-svg {
+    box-shadow: 0 0 20px rgba(var(--accent-cyan-rgb), 0.6);
+    transform: scale(1.03);
+  }
+
+  .brand-logo-wrap:hover .brand-title {
+    color: #ffffff;
+    text-shadow: 0 0 8px rgba(var(--accent-cyan-rgb), 0.3);
+  }
+}
+
+[data-theme="light"] .brand-icon-svg {
+  color: #ffffff;
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  white-space: nowrap;
+  transition: opacity var(--transition-fast);
+}
+
+.brand-title {
+  font-size: 14.5px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+}
+
+.brand-subtitle {
+  font-size: 8.5px;
+  color: var(--accent-cyan);
+  font-weight: 700;
+  letter-spacing: 1.3px;
+  text-transform: uppercase;
+}
+
+.sidebar-collapse-btn {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  cursor: pointer;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  flex-shrink: 0;
+}
+
+.sidebar-collapse-btn:hover {
+  color: var(--text-primary);
+  border-color: var(--accent-cyan);
+  background: var(--bg-card-hover);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .sidebar-collapse-btn:hover {
+    box-shadow: 0 0 10px rgba(var(--accent-cyan-rgb), 0.28);
+  }
+
+  .sidebar-collapse-btn:hover svg {
+    color: var(--accent-cyan);
+    filter: drop-shadow(0 0 4px rgba(var(--accent-cyan-rgb), 0.45));
+  }
+}
+
+/* Sidebar Nav Body (Strictly fitted to 100vh without ugly scrollbar) */
+.sidebar-nav {
+  flex: 1;
+  padding: 4px 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  overflow: hidden; /* Zero scrollbars */
+  justify-content: flex-start;
+}
+
+.nav-section-title {
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  padding: 5px 10px 2px 10px;
+  margin-top: 3px;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6.5px 10px;
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1),
+              background-color 0.18s ease,
+              color 0.18s ease,
+              box-shadow 0.18s ease,
+              border-color 0.18s ease;
+  position: relative;
+  user-select: none;
+  overflow: hidden;
+  will-change: transform;
+}
+
+/* Ensure collapsed sidebar allows tooltip popover to overflow */
+#sidebar.collapsed .nav-item {
+  overflow: visible;
+}
+
+/* Subtle Cursor-Following Radial Spotlight for Expanded Sidebar */
+#sidebar:not(.collapsed) .nav-item::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(
+    130px circle at var(--mouse-x, -999px) var(--mouse-y, -999px),
+    rgba(0, 242, 254, 0.08),
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.22s ease;
+  z-index: 1;
+}
+
+.nav-item:hover {
+  color: var(--text-primary);
+  background-color: var(--bg-card);
+}
+
+.nav-item.active {
+  color: var(--accent-cyan);
+  background: rgba(var(--accent-cyan-rgb), 0.08);
+  font-weight: 600;
+}
+
+.nav-item.active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 3px;
+  bottom: 3px;
+  width: 3px;
+  background-color: var(--accent-cyan);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  box-shadow: 0 0 8px rgba(var(--accent-cyan-rgb), 0.5);
+  z-index: 3;
+  transition: box-shadow 0.18s ease;
+}
+
+.nav-icon {
+  width: 17px;
+  height: 17px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 2;
+  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1),
+              color 0.18s ease,
+              filter 0.18s ease;
+}
+
+.nav-icon svg {
+  width: 100%;
+  height: 100%;
+  transition: stroke 0.18s ease, color 0.18s ease;
+}
+
+.nav-label {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  position: relative;
+  z-index: 2;
+  transition: color 0.18s ease, text-shadow 0.18s ease;
+}
+
+.nav-badge {
+  padding: 1px 5px;
+  border-radius: var(--radius-full);
+  font-size: 8.5px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  position: relative;
+  z-index: 2;
+  transition: filter 0.18s ease, box-shadow 0.18s ease;
+}
+
+.nav-badge.live {
+  background: rgba(var(--status-success-rgb), 0.15);
+  color: var(--status-success);
+  border: 1px solid rgba(var(--status-success-rgb), 0.3);
+}
+
+.nav-badge.danger {
+  background: var(--status-danger);
+  color: #ffffff;
+}
+
+.nav-badge.info {
+  background: rgba(var(--accent-cyan-rgb), 0.15);
+  color: var(--accent-cyan);
+  border: 1px solid rgba(var(--accent-cyan-rgb), 0.3);
+}
+
+/* ==========================================================================
+   Desktop Fine Pointer Hover Interactions (150-220ms, 2-4px movement)
+   ========================================================================== */
+@media (hover: hover) and (pointer: fine) {
+  /* Reveal cursor-following spotlight on hover */
+  #sidebar:not(.collapsed) .nav-item:hover::after {
+    opacity: 1;
+  }
+
+  /* Standard Item Hover State */
+  .nav-item:hover {
+    color: var(--text-primary);
+    background-color: var(--surface-hover);
+    box-shadow: inset 0 0 0 1px rgba(56, 189, 248, 0.16), 0 2px 8px -2px rgba(0, 0, 0, 0.4), 0 0 12px rgba(0, 242, 254, 0.06);
+    transform: translateX(3px);
+  }
+
+  .nav-item:hover .nav-icon {
+    color: var(--text-primary);
+    transform: translateX(1px);
+    filter: drop-shadow(0 0 5px rgba(0, 242, 254, 0.35));
+  }
+
+  .nav-item:hover .nav-label {
+    color: var(--text-primary);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.12);
+  }
+
+  /* Badge Hover Response */
+  .nav-item:hover .nav-badge {
+    filter: brightness(1.15);
+    box-shadow: 0 0 8px rgba(var(--accent-cyan-rgb), 0.28);
+  }
+
+  .nav-item:hover .nav-badge.live {
+    box-shadow: 0 0 8px rgba(var(--status-success-rgb), 0.4);
+  }
+
+  .nav-item:hover .nav-badge.info {
+    box-shadow: 0 0 8px rgba(var(--accent-cyan-rgb), 0.35);
+  }
+
+  /* Active Item Hover Refinement */
+  .nav-item.active:hover {
+    color: var(--accent-cyan);
+    background: rgba(var(--accent-cyan-rgb), 0.12);
+    box-shadow: inset 0 0 0 1px rgba(var(--accent-cyan-rgb), 0.28), 0 2px 10px rgba(var(--accent-cyan-rgb), 0.12);
+    transform: translateX(3px);
+  }
+
+  .nav-item.active:hover::before {
+    box-shadow: 0 0 12px rgba(var(--accent-cyan-rgb), 0.8);
+  }
+
+  .nav-item.active:hover .nav-icon {
+    color: var(--accent-cyan);
+    filter: drop-shadow(0 0 7px rgba(var(--accent-cyan-rgb), 0.6));
+  }
+
+  .nav-item.active:hover .nav-label {
+    color: var(--accent-cyan);
+    text-shadow: 0 0 12px rgba(var(--accent-cyan-rgb), 0.35);
+  }
+
+  /* Collapsed Mode: Prevent horizontal shift to keep centered icon & tooltip position rock-solid */
+  #sidebar.collapsed .nav-item:hover {
+    transform: none;
+  }
+
+  #sidebar.collapsed .nav-item:hover .nav-icon {
+    transform: none;
+  }
+}
+
+/* User Footer in Sidebar */
+.sidebar-user-footer {
+  padding: 8px var(--space-md);
+  border-top: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: var(--bg-secondary);
+  flex-shrink: 0;
+}
+
+.user-avatar-circle {
+  width: 30px;
+  height: 30px;
+  border-radius: var(--radius-full);
+  background: var(--bg-card);
+  border: 1.5px solid var(--accent-cyan);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 11px;
+  color: var(--accent-cyan);
+  flex-shrink: 0;
+}
+
+.user-info-text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.user-name-display {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.user-role-badge {
+  font-size: 9px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  font-family: var(--font-mono);
+}
+
+/* ==========================================================================
+   Collapsed State Modifiers (width: 72px)
+   ========================================================================== */
+#sidebar.collapsed .brand-text,
+#sidebar.collapsed .nav-section-title,
+#sidebar.collapsed .nav-label,
+#sidebar.collapsed .nav-badge,
+#sidebar.collapsed .user-info-text {
+  display: none;
+}
+
+#sidebar.collapsed .sidebar-brand {
+  padding: 0 var(--space-sm);
+  justify-content: center;
+  gap: 6px;
+}
+
+#sidebar.collapsed .sidebar-collapse-btn {
+  margin-left: 0;
+}
+
+#sidebar.collapsed .nav-item {
+  justify-content: center;
+  padding: 7px 0;
+}
+
+#sidebar.collapsed .sidebar-user-footer {
+  justify-content: center;
+  padding: 8px var(--space-xs);
+}
+
+/* Tooltip on Collapsed Hover */
+#sidebar.collapsed .nav-item[data-tooltip]:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  left: calc(100% + 12px);
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  border: 1px solid var(--border-medium);
+  padding: 5px 10px;
+  border-radius: var(--radius-sm);
+  font-size: 11.5px;
+  font-weight: 600;
+  white-space: nowrap;
+  z-index: 250;
+  box-shadow: var(--shadow-lg);
+  pointer-events: none;
+  animation: fadeIn 0.1s ease;
+}
+
+/* ==========================================================================
+   Light Mode Sidebar Styles & High Contrast Navigation
+   ========================================================================== */
+[data-theme="light"] #sidebar {
+  background-color: #ffffff;
+  border-right: 1px solid #d8e1ec;
+}
+
+[data-theme="light"] .sidebar-brand {
+  background-color: #f8fafd;
+  border-bottom: 1px solid #d8e1ec;
+}
+
+[data-theme="light"] .brand-title {
+  color: #0f172a;
+}
+
+[data-theme="light"] .brand-subtitle {
+  color: #0284c7;
+}
+
+[data-theme="light"] .brand-logo-wrap:hover .brand-icon-svg {
+  box-shadow: 0 0 18px rgba(2, 132, 199, 0.45);
+  transform: scale(1.03);
+}
+
+[data-theme="light"] .brand-logo-wrap:hover .brand-title {
+  color: #0f172a;
+  text-shadow: none;
+}
+
+[data-theme="light"] .sidebar-collapse-btn {
+  background: #ffffff;
+  border: 1px solid #d8e1ec;
+  color: #64748b;
+}
+
+[data-theme="light"] .sidebar-collapse-btn:hover {
+  background: #f1f5f9;
+  border-color: #0284c7;
+  color: #0284c7;
+  box-shadow: 0 0 8px rgba(2, 132, 199, 0.2);
+}
+
+[data-theme="light"] .sidebar-collapse-btn:hover svg {
+  color: #0284c7;
+  filter: drop-shadow(0 0 3px rgba(2, 132, 199, 0.25));
+}
+
+[data-theme="light"] #sidebar:not(.collapsed) .nav-item::after {
+  background: radial-gradient(
+    130px circle at var(--mouse-x, -999px) var(--mouse-y, -999px),
+    rgba(2, 132, 199, 0.08),
+    transparent 70%
+  );
+}
+
+[data-theme="light"] .nav-section-title {
+  color: #64748b;
+  font-weight: 700;
+}
+
+[data-theme="light"] .nav-item {
+  color: #475569;
+}
+
+[data-theme="light"] .nav-item .nav-icon svg {
+  color: #64748b;
+}
+
+[data-theme="light"] .nav-item:hover {
+  background-color: #f1f5f9;
+  color: #0f172a;
+  box-shadow: inset 0 0 0 1px rgba(2, 132, 199, 0.2), 0 2px 6px rgba(15, 23, 42, 0.05);
+}
+
+[data-theme="light"] .nav-item:hover .nav-icon {
+  color: #0284c7;
+  filter: drop-shadow(0 0 4px rgba(2, 132, 199, 0.25));
+}
+
+[data-theme="light"] .nav-item:hover .nav-icon svg {
+  color: #0284c7;
+}
+
+[data-theme="light"] .nav-item:hover .nav-label {
+  color: #0f172a;
+  text-shadow: none;
+}
+
+[data-theme="light"] .nav-item:hover .nav-badge {
+  filter: brightness(1.05);
+  box-shadow: 0 0 6px rgba(2, 132, 199, 0.2);
+}
+
+[data-theme="light"] .nav-item.active {
+  color: #0284c7;
+  background: #e0f2fe;
+  font-weight: 600;
+}
+
+[data-theme="light"] .nav-item.active .nav-icon svg {
+  color: #0284c7;
+}
+
+[data-theme="light"] .nav-item.active:hover {
+  background: #bae6fd;
+  color: #0284c7;
+  box-shadow: inset 0 0 0 1px rgba(2, 132, 199, 0.35), 0 2px 8px rgba(2, 132, 199, 0.15);
+}
+
+[data-theme="light"] .nav-item.active:hover .nav-icon {
+  color: #0284c7;
+  filter: drop-shadow(0 0 5px rgba(2, 132, 199, 0.4));
+}
+
+[data-theme="light"] .sidebar-user-footer {
+  border-top: 1px solid #d8e1ec;
+  background-color: #f8fafd;
+}
+
+[data-theme="light"] .user-name {
+  color: #0f172a;
+}
+
+[data-theme="light"] .user-role {
+  color: #64748b;
+}
+
+[data-theme="light"] .sidebar-logout-btn {
+  background: #ffffff;
+  border: 1px solid #d8e1ec;
+  color: #64748b;
+}
+
+[data-theme="light"] .sidebar-logout-btn:hover {
+  background: #fee2e2;
+  border-color: #fca5a5;
+  color: #dc2626;
+}
+
+[data-theme="light"] #sidebar.collapsed .nav-item[data-tooltip]:hover::after {
+  background: #ffffff;
+  color: #0f172a;
+  border: 1px solid #d8e1ec;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.1);
+}

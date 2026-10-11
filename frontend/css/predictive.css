@@ -1,0 +1,380 @@
+/* ==========================================================================
+   VORTEX-SDN Predictive Network Intelligence Styles
+   Enterprise NOC/SOC aesthetic: dark navy, deep blue, cyan, amber, red, green.
+   ========================================================================== */
+
+/* Time Window Pills */
+.pred-time-pills {
+  display: inline-flex;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-sm);
+  padding: 2px;
+  gap: 2px;
+}
+
+.pred-time-pill {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.pred-time-pill:hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.pred-time-pill.active {
+  background: var(--accent-cyan);
+  color: #040814;
+  font-weight: 800;
+}
+
+/* Health vs Risk Contrast Banner */
+.pred-contrast-banner {
+  background: linear-gradient(135deg, rgba(6, 78, 59, 0.15) 0%, rgba(15, 23, 42, 0.6) 50%, rgba(120, 53, 15, 0.15) 100%);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-md);
+  padding: 14px 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 14px;
+}
+
+@media (max-width: 800px) {
+  .pred-contrast-banner {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+}
+
+.pred-contrast-side {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.pred-contrast-val {
+  font-size: 32px;
+  font-weight: 800;
+  font-family: var(--font-mono);
+  line-height: 1;
+}
+
+.pred-contrast-val.health { color: #10b981; }
+.pred-contrast-val.risk-low { color: #38bdf8; }
+.pred-contrast-val.risk-mod { color: #fbbf24; }
+.pred-contrast-val.risk-high { color: #f87171; }
+
+.pred-contrast-desc {
+  font-size: 11.5px;
+  color: #cbd5e1;
+  line-height: 1.4;
+}
+
+/* Trend Badges */
+.trend-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+}
+
+.trend-indicator.increasing {
+  background: rgba(245, 158, 11, 0.15);
+  color: #fbbf24;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.trend-indicator.decreasing {
+  background: rgba(56, 189, 248, 0.15);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+.trend-indicator.stable {
+  background: rgba(16, 185, 129, 0.15);
+  color: #10b981;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.trend-indicator.volatile {
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+/* Forecast Chart Container */
+.pred-chart-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  position: relative;
+}
+
+.pred-chart-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.pred-chart-legend {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.pred-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pred-legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.pred-legend-line {
+  width: 14px;
+  height: 2px;
+}
+
+.pred-legend-line.solid { background: #38bdf8; }
+.pred-legend-line.dashed {
+  background: repeating-linear-gradient(90deg, #00f2fe, #00f2fe 3px, transparent 3px, transparent 6px);
+}
+.pred-legend-line.threshold { background: #ef4444; }
+
+.pred-svg-chart-container {
+  width: 100%;
+  height: 240px;
+}
+
+/* Early Warnings Panel */
+.pred-warning-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pred-warning-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-subtle);
+  border-left: 3px solid #fbbf24;
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  transition: transform 0.2s ease;
+}
+
+.pred-warning-card.critical {
+  border-left-color: #ef4444;
+  background: rgba(239, 68, 68, 0.03);
+}
+
+.pred-warning-card.high {
+  border-left-color: #f97316;
+  background: rgba(249, 115, 22, 0.03);
+}
+
+.pred-warning-card.medium {
+  border-left-color: #fbbf24;
+  background: rgba(251, 191, 36, 0.03);
+}
+
+.pred-warning-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.pred-warning-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pred-warning-msg {
+  font-size: 12px;
+  color: #cbd5e1;
+  line-height: 1.4;
+  margin-bottom: 8px;
+}
+
+.pred-warning-action-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 6px;
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.pred-warning-rec {
+  font-size: 11px;
+  color: #94a3b8;
+}
+
+.pred-warning-btns {
+  display: flex;
+  gap: 6px;
+}
+
+/* Device Risk Matrix */
+.pred-device-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 10px;
+  background: rgba(255, 255, 255, 0.015);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 6px;
+  margin-bottom: 6px;
+  font-size: 12px;
+}
+
+.pred-device-name-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pred-device-factor {
+  font-size: 11px;
+  color: #94a3b8;
+  margin-left: 6px;
+}
+
+/* Model Architecture Metadata Card */
+.pred-model-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.pred-meta-item {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+  padding: 8px 10px;
+}
+
+.pred-meta-label {
+  font-size: 10px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.pred-meta-val {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--accent-cyan);
+  margin-top: 2px;
+}
+
+/* ==========================================================================
+   Light Mode Overrides for Predictive Intelligence
+   ========================================================================== */
+[data-theme="light"] .pred-time-pills {
+  background: #f1f5f9;
+  border-color: #d8e1ec;
+}
+
+[data-theme="light"] .pred-time-pill {
+  color: #64748b;
+}
+
+[data-theme="light"] .pred-time-pill:hover {
+  color: #0f172a;
+  background: #e2e8f0;
+}
+
+[data-theme="light"] .pred-time-pill.active {
+  background: #0284c7;
+  color: #ffffff;
+}
+
+[data-theme="light"] .pred-contrast-banner {
+  background: linear-gradient(135deg, rgba(22, 163, 74, 0.08) 0%, #ffffff 50%, rgba(217, 119, 6, 0.08) 100%);
+  border-color: #d8e1ec;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05);
+}
+
+[data-theme="light"] .pred-contrast-desc {
+  color: #334155;
+}
+
+[data-theme="light"] .pred-chart-card {
+  background: #ffffff;
+  border-color: #d8e1ec;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05);
+}
+
+[data-theme="light"] .pred-chart-legend {
+  color: #64748b;
+}
+
+[data-theme="light"] .pred-warning-card {
+  background: #ffffff;
+  border-color: #d8e1ec;
+  border-left-width: 3px;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+}
+
+[data-theme="light"] .pred-warning-msg {
+  color: #334155;
+}
+
+[data-theme="light"] .pred-warning-rec {
+  color: #64748b;
+}
+
+[data-theme="light"] .pred-warning-action-bar {
+  border-top-color: #e2e8f0;
+}
+
+[data-theme="light"] .pred-device-item {
+  background: #f8fafd;
+  border-color: #d8e1ec;
+  color: #0f172a;
+}
+
+[data-theme="light"] .pred-device-factor {
+  color: #64748b;
+}
+
+[data-theme="light"] .pred-meta-item {
+  background: #f8fafd;
+  border-color: #d8e1ec;
+}
+
+[data-theme="light"] .pred-meta-label {
+  color: #64748b;
+}
+
+[data-theme="light"] .pred-meta-val {
+  color: #0284c7;
+}
+

@@ -1,0 +1,265 @@
+/* ==========================================================================
+   VORTEX-SDN Enterprise Design Tokens & Multi-Theme Architecture
+   Cisco NOC / Datadog Network Monitoring Inspired Multi-Theme System
+   Flagship Dark NOC & True Enterprise Light Operations Theme
+   ========================================================================== */
+
+:root,
+[data-theme="dark"] {
+  /* ========================================================================
+     1. STANDARD CORE THEME DESIGN TOKENS (DARK THEME)
+     ======================================================================== */
+  --background: #060913;
+  --surface: #0f172a;
+  --surface-secondary: #0a0f1d;
+  --surface-elevated: #111c33;
+  --surface-hover: #162444;
+
+  --border: rgba(56, 189, 248, 0.16);
+  --border-strong: rgba(0, 242, 254, 0.45);
+
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --text-disabled: #475569;
+
+  --accent: #00f2fe;
+  --accent-hover: #38bdf8;
+  --accent-rgb: 0, 242, 254;
+
+  --success: #10b981;
+  --success-rgb: 16, 185, 129;
+  --warning: #f59e0b;
+  --warning-rgb: 245, 158, 11;
+  --danger: #ef4444;
+  --danger-rgb: 239, 68, 68;
+  --info: #0ea5e9;
+  --info-rgb: 14, 165, 233;
+
+  --input-background: #0a1122;
+  --input-border: rgba(56, 189, 248, 0.25);
+
+  --table-header: #0a0f1d;
+  --table-row: #0f172a;
+  --table-row-hover: #162444;
+  --table-row-alt: #0d1527;
+
+  --chart-grid: rgba(255, 255, 255, 0.06);
+  --tooltip-background: rgba(13, 20, 36, 0.96);
+  --tooltip-text: #f8fafc;
+  --shadow: 0 4px 16px -2px rgba(0, 0, 0, 0.65), 0 2px 4px -2px rgba(0, 0, 0, 0.45);
+
+  /* Gauge Specific */
+  --gauge-bg-track: #172033;
+
+  /* ========================================================================
+     2. BACKWARD-COMPATIBLE ALIASES FOR LEGACY PROPERTIES
+     ======================================================================== */
+  --bg-primary: var(--background);
+  --bg-secondary: var(--surface-secondary);
+  --bg-surface: var(--surface);
+  --bg-card: var(--surface-elevated);
+  --bg-card-hover: var(--surface-hover);
+  --bg-subtle: rgba(255, 255, 255, 0.035);
+  --bg-glass: rgba(17, 28, 51, 0.85);
+  --bg-input: var(--input-background);
+
+  --accent-cyan: var(--accent);
+  --accent-cyan-rgb: var(--accent-rgb);
+  --accent-azure: #38bdf8;
+  --accent-blue: #2563eb;
+  --accent-purple: #8b5cf6;
+  --accent-violet: #a855f7;
+
+  --status-success: var(--success);
+  --status-success-rgb: var(--success-rgb);
+  --status-warning: var(--warning);
+  --status-warning-rgb: var(--warning-rgb);
+  --status-danger: var(--danger);
+  --status-danger-rgb: var(--danger-rgb);
+  --status-info: var(--info);
+  --status-info-rgb: var(--info-rgb);
+
+  --border-subtle: var(--border);
+  --border-medium: rgba(56, 189, 248, 0.25);
+  --divider-color: rgba(255, 255, 255, 0.08);
+
+  /* Typography Stacks */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Roboto Mono', Menlo, Monaco, Consolas, monospace;
+
+  /* Layout Dimensions */
+  --sidebar-width: 260px;
+  --sidebar-collapsed-width: 72px;
+  --topbar-height: 60px;
+
+  /* Radii */
+  --radius-xs: 3px;
+  --radius-sm: 5px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.4);
+  --shadow-md: var(--shadow);
+  --shadow-lg: 0 14px 28px -4px rgba(0, 0, 0, 0.75), 0 4px 10px -2px rgba(0, 0, 0, 0.55);
+  --shadow-cyan: 0 0 16px rgba(0, 242, 254, 0.22);
+  --shadow-blue: 0 0 20px rgba(37, 99, 235, 0.25);
+
+  /* Spacing Scale */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 14px;
+  --space-lg: 20px;
+  --space-xl: 28px;
+
+  /* Transitions */
+  --transition-fast: 0.14s ease;
+  --transition-normal: 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-speed: 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Z-Index Hierarchy */
+  --z-sidebar: 100;
+  --z-topbar: 90;
+  --z-popover: 150;
+  --z-modal: 200;
+  --z-toast: 300;
+}
+
+/* ==========================================================================
+   3. LIGHT NOC OPERATIONS ENTERPRISE THEME
+   High-contrast, crisp borders, true light backgrounds, zero washed-out text
+   ========================================================================== */
+[data-theme="light"] {
+  /* Core Theme Design Tokens (LIGHT THEME) */
+  --background: #f4f7fb;
+  --surface: #ffffff;
+  --surface-secondary: #f8fafc;
+  --surface-elevated: #ffffff;
+  --surface-hover: #f1f5f9;
+
+  --border: #d8e1ec;
+  --border-strong: #0284c7;
+
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --text-disabled: #94a3b8;
+
+  --accent: #0284c7;
+  --accent-hover: #0369a1;
+  --accent-rgb: 2, 132, 199;
+
+  --success: #16a34a;
+  --success-rgb: 22, 163, 74;
+  --warning: #d97706;
+  --warning-rgb: 217, 119, 6;
+  --danger: #dc2626;
+  --danger-rgb: 220, 38, 38;
+  --info: #0284c7;
+  --info-rgb: 2, 132, 199;
+
+  --input-background: #ffffff;
+  --input-border: #cbd5e1;
+
+  --table-header: #f1f5f9;
+  --table-row: #ffffff;
+  --table-row-hover: #eef6ff;
+  --table-row-alt: #f8fafc;
+
+  --chart-grid: #e2e8f0;
+  --tooltip-background: #ffffff;
+  --tooltip-text: #0f172a;
+  --shadow: 0 2px 8px rgba(15, 23, 42, 0.06), 0 1px 3px rgba(15, 23, 42, 0.04);
+
+  /* Gauge Background Track */
+  --gauge-bg-track: #e2e8f0;
+
+  /* Legacy Aliases in Light Mode */
+  --bg-primary: var(--background);
+  --bg-secondary: var(--surface-secondary);
+  --bg-surface: var(--surface);
+  --bg-card: var(--surface-elevated);
+  --bg-card-hover: var(--surface-hover);
+  --bg-subtle: #f8fafc;
+  --bg-glass: rgba(255, 255, 255, 0.98);
+  --bg-input: var(--input-background);
+
+  --accent-cyan: var(--accent);
+  --accent-cyan-rgb: var(--accent-rgb);
+  --accent-azure: #0369a1;
+  --accent-blue: #2563eb;
+  --accent-purple: #7c3aed;
+  --accent-violet: #9333ea;
+
+  --status-success: var(--success);
+  --status-success-rgb: var(--success-rgb);
+  --status-warning: var(--warning);
+  --status-warning-rgb: var(--warning-rgb);
+  --status-danger: var(--danger);
+  --status-danger-rgb: var(--danger-rgb);
+  --status-info: var(--info);
+  --status-info-rgb: var(--info-rgb);
+
+  --border-subtle: var(--border);
+  --border-medium: #cbd5e1;
+  --divider-color: #e2e8f0;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px 0 rgba(15, 23, 42, 0.05), 0 1px 2px -1px rgba(15, 23, 42, 0.03);
+  --shadow-md: var(--shadow);
+  --shadow-lg: 0 10px 25px -4px rgba(15, 23, 42, 0.1), 0 4px 10px -2px rgba(15, 23, 42, 0.05);
+  --shadow-cyan: 0 0 10px rgba(2, 132, 199, 0.15);
+  --shadow-blue: 0 0 12px rgba(37, 99, 235, 0.12);
+}
+
+/* Accent Color Variations */
+[data-accent="blue"] {
+  --accent: #2563eb;
+  --accent-hover: #1d4ed8;
+  --accent-rgb: 37, 99, 235;
+  --accent-cyan: #2563eb;
+  --accent-azure: #3b82f6;
+  --border-strong: rgba(37, 99, 235, 0.5);
+  --shadow-cyan: 0 0 15px rgba(37, 99, 235, 0.25);
+}
+
+[data-accent="violet"] {
+  --accent: #8b5cf6;
+  --accent-hover: #7c3aed;
+  --accent-rgb: 139, 92, 246;
+  --accent-cyan: #8b5cf6;
+  --accent-azure: #a855f7;
+  --border-strong: rgba(139, 92, 246, 0.5);
+  --shadow-cyan: 0 0 15px rgba(139, 92, 246, 0.25);
+}
+
+/* Compact UI Density */
+[data-density="compact"] {
+  --space-xs: 2px;
+  --space-sm: 6px;
+  --space-md: 10px;
+  --space-lg: 14px;
+  --space-xl: 20px;
+}
+
+[data-density="compact"] .kpi-card {
+  padding: 10px 12px;
+  min-height: 74px;
+}
+
+[data-density="compact"] .vortex-table td,
+[data-density="compact"] .vortex-table th {
+  padding: 6px 10px;
+}
+
+/* Reduced Motion Mode */
+[data-reduce-motion="true"] *,
+[data-reduce-motion="true"] *::before,
+[data-reduce-motion="true"] *::after {
+  animation-duration: 0.001s !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001s !important;
+}
