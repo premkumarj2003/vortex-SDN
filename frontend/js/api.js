@@ -4,7 +4,7 @@
  */
 
 const API = {
-  baseUrl: window.location.origin,
+  baseUrl:"https://terms-clothes-herb-trustees.trycloudflare.com",
   timeoutMs: 12000,
 
   getToken() {
