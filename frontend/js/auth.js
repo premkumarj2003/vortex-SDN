@@ -10,7 +10,7 @@ const Auth = {
 
   async init() {
     const path = window.location.pathname;
-    const publicPages = ["/login", "/register", "/verify-email", "/forgot-password", "/reset-password"];
+    const publicPages = ["login", "register", "verify-email", "forgot-password", "reset-password"];
     const isPublic = publicPages.some(p => path.includes(p));
     const currentSeq = ++this._authSeq;
 
@@ -35,7 +35,7 @@ const Auth = {
         State.setUserPresence({ status: "OFFLINE", label: "OFFLINE", version: currentSeq });
         if (!isPublic) {
           API.clearToken();
-          window.location.href = "/login";
+          window.location.href = "login.html";
           return null;
         }
       }
@@ -46,7 +46,7 @@ const Auth = {
         State.setAuth({ isAuthenticated: false, token: null, user: null, version: currentSeq });
         State.setUserPresence({ status: "OFFLINE", label: "OFFLINE", version: currentSeq });
         API.clearToken();
-        window.location.href = "/login";
+        window.location.href = "login.html";
         return null;
       }
       if (API.getToken() && !isPublic) {
@@ -382,7 +382,7 @@ const Auth = {
     this.currentUser = null;
     State.setAuth({ isAuthenticated: false, token: null, user: null, version: currentSeq });
     State.setUserPresence({ status: "OFFLINE", label: "OFFLINE", version: currentSeq });
-    window.location.href = "/login";
+    window.location.href = "login.html";
   }
 };
 

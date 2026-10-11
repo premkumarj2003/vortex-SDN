@@ -281,7 +281,7 @@
           }
 
           setTimeout(() => {
-            window.location.href = '/';
+            window.location.href = 'index.html';
           }, 450);
         } else {
           throw new Error((data && data.message) || 'Authentication failed.');
@@ -357,7 +357,7 @@
         <div style="font-size: 13px; color: var(--status-warning); font-weight: 700; margin-bottom: 6px;">Email Verification Required</div>
         <p id="resend-status-msg" style="font-size: 12px; color: var(--text-secondary); margin-bottom: 12px;">Please enter the 6-digit verification code sent to your email.</p>
         <div style="display: flex; flex-direction: column; gap: 8px;">
-          <a href="/verify-email?email=${encodeURIComponent(identifier)}" class="btn btn-primary btn-sm" style="width: 100%; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; min-height: 38px;">
+          <a href="verify-email.html?email=${encodeURIComponent(identifier)}" class="btn btn-primary btn-sm" style="width: 100%; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; min-height: 38px;">
             ENTER VERIFICATION CODE &rarr;
           </a>
           <button type="button" class="btn btn-secondary btn-sm" id="btn-resend-act" style="width: 100%; font-weight: 600; min-height: 38px;">

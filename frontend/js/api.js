@@ -50,10 +50,10 @@ const API = {
         console.warn("[API] Session expired or unauthorized.");
         this.clearToken();
         const path = window.location.pathname;
-        const publicPages = ["/login", "/register", "/verify-email", "/forgot-password", "/reset-password"];
+        const publicPages = ["login", "register", "verify-email", "forgot-password", "reset-password"];
         const isPublic = publicPages.some(p => path.includes(p));
         if (!isPublic) {
-          window.location.href = "/login";
+          window.location.href = "login.html";
         }
       }
 
