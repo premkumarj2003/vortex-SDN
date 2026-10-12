@@ -7,7 +7,7 @@ const API = {
   baseUrl:(window.location.hostname === "localhost" ||
           window.location.hostname === "127.0.0.1")
     ? window.location.origin
-    : "https://wallpapers-field-pace-focused.trycloudflare.com",
+    :"https://wallpapers-field-pace-focused.trycloudflare.com",
   timeoutMs: 12000,
 
   getToken() {
